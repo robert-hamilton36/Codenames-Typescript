@@ -66,6 +66,7 @@
     }
   },
   "dependencies": {
+    "dotenv-webpack": "^7.0.3",
     "express": "^4.17.1",
     "ts-node": "^9.1.1"
   },

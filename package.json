@@ -66,7 +66,6 @@
     }
   },
   "dependencies": {
-    "dotenv-webpack": "^7.0.3",
     "express": "^4.17.1",
     "ts-node": "^9.1.1"
   },
@@ -87,10 +86,12 @@
     "@typescript-eslint/parser": "^4.22.0",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.2.4",
+    "dotenv-webpack": "^7.0.3",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "eslint": "^7.24.0",
     "eslint-config-eda": "^0.1.4",
+    "firebase": "^8.6.5",
     "jest": "^26.6.3",
     "jsdom": "^16.5.3",
     "mini-css-extract-plugin": "^1.5.0",

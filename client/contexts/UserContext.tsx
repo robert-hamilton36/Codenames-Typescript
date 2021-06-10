@@ -7,18 +7,6 @@ export function useUserContext (): ContextReturn {
   return useContext(UserContext)
 }
 
-interface ContextReturn {
-  user: User,
-  setUser: React.Dispatch<React.SetStateAction<string>>,
-  gameId: string,
-  setGameId: React.Dispatch<React.SetStateAction<string>>
-}
-
-interface User {
-  name: string,
-  uid: string
-}
-
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function UserProvider ({ children }) {
   const [user, setUser] = useNewUser()
@@ -35,4 +23,15 @@ export function UserProvider ({ children }) {
       {children}
     </UserContext.Provider>
   )
+}
+interface ContextReturn {
+  user: User,
+  setUser: React.Dispatch<React.SetStateAction<string>>,
+  gameId: string,
+  setGameId: React.Dispatch<React.SetStateAction<string>>
+}
+
+interface User {
+  name: string,
+  uid: string
 }

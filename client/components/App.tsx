@@ -1,18 +1,12 @@
 import React from 'react'
-import { database } from '../firebase'
+import { UserProvider } from '../contexts/UserContext'
+import { Hello } from './Hello'
 
 const App: React.FC = () => {
-  const handleClick = () => {
-    database.games.add({
-      players: ['host']
-    })
-  }
-
   return (
-    <>
-      <h1>App has arrived</h1>
-      <button onClick={handleClick}>Create game</button>
-    </>
+    <UserProvider>
+      <Hello/>
+    </UserProvider>
   )
 }
 

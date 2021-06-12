@@ -1,11 +1,15 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-import React, { useContext } from 'react'
+import React, { createContext, useContext, useMemo } from 'react'
+interface IFirebase {
+  app: firebase.app.App,
+  firestore: firebase.firestore.Firestore
+}
 
-const FirebaseContext = React.createContext(null)
+const FirebaseContext = createContext<IFirebase | null >(null)
 
-export function useFirebase () {
+export function useFirebase ():IFirebase {
   return useContext(FirebaseContext)
 }
 
@@ -18,14 +22,11 @@ const firebaseConfig = {
   appId: process.env.appId
 }
 
-export const FirebaseProvider = ({ children }) => {
+export const FirebaseProvider: React.FC<React.ReactNode> = ({ children }) => {
   const app = firebase.initializeApp(firebaseConfig)
-  const firestore = firebase.firestore()
+  const firestore = app.firestore()
+  const provided: IFirebase = useMemo(() => ({ app, firestore }), [app, firestore])
 
-  const provided = {
-    app,
-    firestore
-  }
   return (
     <FirebaseContext.Provider value={provided}>
       {children}

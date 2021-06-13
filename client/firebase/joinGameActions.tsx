@@ -25,13 +25,13 @@ export const joinGameActions: (firestore: firestore) => ActionReturns = (firesto
     console.log(firestore)
   }
 
-  const createGame: (newGame: GameState) => Promise<void> = (newGame: GameState) => {
+  const createGame: CreateGame = (newGame: GameState) => {
     return firestore.collection('Games')
       .add(newGame)
       .then(data => setGameId(data.id))
   }
 
-  const joinGame: JoinGame = (user: User, gameId:string, firestore: firestore) => {
+  const joinGame: JoinGame = (user: User, gameId:string) => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
@@ -43,19 +43,44 @@ export const joinGameActions: (firestore: firestore) => ActionReturns = (firesto
         })
     })
   }
+
+  const leaveGame: LeaveGame = (userId:string, gameId:string) => {
+    const ref = firestore.collection('Games').doc(gameId)
+    return firestore.runTransaction((transaction) => {
+      return transaction.get(ref)
+        .then((data) => {
+          const array = data.data().players.filter((player) => player.uid === userId)
+          console.log(array)
+          return transaction.update(ref, { players: firebase.firestore.FieldValue.arrayRemove(array[0]) })
+        })
+    })
+  }
+
+  const deleteGame: DeleteGame = (gameId:string) => {
+    return firestore.collection('Games').doc(gameId)
+      .delete()
+  }
+
   return {
     consoleLog,
     createGame,
-    joinGame
+    deleteGame,
+    joinGame,
+    leaveGame
   }
 }
 
-type JoinGame = (user: User, gameId: string, firestore: firebase.firestore.Firestore) => FirestoreTransactionPromise
+type JoinGame = (user: User, gameId: string) => FirestoreTransactionPromise
 type FirestoreTransactionPromise = Promise<firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>>
+type CreateGame = (newGame: GameState) => Promise<void>
+type DeleteGame = (gameId: string) => Promise<void>
+type LeaveGame = (userId: string, gameId: string) => Promise<firebase.firestore.Transaction>
 type Data = firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
 
-interface ActionReturns {
+export interface ActionReturns {
   consoleLog: () => void,
-  createGame: (newGame: GameState) => Promise<void>,
-  joinGame: JoinGame
+  createGame: CreateGame,
+  deleteGame: DeleteGame,
+  joinGame: JoinGame,
+  leaveGame: LeaveGame,
 }

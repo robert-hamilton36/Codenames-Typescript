@@ -23,7 +23,9 @@ const firebaseConfig = {
 }
 
 export const FirebaseProvider: React.FC<React.ReactNode> = ({ children }) => {
-  const app = firebase.initializeApp(firebaseConfig)
+  const app = useMemo(() => {
+    return firebase.initializeApp(firebaseConfig)
+  }, [firebaseConfig])
   const firestore = app.firestore()
   const provided: IFirebase = useMemo(() => ({ app, firestore }), [app, firestore])
 

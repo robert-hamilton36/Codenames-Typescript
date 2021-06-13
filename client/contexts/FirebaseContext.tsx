@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-import React, { createContext, useContext, useMemo } from 'react'
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 interface IFirebase {
   app: firebase.app.App,
   firestore: firebase.firestore.Firestore
@@ -34,4 +34,22 @@ export const FirebaseProvider: React.FC<React.ReactNode> = ({ children }) => {
       {children}
     </FirebaseContext.Provider>
   )
+}
+
+export const useFirestoreSubscriber: (gameId: string) => firebase.firestore.DocumentData = (gameId: string) => {
+  const { firestore } = useFirebase()
+  const [data, setData] = useState<firebase.firestore.DocumentData>()
+  useEffect(() => {
+    let hasSubscribed = false
+    let unsubscribe
+    if (gameId) {
+      unsubscribe = firestore.collection('Games').doc(gameId)
+        .onSnapshot((doc) => {
+          setData(doc.data())
+        })
+      hasSubscribed = true
+    }
+    return () => hasSubscribed && unsubscribe()
+  }, [gameId])
+  return data
 }

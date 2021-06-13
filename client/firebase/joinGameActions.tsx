@@ -50,10 +50,10 @@ export const joinGameActions: (firestore: firestore) => ActionReturns = (firesto
       return transaction.get(ref)
         .then((data) => {
           const array = data.data().players.filter((player) => player.uid === userId)
-          console.log(array)
           return transaction.update(ref, { players: firebase.firestore.FieldValue.arrayRemove(array[0]) })
         })
     })
+      .then(() => setGameId(''))
   }
 
   const deleteGame: DeleteGame = (gameId:string) => {
@@ -61,12 +61,24 @@ export const joinGameActions: (firestore: firestore) => ActionReturns = (firesto
       .delete()
   }
 
+  const kickPlayer: KickPlayer = (userId:string, gameId:string) => {
+    const ref = firestore.collection('Games').doc(gameId)
+    return firestore.runTransaction((transaction) => {
+      return transaction.get(ref)
+        .then((data) => {
+          const array = data.data().players.filter((player) => player.uid === userId)
+          return transaction.update(ref, { players: firebase.firestore.FieldValue.arrayRemove(array[0]) })
+        })
+    })
+  }
+
   return {
     consoleLog,
     createGame,
     deleteGame,
     joinGame,
-    leaveGame
+    leaveGame,
+    kickPlayer
   }
 }
 
@@ -74,7 +86,8 @@ type JoinGame = (user: User, gameId: string) => FirestoreTransactionPromise
 type FirestoreTransactionPromise = Promise<firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>>
 type CreateGame = (newGame: GameState) => Promise<void>
 type DeleteGame = (gameId: string) => Promise<void>
-type LeaveGame = (userId: string, gameId: string) => Promise<firebase.firestore.Transaction>
+type LeaveGame = (userId: string, gameId: string) => Promise<void>
+type KickPlayer = (userId: string, gameId: string) => Promise<firebase.firestore.Transaction>
 type Data = firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
 
 export interface ActionReturns {
@@ -83,4 +96,5 @@ export interface ActionReturns {
   deleteGame: DeleteGame,
   joinGame: JoinGame,
   leaveGame: LeaveGame,
+  kickPlayer: KickPlayer
 }

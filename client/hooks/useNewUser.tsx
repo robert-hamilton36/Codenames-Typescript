@@ -7,7 +7,7 @@ interface User {
 }
 
 type SetUser = (value:string) => void
-
+type UseNewUser = () => (User | SetUser)[]
 interface Action {
   type: string,
   value: string
@@ -27,10 +27,10 @@ const reducer = (state: User, action: Action) => {
   return result
 }
 
-export const useNewUser = () => {
+export const useNewUser: UseNewUser = () => {
   const [user, dispatch] = useReducer(reducer, initialState)
 
-  const setUser = (value: string) => {
+  const setUser: SetUser = (value: string) => {
     const action = { type: 'setName', value: value }
     dispatch(action)
   }

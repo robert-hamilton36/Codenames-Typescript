@@ -2,18 +2,20 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
-import { joinGameActions } from '../firebase/joinGameActions'
-interface IFirebase {
+import { joinGameActions, ActionReturns } from '../firebase/joinGameActions'
+
+interface ProvidedContextFirebase {
   app: app,
-  firestore: firestore
+  firestore: firestore,
+  actions: ActionReturns
 }
 
 export type firestore = firebase.firestore.Firestore
 export type app = firebase.app.App
 
-const FirebaseContext = createContext<IFirebase | null >(null)
+const FirebaseContext = createContext<ProvidedContextFirebase | null >(null)
 
-export function useFirebase ():IFirebase {
+export function useFirebase ():ProvidedContextFirebase {
   return useContext(FirebaseContext)
 }
 
@@ -32,7 +34,7 @@ export const FirebaseProvider: React.FC<React.ReactNode> = ({ children }) => {
   }, [firebaseConfig])
   const firestore = app.firestore()
   const actions = joinGameActions(firestore)
-  const provided: IFirebase = useMemo(() => ({ app, firestore, actions }), [app, firestore, actions])
+  const provided: ProvidedContextFirebase = useMemo(() => ({ app, firestore, actions }), [app, firestore, actions])
 
   return (
     <FirebaseContext.Provider value={provided}>

@@ -1,8 +1,15 @@
 import React from 'react'
+import { FirebaseProvider } from '../contexts/FirebaseContext'
+import { UserProvider } from '../contexts/UserContext'
+import { Hello } from './Hello'
 
 const App: React.FC = () => {
   return (
-    <h1>App has arrived</h1>
+    <UserProvider>
+      <FirebaseProvider>
+        <Hello/>
+      </FirebaseProvider>
+    </UserProvider>
   )
 }
 

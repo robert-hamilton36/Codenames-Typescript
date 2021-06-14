@@ -1,5 +1,6 @@
 import { Server, Socket } from 'socket.io'
 import { Server as HttpServer } from 'http'
+import { leaveGame } from './firebase'
 
 const ioServer: (server: HttpServer) => void = (server) => {
   const io = new Server(server)
@@ -15,6 +16,7 @@ const ioServer: (server: HttpServer) => void = (server) => {
     })
     socket.on('disconnect', () => {
       console.log('Goodbye' + socket.id)
+      leaveGame(socket.uid || '', socket.gameId || '')
     })
   })
 }

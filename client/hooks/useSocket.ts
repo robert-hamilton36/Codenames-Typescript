@@ -9,7 +9,6 @@ const useSocket: (uid: string, gameId: string, connection?: string) => void = (u
     socket.current = io(connection)
 
     socket.current.on('connect', () => {
-      console.log('connected')
       socket.current.emit('player-data', uid, gameId)
     })
 

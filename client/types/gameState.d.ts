@@ -1,10 +1,10 @@
 import firebase from 'firebase/app'
 import Timestamp = firebase.firestore.Timestamp
 
-export interface GameState {
+export interface GameInfo {
   gameState: GameState,
-  messages: Messages
   host: User
+  messages: Messages
   players: PlayerObject[]
   settings: Settings
 }
@@ -21,7 +21,7 @@ interface GameState {
   hint?: Hint,
   teamPoints: TeamPoints,
   teamTurn: 'Red' | 'Blue',
-  votes: Votes,
+  votes: Votes[],
   words: WordObj[],
 }
 
@@ -42,16 +42,16 @@ interface Votes {
 }
 
 interface WordObj{
+  index?: number
   key: 'Neutral' | 'Red' | 'Blue' | 'Assassin',
   revealed: boolean,
   word: string,
-  index?: number
 }
 
 interface Messages {
   general: Message[],
-  blue: Message[],
-  red: Message[]
+  blue?: Message[],
+  red?: Message[]
 }
 
 interface Message {
@@ -61,11 +61,11 @@ interface Message {
 }
 
 interface PlayerObject {
-  name: string,
-  uid: string
-  team: TeamColour
   host?: boolean,
+  name: string,
   spymaster?: boolean,
+  team: TeamColour
+  uid: string
 }
 
 type TeamColour = 'Red' | 'Blue' | ''
@@ -73,6 +73,8 @@ type TeamColour = 'Red' | 'Blue' | ''
 interface Settings {
   gameplayMode: 'individual' | 'tabletop',
   scoresForWin: TeamPoints,
-  voteSystem: 'vote' | 'spymaster-locksin',
-  teams: string[]
+  teams: Team[],
+  voteSystem: 'vote' | 'spymaster-locksin'
 }
+
+type Team = 'Red' | 'Blue'

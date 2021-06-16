@@ -54,7 +54,7 @@ type Return = (user: User, teams: Teams, settings: Settings, listWords: string[]
 
 type Teams = ['red', 'blue']
 
-interface Settings {
+export interface Settings {
   gameplayMode: 'individual' | 'tabletop',
   voteSystem: 'vote' | 'spymaster-locksin'
 }

@@ -60,3 +60,27 @@ export const useFirestoreSubscriber: (gameId: string) => firebase.firestore.Docu
   }, [gameId])
   return data
 }
+
+export const useFirestoreCollectionSubscriber: (gameId: string) => firebase.firestore.DocumentData = (collection: string) => {
+  const { firestore } = useFirebase()
+  const [data, setData] = useState<firebase.firestore.DocumentData>()
+  useEffect(() => {
+    let hasSubscribed = false
+    let unsubscribe
+    if (collection) {
+      unsubscribe = firestore.collection(collection)
+        .onSnapshot((doc) => {
+          doc.forEach((doc) => console.log(doc.data()))
+          console.log(doc.docs)
+          const array = doc.docs.reduce((oldArray, doc) => {
+            oldArray.push(doc.id)
+            return oldArray
+          }, [])
+          setData(array)
+        })
+      hasSubscribed = true
+    }
+    return () => hasSubscribed && unsubscribe()
+  }, [collection])
+  return data
+}

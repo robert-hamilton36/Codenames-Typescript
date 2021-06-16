@@ -3,7 +3,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 // eslint-disable-next-line import/no-unresolved
-import { GameState, PlayerObject, TeamColour, User } from '../types/gameState'
+import { GameInfo, PlayerObject, TeamColour, User } from '../types/gameState'
 import { firestore } from '../contexts/FirebaseContext'
 
 const getNewPlayersTeam: (data:Data) => TeamColour = (data) => {
@@ -25,7 +25,7 @@ export const joinGameActions: (firestore: firestore) => ActionReturns = (firesto
     console.log(firestore)
   }
 
-  const createGame: CreateGame = (newGame: GameState) => {
+  const createGame: CreateGame = (newGame: GameInfo) => {
     return firestore.collection('Games')
       .add(newGame)
       .then(data => setGameId(data.id))
@@ -84,7 +84,7 @@ export const joinGameActions: (firestore: firestore) => ActionReturns = (firesto
 
 type JoinGame = (user: User, gameId: string) => FirestoreTransactionPromise
 type FirestoreTransactionPromise = Promise<firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>>
-type CreateGame = (newGame: GameState) => Promise<void>
+type CreateGame = (newGame: GameInfo) => Promise<void>
 type DeleteGame = (gameId: string) => Promise<void>
 type LeaveGame = (userId: string, gameId: string) => Promise<void>
 type KickPlayer = (userId: string, gameId: string) => Promise<firebase.firestore.Transaction>

@@ -20,7 +20,7 @@ export const createGameObject: Return = (user: User, teams: Teams, settings: Set
 
   const boardObject = new Array(listWords.length)
   for (const x in listWords) {
-    boardObject[x] = { index: [x], word: listWords[x], key: boardKey[x], revealed: false }
+    boardObject[x] = { index: x, word: listWords[x], key: boardKey[x], revealed: false }
   }
 
   const newGameObject: GameInfo = {
@@ -37,7 +37,7 @@ export const createGameObject: Return = (user: User, teams: Teams, settings: Set
     players: [{
       host: true,
       name: user.name,
-      team: 'Red',
+      team: 'red',
       uid: user.uid
     }],
     settings: {
@@ -52,7 +52,7 @@ export const createGameObject: Return = (user: User, teams: Teams, settings: Set
 
 type Return = (user: User, teams: Teams, settings: Settings, listWords: string[]) => GameInfo
 
-type Teams = ['Red', 'Blue']
+type Teams = ['red', 'blue']
 
 interface Settings {
   gameplayMode: 'individual' | 'tabletop',

@@ -6,18 +6,18 @@ export const boardKeyCreator: Return = (teams = 8, assassin = 1, boardSize = 25)
   let red = teams
   let blue = teams
   // chooses which team goes first then increases that teams words by 1
-  const firstTurnTeam: TeamReturn = Math.round(Math.random()) ? 'Red' : 'Blue'
-  if (firstTurnTeam === 'Red') {
+  const firstTurnTeam: TeamReturn = Math.round(Math.random()) ? 'red' : 'blue'
+  if (firstTurnTeam === 'red') {
     red++
-  } else if (firstTurnTeam === 'Blue') {
+  } else if (firstTurnTeam === 'blue') {
     blue++
   }
 
-  let boardKey: CardIdentifier[] = Array(blue).fill('Blue').concat(Array(red).fill('Red')).concat(Array(assassin).fill('Assassin')).concat(Array(neutrals).fill('Neutral'))
+  let boardKey: CardIdentifier[] = Array(blue).fill('blue').concat(Array(red).fill('red')).concat(Array(assassin).fill('assassin')).concat(Array(neutrals).fill('neutral'))
   boardKey = shuffleArray(boardKey)
   return { boardKey, firstTurnTeam }
 }
 
-type TeamReturn = 'Red' | 'Blue'
-type CardIdentifier = 'Red' | 'Blue' | 'Assassin' | 'Neutral'
+type TeamReturn = 'red' | 'blue'
+type CardIdentifier = 'red' | 'blue' | 'assassin' | 'neutral'
 type Return = (teams?: number, assassin?: number, boardSize?: number) => { firstTurnTeam: TeamReturn, boardKey: CardIdentifier[] }

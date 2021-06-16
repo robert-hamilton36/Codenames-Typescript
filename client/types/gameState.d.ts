@@ -20,7 +20,7 @@ interface GameState {
   guessesLeft?: number,
   hint?: Hint,
   teamPoints: TeamPoints,
-  teamTurn: 'Red' | 'Blue',
+  teamTurn: 'red' | 'blue',
   votes: Votes[],
   words: WordObj[],
 }
@@ -43,7 +43,7 @@ interface Votes {
 
 interface WordObj{
   index?: number
-  key: 'Neutral' | 'Red' | 'Blue' | 'Assassin',
+  key: 'neutral' | 'red' | 'blue' | 'assassin',
   revealed: boolean,
   word: string,
 }
@@ -68,7 +68,7 @@ interface PlayerObject {
   uid: string
 }
 
-type TeamColour = 'Red' | 'Blue' | ''
+type TeamColour = 'red' | 'blue' | ''
 
 interface Settings {
   gameplayMode: 'individual' | 'tabletop',
@@ -77,4 +77,4 @@ interface Settings {
   voteSystem: 'vote' | 'spymaster-locksin'
 }
 
-type Team = 'Red' | 'Blue'
+type Team = 'red' | 'blue'

@@ -1,12 +1,19 @@
 import React, { useState } from 'react'
 
-export const Word: React.FC<Props> = ({ word, setItem }) => {
+export const Word: React.FC<Props> = ({ word, setItem, getNewWord }) => {
   const [editing, setEditing] = useState(false)
   const [newWord, setNewWord] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setEditing(true)
+    setEditing(false)
+    setItem(newWord, word)
+  }
+
+  const actionNewWord = (word) => {
+    const newWord = getNewWord()
+    console.log(newWord)
+    console.log(word)
     setItem(newWord, word)
   }
 
@@ -26,6 +33,9 @@ export const Word: React.FC<Props> = ({ word, setItem }) => {
       <button onClick={(() => setEditing(true))}>
         Change
       </button>
+      <button onClick={() => actionNewWord(word)}>
+        New Word
+      </button>
     </li>
   )
 }
@@ -33,4 +43,5 @@ export const Word: React.FC<Props> = ({ word, setItem }) => {
 interface Props {
   word: string
   setItem: (newWord: string, oldWord: string) => void
+  getNewWord: () => string
 }

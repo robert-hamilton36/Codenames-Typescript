@@ -4,12 +4,24 @@ import { shuffleArray } from '../../utility/shuffleArray'
 import { Word } from './Word'
 
 export const WordList: React.FC<Props> = ({ setFinalWordList }) => {
-  const [wordList, setWordList] = useState([])
+  const [wordList, setWordList] = useState<string[]>([])
   const allWords = getWords()
 
-  useEffect(() => {
+  const getNewWords = () => {
     const newArray = shuffleArray(allWords)
     setWordList(newArray.slice(0, 25))
+  }
+
+  const getNewSingleWord = () => {
+    let word: string
+    if (!wordList.includes(word)) {
+      word = shuffleArray(allWords).slice(0, 1)[0]
+    }
+    return word
+  }
+
+  useEffect(() => {
+    getNewWords()
   }, [allWords])
 
   const setItem = (newWord: string, oldWord: string) => {
@@ -24,9 +36,10 @@ export const WordList: React.FC<Props> = ({ setFinalWordList }) => {
   return (
     <div>
       <ul>
-        {wordList.map((word, idx) => <Word key={word + idx} word={word} setItem={setItem}/>)}
+        {wordList.map((word, idx) => <Word key={word + idx} word={word} setItem={setItem} getNewWord = {getNewSingleWord}/>)}
       </ul>
       <button onClick={handleSubmit}>Submit</button>
+      <button onClick={getNewWords}>Get New Words</button>
     </div>
   )
 }

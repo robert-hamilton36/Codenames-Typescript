@@ -4,48 +4,33 @@ import { useUserContext } from '../contexts/UserContext'
 // import { useSettingsReducer } from '../../hooks/useSettingsReducer'
 import { createGameObject } from '../utility/createNewGameObject'
 import { GetSettings } from '../components/CreateGame/GetSettings'
-
-const wordList = [
-  'africa',
-  'agent',
-  'air',
-  'alien',
-  'amazon',
-  'angel',
-  'antarctica',
-  'apple',
-  'arm',
-  'back',
-  'band',
-  'bank',
-  'bark',
-  'beach',
-  'belt',
-  'berlin',
-  'berry',
-  'board',
-  'bond',
-  'boom',
-  'bow',
-  'box',
-  'bug',
-  'canada',
-  'capital'
-]
+import { WordList } from '../components/GetWords/WordList'
 
 export const CreateGame: React.FC = () => {
   const [settings, confirmSettings] = useState<Settings>(null)
+  const [finalWordList, setFinalWordList] = useState<string[] | null>(null)
   const { actions } = useFirebase()
   const { user } = useUserContext()
+
   const handleCreate = () => {
-    const gameObj = createGameObject(user, ['red', 'blue'], settings, wordList)
+    const gameObj = createGameObject(user, ['red', 'blue'], settings, finalWordList)
     actions.createGame(gameObj)
+  }
+
+  if (!settings) {
+    return (
+      <GetSettings confirmSettings={confirmSettings}/>
+    )
+  } else if (!finalWordList) {
+    return (
+      <WordList setFinalWordList={setFinalWordList}/>
+    )
   }
 
   return (
     <>
-      {!settings && <GetSettings confirmSettings={confirmSettings}/>}
       <h1>{settings?.gameplayMode}</h1>
+      <h1>Hello</h1>
       <h1>{settings?.voteSystem}</h1>
       {settings && <div>
         <button onClick={handleCreate}>Create Game</button>

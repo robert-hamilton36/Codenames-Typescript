@@ -61,7 +61,7 @@ export const useFirestoreSubscriber: (gameId: string) => firebase.firestore.Docu
   return data
 }
 
-export const useFirestoreCollectionSubscriber: (gameId: string) => firebase.firestore.DocumentData = (collection: string) => {
+export const useFirestoreCollectionSubscriber: (collection: string) => firebase.firestore.DocumentData = (collection: string) => {
   const { firestore } = useFirebase()
   const [data, setData] = useState<firebase.firestore.DocumentData>()
   useEffect(() => {
@@ -83,4 +83,17 @@ export const useFirestoreCollectionSubscriber: (gameId: string) => firebase.fire
     return () => hasSubscribed && unsubscribe()
   }, [collection])
   return data
+}
+
+export const getWords: (doc?: string) => string[] = (doc = 'BaseGame') => {
+  const [words, setWords] = useState<string[]>([])
+  const { firestore } = useFirebase()
+  useEffect(() => {
+    firestore.collection('Words').doc(doc).get()
+      .then((data) => setWords(data.data().words))
+      .catch((error) => {
+        console.log('Error getting words:', error)
+      })
+  }, [])
+  return words
 }

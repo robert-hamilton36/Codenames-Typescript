@@ -1,7 +1,7 @@
 import { shuffleArray } from './shuffleArray'
 
 // this function creates a 25 item array which denotes whether a card is neutral, red, blue or assassin
-export const boardKeyCreator: Return = (teams = 8, assassin = 1, boardSize = 25) => {
+export const boardKeyCreator: BoardKeyCreator = (teams = 8, assassin = 1, boardSize = 25) => {
   const neutrals = boardSize - assassin - (teams * 2) - 1
   let red = teams
   let blue = teams
@@ -20,4 +20,4 @@ export const boardKeyCreator: Return = (teams = 8, assassin = 1, boardSize = 25)
 
 type TeamReturn = 'red' | 'blue'
 type CardIdentifier = 'red' | 'blue' | 'assassin' | 'neutral'
-type Return = (teams?: number, assassin?: number, boardSize?: number) => { firstTurnTeam: TeamReturn, boardKey: CardIdentifier[] }
+type BoardKeyCreator = (teams?: number, assassin?: number, boardSize?: number) => { firstTurnTeam: TeamReturn, boardKey: CardIdentifier[] }

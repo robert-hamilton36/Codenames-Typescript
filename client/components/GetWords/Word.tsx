@@ -12,8 +12,6 @@ export const Word: React.FC<Props> = ({ word, setItem, getNewWord }) => {
 
   const actionNewWord = (word) => {
     const newWord = getNewWord()
-    console.log(newWord)
-    console.log(word)
     setItem(newWord, word)
   }
 

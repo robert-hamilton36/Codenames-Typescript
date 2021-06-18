@@ -15,15 +15,16 @@ const reducer = (state, action) => {
   }
 }
 
-export const usePageNumber: (noOfPages: number) => Return = (noOfPages: number) => {
-  const [pageNumber, dispatch] = useReducer(reducer, 0)
+export const usePageNumber: (maxPageNumber: number, startingNum: number) => Return = (maxPageNumber = 2, startingNum = 0) => {
+  if (maxPageNumber < startingNum) { startingNum = maxPageNumber }
+  const [pageNumber, dispatch] = useReducer(reducer, startingNum)
 
   const nextPage = () => {
-    dispatch({ type: 'increase', max: noOfPages })
+    dispatch({ type: 'increase', max: maxPageNumber })
   }
 
   const previousPage = () => {
-    dispatch({ type: 'decrease', max: noOfPages })
+    dispatch({ type: 'decrease', max: maxPageNumber })
   }
 
   return { pageNumber, nextPage, previousPage }

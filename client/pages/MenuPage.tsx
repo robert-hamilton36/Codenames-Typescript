@@ -9,6 +9,10 @@ export const MenuPage: React.FC = () => {
   }
 
   const handleHost = () => {
+    history.push('/host')
+  }
+
+  const handleTest = () => {
     history.push('/test')
   }
 
@@ -17,6 +21,7 @@ export const MenuPage: React.FC = () => {
       <h1>Code Names</h1>
       <button onClick={handleJoin}>Join Game</button>
       <button onClick={handleHost}>Host Game</button>
+      <button onClick={handleTest}>Test Game</button>
     </div>
   )
 }

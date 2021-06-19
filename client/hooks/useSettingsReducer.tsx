@@ -17,13 +17,14 @@ function reducer (state: State, action: Action) {
   }
 }
 
-const initialState: State = {
+const initialSettingsState: State = {
   voteSystem: 'vote',
   gameplayMode: 'individual',
   error: ''
 }
 
-export function useSettingsReducer (): useSettingsReducerReturn {
+export function useSettingsReducer (initialState = initialSettingsState): useSettingsReducerReturn {
+  if (initialState.voteSystem === 'vote' && initialState.gameplayMode === 'tabletop') { initialState = initialSettingsState }
   const [settings, dispatch] = useReducer(reducer, initialState)
 
   const settingsDispatcher = (setting: Setting, value: Value) => {

@@ -2,10 +2,6 @@ import { renderHook, act } from '@testing-library/react-hooks'
 import { useNewUser } from './useNewUser'
 import { validate } from 'uuid'
 
-test('True is true', () => {
-  expect(true).toBeTruthy()
-})
-
 test('should add new user', () => {
   const { result } = renderHook(() => useNewUser())
 

@@ -9,12 +9,13 @@ test('True is true', () => {
 test('should add new user', () => {
   const { result } = renderHook(() => useNewUser())
 
-  const [user, setUser] = result.current
+  const [user, userActions] = result.current
   expect(user.name).toBe('')
   expect(user.uid).toBe('')
 
   act(() => {
-    setUser('Obi Wan')
+    const [user, userActions] = result.current
+    userActions.setUser('Obi Wan')
   })
 
   const [newUser] = result.current
@@ -26,10 +27,10 @@ test('should add new user', () => {
 test('should remove user', () => {
   const { result } = renderHook(() => useNewUser())
 
-  const [, setUser] = result.current
+  const [, userActions] = result.current
 
   act(() => {
-    setUser('Obi Wan')
+    userActions.setUser('Obi Wan')
   })
 
   const [user] = result.current
@@ -38,7 +39,7 @@ test('should remove user', () => {
   expect(validate(user.uid)).toBeTruthy()
 
   act(() => {
-    setUser('')
+    userActions.setUser('')
   })
 
   const [newUser] = result.current

@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
-import { useNewUser } from '../hooks/useNewUser'
+import { useNewUser, UserActions } from '../hooks/useNewUser'
+import { PlayerObject } from '../types/gameState'
 
 const UserContext = React.createContext(null)
 
@@ -9,12 +10,12 @@ export function useUserContext (): ContextReturn {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function UserProvider ({ children }) {
-  const [user, setUser] = useNewUser()
+  const [user, userActions] = useNewUser()
   const [gameId, setGameId] = useState('')
 
   const provided = {
     user,
-    setUser,
+    userActions,
     gameId,
     setGameId
   }
@@ -25,13 +26,8 @@ export function UserProvider ({ children }) {
   )
 }
 interface ContextReturn {
-  user: User,
-  setUser: React.Dispatch<React.SetStateAction<string>>,
+  user: PlayerObject,
+  userActions: UserActions,
   gameId: string,
   setGameId: React.Dispatch<React.SetStateAction<string>>
-}
-
-interface User {
-  name: string,
-  uid: string
 }

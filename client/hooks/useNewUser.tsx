@@ -39,12 +39,10 @@ const reducer = (state: User, action: Action) => {
     result.name = action.value
     result.uid = uuidv4()
   } else if (action.type === 'reset') {
-    result.name = ''
-    result.uid = ''
+    return initialState
   } else if (action.type === 'host') {
     result.host = action.boolean
   } else if (action.type === 'spymaster') {
-    console.log('hello')
     result.spymaster = action.boolean
   } else if (action.type === 'team') {
     result.team = action.team

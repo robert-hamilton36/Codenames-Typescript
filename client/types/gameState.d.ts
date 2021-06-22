@@ -49,14 +49,14 @@ interface WordObj{
 }
 
 interface Messages {
-  general: Message[],
-  blue?: Message[],
-  red?: Message[]
+  general: MessageObj[],
+  blue?: MessageObj[],
+  red?: MessageObj[]
 }
 
-interface Message {
+export interface MessageObj {
   message: string,
-  time: Timestamp,
+  time?: Timestamp,
   user: PlayerObject
 }
 
@@ -68,7 +68,7 @@ interface PlayerObject {
   uid: string
 }
 
-type TeamColour = 'red' | 'blue' | ''
+type TeamColour = 'red' | 'blue' | undefined
 
 interface Settings {
   gameplayMode: 'individual' | 'tabletop',

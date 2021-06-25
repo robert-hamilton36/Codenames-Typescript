@@ -1,13 +1,20 @@
 import React from 'react'
 import { DisplayWordGrid } from '../components/Game/DisplayWordGrid'
-import { GameState } from '../types/gameState'
+import { Score } from '../components/Game/Score'
+import { GameInfoContainer } from '../components/Game/GameInfoContainer'
+import { GameInfo } from '../types/gameState'
 
 export const LargeGame: React.FC<Props> = ({ data }) => {
+  console.log(data)
   return (
-    <DisplayWordGrid wordList={data.words}/>
+    <>
+      <GameInfoContainer gameState={data.gameState}/>
+      <DisplayWordGrid wordList={data.gameState.words}/>
+      <Score teamPoints={data.gameState.teamPoints}/>
+    </>
   )
 }
 
 interface Props {
-  data: GameState
+  data: GameInfo
 }

@@ -11,7 +11,7 @@ export const Routes: React.FC = () => {
     <Router>
       <Switch>
         <Route exact path="/" component={MenuPage}/>
-        {/* <Route path="/game" component={Game}/> */}
+        <Route path="/game" component={Game}/>
         <Route path="/lobby" component={Lobby}/>
         <Route path="/host" component={CreateGame}/>
         <Route path="/test" component={Game}/>

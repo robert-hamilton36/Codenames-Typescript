@@ -7,12 +7,12 @@ import { GameInfo, PlayerObject, TeamColour, User } from '../types/gameState'
 import { firestore } from '../contexts/FirebaseContext'
 
 const getNewPlayersTeam: (data:Data) => TeamColour = (data) => {
-  let team: TeamColour = ''
+  let team: TeamColour
   if (data.data().settings.gameplayMode !== 'tabletop') {
-    if (data.data().players.filter((person) => person.team === 'Red').length <= data.data().players.filter((person) => person.team === 'Blue').length) {
-      team = 'Red'
+    if (data.data().players.filter((person) => person.team === 'red').length <= data.data().players.filter((person) => person.team === 'Blue').length) {
+      team = 'red'
     } else {
-      team = 'Blue'
+      team = 'blue'
     }
   }
   return team

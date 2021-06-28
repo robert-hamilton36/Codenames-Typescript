@@ -4,7 +4,7 @@ import { useUserContext } from '../contexts/UserContext'
 export const AskName: React.FC<Props> = ({ nextPage, previousPage }) => {
   const [name, setName] = useState('')
   const [error, setError] = useState('')
-  const { setUser } = useUserContext()
+  const { userActions } = useUserContext()
 
   const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value)
@@ -25,7 +25,7 @@ export const AskName: React.FC<Props> = ({ nextPage, previousPage }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (validateName(name)) {
-      setUser(name)
+      userActions.setUser(name)
       nextPage()
       return null
     }

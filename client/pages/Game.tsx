@@ -1,11 +1,13 @@
 import React from 'react'
 import { useFirestoreSubscriber } from '../contexts/FirebaseContext'
 // import { useUserContext } from '../contexts/UserContext'
+
 import { GameInfo } from '../types/gameState'
 import { LargeGame } from './LargeGame'
 import { useScreenSize } from '../hooks/useScreenSize'
 
 export const Game: React.FC = () => {
+
   // const { gameId } = useUserContext()
   const data: GameInfo | null = useFirestoreSubscriber('3CGSsXSrXjiFisnASZe9')
   const screenSize = useScreenSize()

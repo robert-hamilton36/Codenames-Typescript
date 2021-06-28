@@ -2,17 +2,9 @@ import React from 'react'
 import { usePlayerSelectorDeselector } from '../../hooks/useSelectorDeselector'
 import { PlayerObject } from '../../types/gameState'
 import { makePlayerTableRows } from '../../utility/playerlistFunctions'
+import { HostOptions } from './HostOptions'
 
-const playerList: PlayerObject[] = [
-  { host: true, name: 'Rob', uid: '2342543213a', team: 'red', spymaster: true },
-  { name: 'Hugh', uid: '2342543213d', team: 'blue', spymaster: true },
-  { uid: '2342543213w', team: 'blue', name: 'Sophie' },
-  { uid: '2342543213z', team: 'blue', name: 'Katie' },
-  { uid: '2342543213x', team: 'red', name: 'Aidan' },
-  { uid: '2342543213c', team: 'red', name: 'Hugo' }
-]
-
-export const PlayerList: React.FC<Props> = () => {
+export const PlayerList: React.FC<Props> = ({ playerList }) => {
   const [selectedPlayer, setSelectedPlayer] = usePlayerSelectorDeselector()
   const [makeSpymasterTable, makeOperativeTable] = makePlayerTableRows(playerList, setSelectedPlayer)
 
@@ -43,7 +35,7 @@ export const PlayerList: React.FC<Props> = () => {
         </tbody>
       </table>
 
-      {selectedPlayer && <h1>{selectedPlayer?.name}</h1>}
+      {selectedPlayer && <HostOptions selectedPlayer={selectedPlayer}/>}
     </div>
   )
 }

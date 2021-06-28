@@ -60,7 +60,7 @@ export const useFirestoreSubscriber: (gameId: string) => GameInfo = (gameId: str
     }
     return () => hasSubscribed && unsubscribe()
   }, [gameId])
-  return data
+  return data as GameInfo
 }
 
 export const useFirestoreCollectionSubscriber: (collection: string) => firebase.firestore.DocumentData = (collection: string) => {

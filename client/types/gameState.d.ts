@@ -22,6 +22,7 @@ interface GameState {
   teamPoints: TeamPoints,
   teamTurn: 'red' | 'blue',
   votes: Votes[],
+  win?: Team,
   words: WordObj[],
 }
 
@@ -30,7 +31,7 @@ interface Hint {
   numberOfWords: number
 }
 
-interface TeamPoints {
+export interface TeamPoints {
   blue: number,
   red: number
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { WordObj, User } from '../types/gameState'
+import { WordObj, PlayerObject } from '../types/gameState'
 
 export const usePlayerSelectorDeselector = (): [UserType, (Value: UserType) => void ] => {
   const [value, setValue] = useState<UserType>(null)
@@ -15,7 +15,7 @@ export const usePlayerSelectorDeselector = (): [UserType, (Value: UserType) => v
   return [value, setCustomValue]
 }
 
-type UserType = User | null
+type UserType = PlayerObject | null
 
 export const useWordSelectorDeselector = (): [WordType, (Value: WordType) => void ] => {
   const [value, setValue] = useState<WordType>(null)

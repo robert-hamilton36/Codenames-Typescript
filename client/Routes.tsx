@@ -4,6 +4,7 @@ import { Test } from './components/Game/Test'
 import { Lobby } from './pages/Lobby'
 import { MenuPage } from './pages/MenuPage'
 import { CreateGame } from './pages/CreateGame'
+import { Game } from './pages/Game'
 
 export const Routes: React.FC = () => {
   return (
@@ -13,7 +14,7 @@ export const Routes: React.FC = () => {
         {/* <Route path="/game" component={Game}/> */}
         <Route path="/lobby" component={Lobby}/>
         <Route path="/host" component={CreateGame}/>
-        <Route path="/test" component={Test}/>
+        <Route path="/test" component={Game}/>
       </Switch>
     </Router>
   )

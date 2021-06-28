@@ -1,14 +1,17 @@
 import React from 'react'
+import { WordObj } from '../../types/gameState'
 import { WordCard } from './WordCard'
 
 interface IProps {
-  wordList: string[]
+  wordList: WordObj[]
 }
 
 export const DisplayWordGrid: React.FC<IProps> = ({ wordList }) => {
   return (
     <>
-      {wordList.map((word) => <WordCard key={word} word={word}/>)}
+      <div className="board">
+        {wordList.map((word) => <WordCard key={word.word} word={word}/>)}
+      </div>
     </>
   )
 }

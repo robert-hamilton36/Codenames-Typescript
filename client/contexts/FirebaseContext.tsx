@@ -3,6 +3,7 @@ import 'firebase/firestore'
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { joinGameActions, ActionReturns } from '../firebase/joinGameActions'
+import { GameInfo } from '../types/gameState'
 
 interface ProvidedContextFirebase {
   app: app,
@@ -43,7 +44,7 @@ export const FirebaseProvider: React.FC<React.ReactNode> = ({ children }) => {
   )
 }
 
-export const useFirestoreSubscriber: (gameId: string) => firebase.firestore.DocumentData = (gameId: string) => {
+export const useFirestoreSubscriber: (gameId: string) => GameInfo = (gameId: string) => {
   const { firestore } = useFirebase()
   const [data, setData] = useState<firebase.firestore.DocumentData>()
   useEffect(() => {
@@ -58,7 +59,7 @@ export const useFirestoreSubscriber: (gameId: string) => firebase.firestore.Docu
     }
     return () => hasSubscribed && unsubscribe()
   }, [gameId])
-  return data
+  return data as GameInfo
 }
 
 export const useFirestoreCollectionSubscriber: (collection: string) => firebase.firestore.DocumentData = (collection: string) => {

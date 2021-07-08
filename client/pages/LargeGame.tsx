@@ -1,6 +1,6 @@
 import React from 'react'
-import { DisplayWordGrid } from '../components/Game/DisplayWordGrid'
 
+import { DisplayWordGrid } from '../components/Game/DisplayWordGrid'
 import { MessageContainer } from '../components/Game/MessageContainer'
 import { Score } from '../components/Game/Score'
 import { PlayerInfo } from '../components/PlayerInfo/PlayerInfo'
@@ -10,13 +10,21 @@ import { GameInfo } from '../types/gameState'
 
 export const LargeGame: React.FC<Props> = ({ data }) => {
   return (
-    <>
-      <PlayerInfo playerList={data.players} tableTop={false}/>
-      <GameInfoContainer gameState={data.gameState}/>
+    <div className='largeGameContainer'>
+      <div className="players">
+        <PlayerInfo playerList={data.players} tableTop={false}/>
+      </div>
+      <div className='gameInfo'>
+        <GameInfoContainer gameState={data.gameState}/>
+      </div>
       <DisplayWordGrid wordList={data.gameState.words}/>
-      <Score teamPoints={data.gameState.teamPoints}/>
-      <MessageContainer game={data}/>
-    </>
+      <div className='score'>
+        <Score teamPoints={data.gameState.teamPoints}/>
+      </div>
+      <div className='chat'>
+        <MessageContainer game={data}/>
+      </div>
+    </div>
   )
 }
 

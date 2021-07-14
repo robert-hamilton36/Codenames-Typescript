@@ -6,7 +6,7 @@ export const usePlayerSelectorDeselector = (): [UserType, (Value: UserType) => v
   function setCustomValue (newValue: UserType) {
     if (!value) {
       setValue(newValue)
-    } else if (newValue.uid === value.uid) {
+    } else if (newValue?.uid === value?.uid) {
       setValue(null)
     } else {
       setValue(newValue)
@@ -20,7 +20,7 @@ type UserType = PlayerObject
 export const useWordSelectorDeselector = (): [WordType, (Value: WordType) => void ] => {
   const [value, setValue] = useState<WordType>(null)
   function setCustomValue (newValue: WordType) {
-    if (newValue.word === value?.word) {
+    if (newValue?.word === value?.word) {
       setValue(null)
     } else {
       setValue(newValue)

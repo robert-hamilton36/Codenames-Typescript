@@ -2,7 +2,6 @@ import { useUserContext } from '../contexts/UserContext'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-// eslint-disable-next-line import/no-unresolved
 import { GameInfo, PlayerObject, TeamColour, User } from '../types/gameState'
 import { firestore } from '../contexts/FirebaseContext'
 
@@ -18,20 +17,16 @@ const getNewPlayersTeam: (data:Data) => TeamColour = (data) => {
   return team
 }
 
-export const joinGameActions: (firestore: firestore) => ActionReturns = (firestore: firestore) => {
+export const joinGameActions = (firestore: firestore): JoinGameActionReturn => {
   const { setGameId } = useUserContext()
 
-  const consoleLog = () => {
-    console.log(firestore)
-  }
-
-  const createGame: CreateGame = (newGame: GameInfo) => {
+  const createGame = (newGame: GameInfo) => {
     return firestore.collection('Games')
       .add(newGame)
       .then(data => setGameId(data.id))
   }
 
-  const joinGame: JoinGame = (user: User, gameId:string) => {
+  const joinGame = (user: User, gameId:string) => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
@@ -44,7 +39,7 @@ export const joinGameActions: (firestore: firestore) => ActionReturns = (firesto
     })
   }
 
-  const leaveGame: LeaveGame = (userId:string, gameId:string) => {
+  const leaveGame = (userId:string, gameId:string) => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
@@ -56,24 +51,23 @@ export const joinGameActions: (firestore: firestore) => ActionReturns = (firesto
       .then(() => setGameId(''))
   }
 
-  const deleteGame: DeleteGame = (gameId:string) => {
+  const deleteGame = (gameId:string) => {
     return firestore.collection('Games').doc(gameId)
       .delete()
   }
 
-  const kickPlayer: KickPlayer = (userId:string, gameId:string) => {
+  const kickPlayer = (userId:string, gameId:string) => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
         .then((data) => {
-          const array = data.data().players.filter((player) => player.uid === userId)
-          return transaction.update(ref, { players: firebase.firestore.FieldValue.arrayRemove(array[0]) })
+          const player = data.data().players.find((player) => player.uid === userId)
+          return transaction.update(ref, { players: firebase.firestore.FieldValue.arrayRemove(player) })
         })
     })
   }
 
   return {
-    consoleLog,
     createGame,
     deleteGame,
     joinGame,
@@ -82,19 +76,12 @@ export const joinGameActions: (firestore: firestore) => ActionReturns = (firesto
   }
 }
 
-type JoinGame = (user: User, gameId: string) => FirestoreTransactionPromise
-type FirestoreTransactionPromise = Promise<firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>>
-type CreateGame = (newGame: GameInfo) => Promise<void>
-type DeleteGame = (gameId: string) => Promise<void>
-type LeaveGame = (userId: string, gameId: string) => Promise<void>
-type KickPlayer = (userId: string, gameId: string) => Promise<firebase.firestore.Transaction>
 type Data = firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
 
-export interface ActionReturns {
-  consoleLog: () => void,
-  createGame: CreateGame,
-  deleteGame: DeleteGame,
-  joinGame: JoinGame,
-  leaveGame: LeaveGame,
-  kickPlayer: KickPlayer
+export interface JoinGameActionReturn {
+  createGame: (newGame: GameInfo) => Promise<void>
+  deleteGame: (gameId: string) => Promise<void>
+  joinGame: (user: User, gameId: string) => Promise<firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>>
+  leaveGame: (userId: string, gameId: string) => Promise<void>,
+  kickPlayer: (userId: string, gameId: string) => Promise<firebase.firestore.Transaction>
 }

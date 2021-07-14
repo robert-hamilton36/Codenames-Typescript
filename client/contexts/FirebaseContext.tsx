@@ -2,13 +2,13 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
-import { joinGameActions, ActionReturns } from '../firebase/joinGameActions'
+import { joinGameActions, JoinGameActionReturn } from '../firebase/joinGameActions'
+import { playerActions, playerActionReturn } from '../firebase/playerActions'
 import { GameInfo } from '../types/gameState'
 
 interface ProvidedContextFirebase {
   app: app,
   firestore: firestore,
-  actions: ActionReturns
 }
 
 export type firestore = firebase.firestore.Firestore
@@ -34,8 +34,7 @@ export const FirebaseProvider: React.FC<React.ReactNode> = ({ children }) => {
     return firebase.initializeApp(firebaseConfig)
   }, [firebaseConfig])
   const firestore = app.firestore()
-  const actions = joinGameActions(firestore)
-  const provided: ProvidedContextFirebase = useMemo(() => ({ app, firestore, actions }), [app, firestore, actions])
+  const provided: ProvidedContextFirebase = useMemo(() => ({ app, firestore }), [app, firestore])
 
   return (
     <FirebaseContext.Provider value={provided}>
@@ -98,4 +97,16 @@ export const getWords: (doc?: string) => string[] = (doc = 'BaseGame') => {
       })
   }, [])
   return words
+}
+
+export const useJoinGameActions = (): JoinGameActionReturn => {
+  const { firestore } = useFirebase()
+  const actions = joinGameActions(firestore)
+  return actions
+}
+
+export const usePlayerActions = (): playerActionReturn => {
+  const { firestore } = useFirebase()
+  const actions = playerActions(firestore)
+  return actions
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { useFirebase } from '../contexts/FirebaseContext'
+import { useJoinGameActions } from '../contexts/FirebaseContext'
 import { useUserContext } from '../contexts/UserContext'
 import { createGameObject } from '../utility/createNewGameObject'
 import { GetSettings } from '../components/CreateGame/GetSettings'
@@ -14,12 +14,12 @@ export const CreateGame: React.FC = () => {
   const { user } = useUserContext()
   const [settings, confirmSettings] = useState<Settings>(null)
   const [finalWordList, setFinalWordList] = useState<string[] | null>(null)
-  const { actions } = useFirebase()
+  const { createGame } = useJoinGameActions()
   const history = useHistory()
 
   const handleCreate = () => {
     const gameObj = createGameObject(user, ['red', 'blue'], settings, finalWordList)
-    actions.createGame(gameObj)
+    createGame(gameObj)
     history.push('/game')
   }
 

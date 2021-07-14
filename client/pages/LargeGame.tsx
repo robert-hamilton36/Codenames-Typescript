@@ -7,6 +7,7 @@ import { PlayerInfo } from '../components/PlayerInfo/PlayerInfo'
 import { GameInfoContainer } from '../components/Game/GameInfoContainer'
 
 import { GameInfo } from '../types/gameState'
+import { Gameplay } from '../components/Game/Gameplay/Gameplay'
 
 export const LargeGame: React.FC<Props> = ({ data }) => {
   return (
@@ -23,6 +24,9 @@ export const LargeGame: React.FC<Props> = ({ data }) => {
       </div>
       <div className='chat'>
         <MessageContainer game={data}/>
+      </div>
+      <div className='actions'>
+        <Gameplay gameData={data}/>
       </div>
     </div>
   )

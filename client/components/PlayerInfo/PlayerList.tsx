@@ -1,4 +1,5 @@
 import React from 'react'
+import { useUserContext } from '../../contexts/UserContext'
 import { usePlayerSelectorDeselector } from '../../hooks/useSelectorDeselector'
 import { PlayerObject } from '../../types/gameState'
 import { makePlayerTableRows } from '../../utility/playerlistFunctions'
@@ -7,6 +8,7 @@ import { HostOptions } from './HostOptions'
 export const PlayerList: React.FC<Props> = ({ playerList }) => {
   const [selectedPlayer, setSelectedPlayer] = usePlayerSelectorDeselector()
   const [makeSpymasterTable, makeOperativeTable] = makePlayerTableRows(playerList, setSelectedPlayer)
+  const { user } = useUserContext()
 
   return (
     <div>
@@ -35,7 +37,7 @@ export const PlayerList: React.FC<Props> = ({ playerList }) => {
         </tbody>
       </table>
 
-      {selectedPlayer && <HostOptions selectedPlayer={selectedPlayer}/>}
+      {selectedPlayer && user.host && <HostOptions selectedPlayer={selectedPlayer} setSelectedPlayer={setSelectedPlayer}/>}
     </div>
   )
 }

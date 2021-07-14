@@ -1,10 +1,12 @@
 import React from 'react'
+import { useUserContext } from '../../contexts/UserContext'
 import { usePlayerSelectorDeselector } from '../../hooks/useSelectorDeselector'
 import { PlayerObject } from '../../types/gameState'
 import { HostOptions } from './HostOptions'
 
 export const DeviceList: React.FC<Props> = ({ devices }) => {
   const [selectedDevice, setSelectedDevice] = usePlayerSelectorDeselector()
+  const { user } = useUserContext()
 
   return (
     <div className = "playerList">
@@ -17,7 +19,7 @@ export const DeviceList: React.FC<Props> = ({ devices }) => {
           })}
         </tbody>
       </table>
-      {selectedDevice && <HostOptions selectedPlayer={selectedDevice} />}
+      {selectedDevice && user.host && <HostOptions selectedPlayer={selectedDevice} setSelectedPlayer={setSelectedDevice} />}
     </div>
   )
 }

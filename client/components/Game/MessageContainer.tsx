@@ -15,7 +15,7 @@ export const MessageContainer: React.FC<Props> = ({ game }) => {
   const [teamView, setTeamView] = useState<'red' | 'blue' | 'general'>('general')
   const [message, setMessage] = useState('')
 
-  const writeNewMessage: WriteNewMessage = (gameId, message) => {
+  const writeNewMessage = (gameId, message): Promise<firebase.firestore.Transaction> => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
@@ -34,12 +34,10 @@ export const MessageContainer: React.FC<Props> = ({ game }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    writeNewMessage('FnygfZBAKj0jhZ04XBUC', message)
+    writeNewMessage('3CGSsXSrXjiFisnASZe9', message)
     setMessage('')
     return null
   }
-
-  console.log(game)
 
   return (
     <div className="chatContainer">
@@ -52,7 +50,7 @@ export const MessageContainer: React.FC<Props> = ({ game }) => {
       {game.settings.gameplayMode !== 'tabletop' &&
         <div>
           {teamView !== 'general' && <button onClick={() => setTeamView('general')}>General</button>}
-          {teamView === 'general' && <button onClick={() => setTeamView(user.team)}>{user.team}</button>}
+          {teamView === 'general' && <button onClick={() => setTeamView(user?.team)}>{user?.team}</button>}
         </div>
       }
       <form>
@@ -66,5 +64,3 @@ export const MessageContainer: React.FC<Props> = ({ game }) => {
 interface Props {
   game: GameInfo
 }
-
-type WriteNewMessage = (gameId: string, message: string) => Promise<firebase.firestore.Transaction>

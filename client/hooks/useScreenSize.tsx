@@ -1,6 +1,6 @@
 import useMediaQuery from 'react-responsive'
 
-export const useScreenSize: () => string = () => {
+export const useScreenSize = (): ScreenSize => {
   const isPhone = useMediaQuery({ maxWidth: 500 })
   const isTablet = useMediaQuery({ maxWidth: 1024 })
 
@@ -14,3 +14,5 @@ export const useScreenSize: () => string = () => {
 
   return 'fullscreen'
 }
+
+type ScreenSize = 'phone' | 'tablet' | 'fullscreen'

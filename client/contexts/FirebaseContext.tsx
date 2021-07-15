@@ -43,7 +43,7 @@ export const FirebaseProvider: React.FC<React.ReactNode> = ({ children }) => {
   )
 }
 
-export const useFirestoreSubscriber: (gameId: string) => GameInfo = (gameId: string) => {
+export const useFirestoreSubscriber = (gameId: string): GameInfo => {
   const { firestore } = useFirebase()
   const [data, setData] = useState<GameInfo>()
   useEffect(() => {
@@ -62,7 +62,7 @@ export const useFirestoreSubscriber: (gameId: string) => GameInfo = (gameId: str
   return data as GameInfo
 }
 
-export const useFirestoreCollectionSubscriber: (collection: string) => firebase.firestore.DocumentData = (collection: string) => {
+export const useFirestoreCollectionSubscriber = (collection: string): firebase.firestore.DocumentData => {
   const { firestore } = useFirebase()
   const [data, setData] = useState<firebase.firestore.DocumentData>()
   useEffect(() => {
@@ -86,7 +86,7 @@ export const useFirestoreCollectionSubscriber: (collection: string) => firebase.
   return data
 }
 
-export const getWords: (doc?: string) => string[] = (doc = 'BaseGame') => {
+export const getWords = (doc = 'BaseGame'): string[] => {
   const [words, setWords] = useState<string[]>([])
   const { firestore } = useFirebase()
   useEffect(() => {

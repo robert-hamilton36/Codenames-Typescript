@@ -8,6 +8,11 @@ export function useUserContext (): ContextReturn {
   return useContext(UserContext)
 }
 
+export const useUserActions = (): UserActions => {
+  const { userActions } = useUserContext()
+  return userActions
+}
+
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function UserProvider ({ children }) {
   const [user, userActions] = useNewUser()

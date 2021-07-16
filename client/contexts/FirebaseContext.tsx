@@ -62,17 +62,16 @@ export const useFirestoreSubscriber = (gameId: string): GameInfo => {
   return data as GameInfo
 }
 
-export const useFirestoreCollectionSubscriber = (collection: string): firebase.firestore.DocumentData => {
+export const useFirestoreCollectionSubscriber = (collection: string): string[] => {
   const { firestore } = useFirebase()
-  const [data, setData] = useState<firebase.firestore.DocumentData>()
+  // const [data, setData] = useState<firebase.firestore.DocumentData>()
+  const [data, setData] = useState<string[]>()
   useEffect(() => {
     let hasSubscribed = false
     let unsubscribe
     if (collection) {
       unsubscribe = firestore.collection(collection)
         .onSnapshot((doc) => {
-          doc.forEach((doc) => console.log(doc.data()))
-          console.log(doc.docs)
           const array = doc.docs.reduce((oldArray, doc) => {
             oldArray.push(doc.id)
             return oldArray
@@ -83,7 +82,7 @@ export const useFirestoreCollectionSubscriber = (collection: string): firebase.f
     }
     return () => hasSubscribed && unsubscribe()
   }, [collection])
-  return data
+  return data as string[]
 }
 
 export const getWords = (doc = 'BaseGame'): string[] => {

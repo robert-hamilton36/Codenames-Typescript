@@ -1,5 +1,6 @@
 import { useReducer } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import { PlayerObject } from '../types/gameState'
 
 interface User {
   name: string,
@@ -13,12 +14,14 @@ type SetUser = (value:string) => void
 type MakeSpymaster = (boolean: boolean) => void
 type MakeHost = (boolean: boolean) => void
 type SetTeam = (team: 'red' | 'blue') => void
+type UpdateUser = (newUser: PlayerObject) => void
 
 export interface UserActions {
   setUser: SetUser,
   makeSpymaster: MakeSpymaster,
   makeHost: MakeHost,
-  setTeam: SetTeam
+  setTeam: SetTeam,
+  updateUser: UpdateUser
 }
 type UseNewUser = () => (User | UserActions)[]
 interface Action {
@@ -26,6 +29,7 @@ interface Action {
   value?: string
   boolean?: boolean
   team?: 'red' | 'blue'
+  newUser?: PlayerObject
 }
 
 const initialState: User = {
@@ -46,6 +50,10 @@ const reducer = (state: User, action: Action) => {
     result.spymaster = action.boolean
   } else if (action.type === 'team') {
     result.team = action.team
+  } else if (action.type === 'update') {
+    console.log('reducer')
+    console.log(action.newUser)
+    return action.newUser
   }
   return result
 }
@@ -74,11 +82,17 @@ export const useNewUser: UseNewUser = () => {
     dispatch({ type: 'team', team: team })
   }
 
+  const updateUser = (newUser: PlayerObject) => {
+    console.log('hello updateUser')
+    dispatch({ type: 'update', newUser: newUser })
+  }
+
   const userActions = {
     setUser,
     makeSpymaster,
     makeHost,
-    setTeam
+    setTeam,
+    updateUser
   }
   return [user, userActions]
 }

@@ -14,8 +14,8 @@ export const makePlayerTableRows: MakePlayerTables = (playerlist: PlayerObject[]
   for (let x = 0; x < operativeRows; x++) {
     operativeTable.push(
       <tr key={'operativeRow' + x}>
-        {redOperatives[x] && <td key={'red' + x} onClick={() => setSelectedPlayer(redOperatives[x])} >{redOperatives[x].name}</td>}
-        {blueOperatives[x] && <td key={'blue' + x} onClick={() => setSelectedPlayer(blueOperatives[x])} >{blueOperatives[x].name}</td>}
+        {redOperatives[x] ? <td key={'red' + x} onClick={() => setSelectedPlayer(redOperatives[x])} >{redOperatives[x].name}</td> : <td className = 'noOperative'></td>}
+        {blueOperatives[x] ? <td key={'blue' + x} onClick={() => setSelectedPlayer(blueOperatives[x])} >{blueOperatives[x].name}</td> : <td className = 'noOperative'></td>}
       </tr>)
   }
 

@@ -1,4 +1,4 @@
-import { GameInfo, PlayerObject } from '../types/gameState'
+import { GameInfo, PlayerObject, TeamColour } from '../types/gameState'
 
 export const gameWon = (gameData: GameInfo): boolean => {
   if (gameData.gameState.win) {
@@ -59,4 +59,16 @@ export const gamesCurrentTurnHasAHint = (gameData: GameInfo): boolean => {
 export const getCurrentTurnsSpymatersName = (gameData: GameInfo): PlayerObject => {
   console.log(gameData.players.find(player => player.team === gameData.gameState.teamTurn && player.spymaster))
   return gameData.players.find(player => player.team === gameData.gameState.teamTurn && player.spymaster)
+}
+
+export const getTeamForNewPlayer = (gameData: GameInfo): TeamColour => {
+  let team: TeamColour
+  if (gameData.settings.gameplayMode !== 'tabletop') {
+    if (gameData.players.filter((person) => person.team === 'red').length <= gameData.players.filter((person) => person.team === 'blue').length) {
+      team = 'red'
+    } else {
+      team = 'blue'
+    }
+  }
+  return team
 }

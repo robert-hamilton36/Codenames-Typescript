@@ -1,21 +1,10 @@
-import { useUserContext } from '../contexts/UserContext'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import { GameInfo, PlayerObject, TeamColour, User } from '../types/gameState'
+import { useUserContext } from '../contexts/UserContext'
 import { firestore } from '../contexts/FirebaseContext'
-
-const getNewPlayersTeam = (data): TeamColour => {
-  let team: TeamColour
-  if (data.data().settings.gameplayMode !== 'tabletop') {
-    if (data.data().players.filter((person) => person.team === 'red').length <= data.data().players.filter((person) => person.team === 'Blue').length) {
-      team = 'red'
-    } else {
-      team = 'blue'
-    }
-  }
-  return team
-}
+import { getTeamForNewPlayer } from '../utility/gameStateInfoFunctions'
 
 export const joinGameActions = (firestore: firestore): JoinGameActionReturn => {
   const { setGameId } = useUserContext()
@@ -31,7 +20,8 @@ export const joinGameActions = (firestore: firestore): JoinGameActionReturn => {
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
         .then(data => {
-          const team: TeamColour = getNewPlayersTeam(data)
+          const gameState = data.data() as GameInfo
+          const team: TeamColour = getTeamForNewPlayer(gameState)
           const playerObj: PlayerObject = { ...user, team }
           transaction.update(ref, { players: firebase.firestore.FieldValue.arrayUnion(playerObj) })
           return data
@@ -76,7 +66,7 @@ export const joinGameActions = (firestore: firestore): JoinGameActionReturn => {
   }
 }
 
-type Data = firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
+// type Data = firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
 
 export interface JoinGameActionReturn {
   createGame: (newGame: GameInfo) => Promise<void>

@@ -15,7 +15,7 @@ export const joinGameActions = (firestore: firestore): JoinGameActionReturn => {
       .then(data => setGameId(data.id))
   }
 
-  const joinGame = (user: User, gameId:string) => {
+  const joinGame = (user: User, gameId: string) => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
@@ -29,7 +29,7 @@ export const joinGameActions = (firestore: firestore): JoinGameActionReturn => {
     })
   }
 
-  const leaveGame = (userId:string, gameId:string) => {
+  const leaveGame = (userId: string, gameId: string) => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
@@ -41,12 +41,12 @@ export const joinGameActions = (firestore: firestore): JoinGameActionReturn => {
       .then(() => setGameId(''))
   }
 
-  const deleteGame = (gameId:string) => {
+  const deleteGame = (gameId: string) => {
     return firestore.collection('Games').doc(gameId)
       .delete()
   }
 
-  const kickPlayer = (userId:string, gameId:string) => {
+  const kickPlayer = (userId: string, gameId: string) => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)

@@ -1,9 +1,9 @@
 import React from 'react'
-import { WordObj } from '../../types/gameState'
+import { WordList } from '../../types/gameState'
 import { WordCard } from './WordCard'
 
-interface IProps {
-  wordList: WordObj[]
+interface Props {
+  wordList: WordList
 }
 
 const makeArrayFromWordListObject = (wordList) => {
@@ -15,7 +15,7 @@ const makeArrayFromWordListObject = (wordList) => {
   return newArray
 }
 
-export const DisplayWordGrid: React.FC<IProps> = ({ wordList }) => {
+export const DisplayWordGrid: React.FC<Props> = ({ wordList }) => {
   const wordListArray = makeArrayFromWordListObject(wordList)
   return (
     <>

@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 import Timestamp = firebase.firestore.Timestamp
 
-export interface GameInfo {
+interface GameInfo {
   gameState: GameState,
   host: User
   messages: Messages
@@ -9,7 +9,7 @@ export interface GameInfo {
   settings: Settings
 }
 
-export interface User {
+interface User {
   name: string,
   uid: string
 }
@@ -21,9 +21,9 @@ interface GameState {
   hint?: Hint,
   teamPoints: TeamPoints,
   teamTurn: 'red' | 'blue',
-  votes: Votes[],
+  votes: VoteObject[],
   win?: Team,
-  words: WordObj[],
+  words: WordList,
 }
 
 interface Hint {
@@ -31,12 +31,12 @@ interface Hint {
   numberOfWords: number
 }
 
-export interface TeamPoints {
+interface TeamPoints {
   blue: number,
   red: number
 }
 
-interface Votes {
+interface VoteObject {
   locked: boolean,
   player: User,
   wordObj: WordObj
@@ -55,7 +55,7 @@ interface Messages {
   red?: MessageObj[]
 }
 
-export interface MessageObj {
+interface MessageObj {
   message: string,
   time?: Timestamp,
   user: PlayerObject
@@ -79,3 +79,31 @@ interface Settings {
 }
 
 type Team = 'red' | 'blue'
+
+interface WordList{
+  0: WordObj
+  1: WordObj
+  2: WordObj
+  3: WordObj
+  4: WordObj
+  5: WordObj
+  6: WordObj
+  7: WordObj
+  8: WordObj
+  9: WordObj
+  10: WordObj
+  11: WordObj
+  12: WordObj
+  13: WordObj
+  14: WordObj
+  15: WordObj
+  16: WordObj
+  17: WordObj
+  18: WordObj
+  19: WordObj
+  20: WordObj
+  21: WordObj
+  22: WordObj
+  23: WordObj
+  24: WordObj
+}

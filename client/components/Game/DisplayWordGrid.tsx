@@ -6,11 +6,21 @@ interface IProps {
   wordList: WordObj[]
 }
 
+const makeArrayFromWordListObject = (wordList) => {
+  const newArray = []
+  for (const x in wordList) {
+    newArray.push(wordList[x])
+  }
+
+  return newArray
+}
+
 export const DisplayWordGrid: React.FC<IProps> = ({ wordList }) => {
+  const wordListArray = makeArrayFromWordListObject(wordList)
   return (
     <>
       <div className="board">
-        {wordList.map((word) => <WordCard key={word.word} word={word}/>)}
+        {wordListArray.map((word) => <WordCard key={word.word} word={word}/>)}
       </div>
     </>
   )

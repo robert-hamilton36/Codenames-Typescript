@@ -1,6 +1,6 @@
 import { boardKeyCreator } from './boardKeyCreator'
 // eslint-disable-next-line import/no-unresolved
-import { User, GameInfo, TeamPoints, GameState } from '../types/gameState'
+import { User, GameInfo, TeamPoints, GameState, WordList } from '../types/gameState'
 
 export const createGameObject = (user: User, teams: Teams, settings: Settings, listWords: string[]): GameInfo => {
   const { boardKey, firstTurnTeam } = boardKeyCreator()
@@ -18,9 +18,10 @@ export const createGameObject = (user: User, teams: Teams, settings: Settings, l
     messages[team] = []
   })
 
-  const boardObject = new Array(listWords.length)
+  // const boardObject = new Array(listWords.length)
+  const boardObject = {}
   for (const x in listWords) {
-    boardObject[x] = { index: parseInt(x), word: listWords[x], key: boardKey[x], revealed: false }
+    boardObject[x] = { word: listWords[x], key: boardKey[x], revealed: false }
   }
 
   const newGameObject: GameInfo = {
@@ -30,7 +31,7 @@ export const createGameObject = (user: User, teams: Teams, settings: Settings, l
       teamPoints: teamPoints,
       teamTurn: firstTurnTeam,
       votes: [],
-      words: boardObject
+      words: boardObject as WordList
     },
     host: user,
     messages: messages,
@@ -64,9 +65,9 @@ export const restartGameState = (listWords: string[], teams = ['red', 'blue']): 
     teamPoints[team] = 0
   })
 
-  const boardObject = new Array(listWords.length)
+  const boardObject = {}
   for (const x in listWords) {
-    boardObject[x] = { index: parseInt(x), word: listWords[x], key: boardKey[x], revealed: false }
+    boardObject[x] = { word: listWords[x], key: boardKey[x], revealed: false }
   }
 
   const gameState: GameState = {
@@ -75,7 +76,7 @@ export const restartGameState = (listWords: string[], teams = ['red', 'blue']): 
     teamPoints: teamPoints,
     teamTurn: firstTurnTeam,
     votes: [],
-    words: boardObject
+    words: boardObject as WordList
   }
 
   return { gameState, scoresForWin }

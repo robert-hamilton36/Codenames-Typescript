@@ -10,14 +10,13 @@ import { usePageNumber } from '../hooks/usePageNumber'
 export const Lobby: React.FC = () => {
   const games = useFirestoreCollectionSubscriber('Games')
   const [gameToJoin, setGameToJoin] = useState<string>(null)
-  const { pageNumber, nextPage, previousPage } = usePageNumber(2)
+  const { pageNumber, nextPage, previousPage } = usePageNumber(3)
   const { joinGame } = useJoinGameActions()
   const { user, setGameId } = useUserContext()
   const history = useHistory()
 
   const handleJoinGame = () => {
-    console.log(user)
-    console.log(gameToJoin)
+    nextPage()
     return joinGame(user, gameToJoin)
       .then(() => setGameId(gameToJoin))
       .then(() => history.push('/game'))
@@ -36,6 +35,9 @@ export const Lobby: React.FC = () => {
 
   if (pageNumber === 2) {
     handleJoinGame()
+  }
+
+  if (pageNumber === 3) {
     return (<h1>Loading ...</h1>)
   }
 }

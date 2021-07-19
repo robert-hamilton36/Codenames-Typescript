@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
-import { useUserContext, useUserActions } from '../../../contexts/UserContext'
-import { GameInfo } from '../../../types/gameState'
-import { gameStarted, gameWon, usersTeamsTurn } from '../../../utility/gameStateInfoFunctions'
+import { useUserContext, useUserActions } from '../../contexts/UserContext'
+import { GameInfo } from '../../types/gameState'
+import { gameStarted, gameWon, usersTeamsTurn } from '../../utility/gameStateInfoFunctions'
 import { OperativeTurnActions } from './OperativeTurnActions'
 import { SpymasterTurnActions } from './SpymasterTurnActions'
 

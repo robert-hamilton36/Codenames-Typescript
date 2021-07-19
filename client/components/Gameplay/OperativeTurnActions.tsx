@@ -1,6 +1,6 @@
 import React from 'react'
-import { GameInfo } from '../../../types/gameState'
-import { gameIsTabletopMode, gamesCurrentTurnHasAHint, getCurrentTurnsSpymatersName, voteSystemIsIndividualVote } from '../../../utility/gameStateInfoFunctions'
+import { GameInfo } from '../../types/gameState'
+import { gameIsTabletopMode, gamesCurrentTurnHasAHint, getCurrentTurnsSpymatersName, voteSystemIsIndividualVote } from '../../utility/gameStateInfoFunctions'
 
 export const OperativeTurnActions: React.FC<Props> = ({ gameData }) => {
   if (gameIsTabletopMode(gameData)) {

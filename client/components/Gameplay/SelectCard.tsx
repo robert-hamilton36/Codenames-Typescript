@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelectedCard } from '../../../contexts/SelectedCardContext'
+import { useSelectedCard } from '../../contexts/SelectedCardContext'
 
 export const SelectCard: React.FC = () => {
   const { selectedCard } = useSelectedCard()

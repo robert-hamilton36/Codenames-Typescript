@@ -1,6 +1,6 @@
 import React from 'react'
-import { GameInfo } from '../../../types/gameState'
-import { gamesCurrentTurnHasAHint, voteSystemIsIndividualVote, voteSystemIsSpymasterLocksIn } from '../../../utility/gameStateInfoFunctions'
+import { GameInfo } from '../../types/gameState'
+import { gamesCurrentTurnHasAHint, voteSystemIsIndividualVote, voteSystemIsSpymasterLocksIn } from '../../utility/gameStateInfoFunctions'
 import { MakeHint } from './MakeHint'
 import { SelectCard } from './SelectCard'
 

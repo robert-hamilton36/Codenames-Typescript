@@ -14,6 +14,13 @@ export const usersTeamsTurn = (gameData: GameInfo, user: PlayerObject): boolean 
   return false
 }
 
+export const getNextTurnsTeam = (gameData: GameInfo): Team => {
+  if (gameData.gameState.teamTurn === 'red') {
+    return 'blue'
+  }
+  return 'red'
+}
+
 export const gameStarted = (gameData: GameInfo): boolean => {
   if (gameData.gameState.gameStart) {
     return true

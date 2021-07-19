@@ -3,7 +3,7 @@ import 'firebase/firestore'
 
 import { firestore } from '../contexts/FirebaseContext'
 import { GameInfo, Team } from '../types/gameState'
-import { calculatePointsFromDataAndCurrentRevealedWord, checkForWin } from '../utility/gameStateInfoFunctions'
+import { calculatePointsFromDataAndCurrentRevealedWord, checkForWin, getNextTurnsTeam } from '../utility/gameStateInfoFunctions'
 
 export const guessActions = (firestore: firestore): GuessActionsReturn => {
   const guessRightContinueTurn = (gameId: string) => {
@@ -16,11 +16,12 @@ export const guessActions = (firestore: firestore): GuessActionsReturn => {
     })
   }
 
-  const endTurn = (gameId: string, nextTeam: Team) => {
+  const endTurn = (gameId: string) => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
-        .then(() => {
+        .then((data) => {
+          const nextTeam = getNextTurnsTeam(data.data() as GameInfo)
           transaction.update(ref, { 'gameState.hint': firebase.firestore.FieldValue.delete() })
           transaction.update(ref, { 'gameState.guessesLeft': 0 })
           return transaction.update(ref, { 'gameState.teamTurn': nextTeam })

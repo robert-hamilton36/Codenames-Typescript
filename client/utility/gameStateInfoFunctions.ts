@@ -1,4 +1,4 @@
-import { GameInfo, PlayerObject, TeamColour } from '../types/gameState'
+import { GameInfo, PlayerObject, Team, TeamColour, TeamPoints } from '../types/gameState'
 
 export const gameWon = (gameData: GameInfo): boolean => {
   if (gameData.gameState.win) {
@@ -71,4 +71,41 @@ export const getTeamForNewPlayer = (gameData: GameInfo): TeamColour => {
     }
   }
   return team
+}
+
+export const checkForWin = (gameData: GameInfo): Team | false => {
+  for (const x of gameData.settings.teams) {
+    // this is called before the points change, so it checks weather the current points + 1 === scoreToWin
+    if (gameData.gameState.teamPoints[x] + 1 === gameData.settings.scoresForWin[x]) {
+      return x
+    }
+  }
+  return false
+}
+
+export const calculatePointsFromDataAndCurrentRevealedWord = (gameData: GameInfo, index: number): TeamPoints => {
+  let Blue = 0
+  let Red = 0
+  for (const x in gameData.gameState.words) {
+    const word = gameData.gameState.words[x]
+    if (word.revealed) {
+      if (word.key === 'blue') {
+        Blue++
+      } else if (word.key === 'red') {
+        Red++
+      }
+    }
+  }
+  // works out which team get points for the current word that is being revealed
+  const currentWord = gameData.gameState.words[index]
+  if (currentWord.key === 'blue') {
+    Blue++
+  } else if (currentWord.key === 'red') {
+    Red++
+  }
+
+  return {
+    blue: Blue,
+    red: Red
+  }
 }

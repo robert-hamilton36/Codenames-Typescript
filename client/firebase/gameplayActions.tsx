@@ -58,7 +58,7 @@ export const gameplayActions = (firestore: firestore): GameplayActionReturn => {
   }
 }
 
-interface GameplayActionReturn {
+export interface GameplayActionReturn {
   startGame: (gameId: string) => Promise<void>
   restartNewGame: (gameId: string, gameState: GameState, scoresForWin: TeamPoints) => Promise<firebase.firestore.Transaction>
   setHint: (gameId: string, hint: Hint) => Promise<firebase.firestore.Transaction>

@@ -67,7 +67,7 @@ export const voteActions = (firestore: firestore): VoteActionReturn => {
   }
 }
 
-interface VoteActionReturn {
+export interface VoteActionReturn {
   clearVotes: (gameId: string) => Promise<void>
   addPlayerVote: (gameId: string, voteObj: VoteObject) => Promise<firebase.firestore.Transaction>
   removePlayersVote: (gameId: string, playerUid: string) => Promise<firebase.firestore.Transaction>

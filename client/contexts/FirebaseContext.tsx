@@ -4,6 +4,9 @@ import 'firebase/firestore'
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { joinGameActions, JoinGameActionReturn } from '../firebase/joinGameActions'
 import { playerActions, playerActionReturn } from '../firebase/playerActions'
+import { gameplayActions, GameplayActionReturn } from '../firebase/gameplayActions'
+import { guessActions, GuessActionsReturn } from '../firebase/guessActions'
+import { voteActions, VoteActionReturn } from '../firebase/voteActions'
 import { GameInfo } from '../types/gameState'
 
 interface ProvidedContextFirebase {
@@ -107,5 +110,23 @@ export const useJoinGameActions = (): JoinGameActionReturn => {
 export const usePlayerActions = (): playerActionReturn => {
   const { firestore } = useFirebase()
   const actions = playerActions(firestore)
+  return actions
+}
+
+export const useGameplayActions = (): GameplayActionReturn => {
+  const { firestore } = useFirebase()
+  const actions = gameplayActions(firestore)
+  return actions
+}
+
+export const useGuessActions = (): GuessActionsReturn => {
+  const { firestore } = useFirebase()
+  const actions = guessActions(firestore)
+  return actions
+}
+
+export const useVoteActions = (): VoteActionReturn => {
+  const { firestore } = useFirebase()
+  const actions = voteActions(firestore)
   return actions
 }

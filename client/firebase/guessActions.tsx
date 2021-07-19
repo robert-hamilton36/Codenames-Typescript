@@ -54,7 +54,7 @@ export const guessActions = (firestore: firestore): GuessActionsReturn => {
   }
 }
 
-interface GuessActionsReturn {
+export interface GuessActionsReturn {
   guessRightContinueTurn: (gameId: string) => Promise<firebase.firestore.Transaction>
   endTurn: (gameId: string, nextTeam: Team) => Promise<firebase.firestore.Transaction>
   changeWordToRevealed: (gameId: string, wordIndex: number) => Promise<firebase.firestore.Transaction>

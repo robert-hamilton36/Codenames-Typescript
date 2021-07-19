@@ -6,7 +6,7 @@
   grid-template-areas:
   "NameId GameInfo Score"
   "Players Board Chat"
-  "Players Actions Chat"
+  "Start Actions Chat"
   ;
 
   height: 100vh;
@@ -48,4 +48,10 @@
 .actions { 
   justify-self: center;
   grid-area: Actions; 
+}
+
+.startGame {
+  grid-area: Start; 
+  align-self: center;
+  justify-self: center;
 }

@@ -7,13 +7,17 @@ import { PlayerInfo } from '../components/PlayerInfo/PlayerInfo'
 import { GameInfoContainer } from '../components/Game/GameInfoContainer'
 
 import { GameInfo } from '../types/gameState'
-import { Gameplay } from '../components/Game/Gameplay/Gameplay'
+import { Gameplay } from '../components/Gameplay/Gameplay'
+import { StartGameButton } from '../components/Game/StartGameButton'
 
 export const LargeGame: React.FC<Props> = ({ data }) => {
   return (
     <div className='largeGameContainer'>
       <div className="players">
         <PlayerInfo playerList={data.players} tableTop={false}/>
+      </div>
+      <div className='startGame'>
+        <StartGameButton/>
       </div>
       <div className='gameInfo'>
         <GameInfoContainer gameState={data.gameState}/>

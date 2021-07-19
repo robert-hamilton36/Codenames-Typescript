@@ -17,7 +17,7 @@ export const LargeGame: React.FC<Props> = ({ data }) => {
         <PlayerInfo playerList={data.players} tableTop={false}/>
       </div>
       <div className='startGame'>
-        <StartGameButton/>
+        <StartGameButton gameStart={data.gameState.gameStart}/>
       </div>
       <div className='gameInfo'>
         <GameInfoContainer gameState={data.gameState}/>

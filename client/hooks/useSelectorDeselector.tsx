@@ -22,6 +22,8 @@ export const useWordSelectorDeselector = (): [WordType, (Value: WordType) => voi
   function setCustomValue (newValue: WordType) {
     if (newValue?.word === value?.word) {
       setValue(null)
+    } else if (newValue?.revealed) {
+      setValue(null)
     } else {
       setValue(newValue)
     }

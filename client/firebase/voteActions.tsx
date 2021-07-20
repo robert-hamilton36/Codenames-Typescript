@@ -16,9 +16,10 @@ export const voteActions = (firestore: firestore): VoteActionReturn => {
       return transaction.get(ref)
         .then((data) => {
           const votesArray = data.data().gameState.votes
-          // checks to see if player has already voted
-          if (votesArray.find((vote) => vote.player.ud === voteObj.player.uid)) {
+          // checks to see if player has already voted and remove old vote
+          if (votesArray.find((vote) => vote.player.uid === voteObj.player.uid)) {
             const filteredVoteArray = votesArray.filter(vote => vote.player.uid !== voteObj.player.uid)
+            filteredVoteArray.push(voteObj)
             return transaction.update(ref, { 'gameState.votes': filteredVoteArray })
           } else {
             return transaction.update(ref, { 'gameState.votes': firebase.firestore.FieldValue.arrayUnion(voteObj) })
@@ -38,7 +39,7 @@ export const voteActions = (firestore: firestore): VoteActionReturn => {
     })
   }
 
-  const invertLockStatusForPlayersVote = (gameId: string, voteObj: VoteObject, userId: string) => {
+  const invertLockStatusForPlayersVote = (gameId: string, userId: string) => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
@@ -71,5 +72,5 @@ export interface VoteActionReturn {
   clearVotes: (gameId: string) => Promise<void>
   addPlayerVote: (gameId: string, voteObj: VoteObject) => Promise<firebase.firestore.Transaction>
   removePlayersVote: (gameId: string, playerUid: string) => Promise<firebase.firestore.Transaction>
-  invertLockStatusForPlayersVote: (gameId: string, voteObj: VoteObject, userId: string) => Promise<firebase.firestore.Transaction>
+  invertLockStatusForPlayersVote: (gameId: string, userId: string) => Promise<firebase.firestore.Transaction>
 }

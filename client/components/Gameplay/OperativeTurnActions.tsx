@@ -1,4 +1,6 @@
 import React from 'react'
+
+import { Vote } from './Vote'
 import { GameInfo } from '../../types/gameState'
 import { gameIsTabletopMode, gamesCurrentTurnHasAHint, getCurrentTurnsSpymatersName, voteSystemIsIndividualVote } from '../../utility/gameStateInfoFunctions'
 
@@ -14,13 +16,14 @@ export const OperativeTurnActions: React.FC<Props> = ({ gameData }) => {
 
   if (!gamesCurrentTurnHasAHint(gameData)) {
     return (
-      <h1>Waiting for hint from {getCurrentTurnsSpymatersName(gameData).name} </h1>
+      <h1>Waiting for hint from {getCurrentTurnsSpymatersName(gameData)?.name} </h1>
     )
   }
 
   if (voteSystemIsIndividualVote(gameData)) {
     return (
-      <h1>vote method</h1>
+      // <h1>vote method</h1>
+      <Vote votes={gameData.gameState.votes}/>
     )
   }
 

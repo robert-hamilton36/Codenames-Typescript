@@ -43,7 +43,7 @@ interface VoteObject {
 }
 
 interface WordObj{
-  index?: number
+  index: number
   key: 'neutral' | 'red' | 'blue' | 'assassin',
   revealed: boolean,
   word: string,

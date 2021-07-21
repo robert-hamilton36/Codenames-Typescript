@@ -21,7 +21,7 @@ export const createGameObject = (user: User, teams: Teams, settings: Settings, l
   // const boardObject = new Array(listWords.length)
   const boardObject = {}
   for (const x in listWords) {
-    boardObject[x] = { word: listWords[x], key: boardKey[x], revealed: false }
+    boardObject[x] = { word: listWords[x], key: boardKey[x], revealed: false, index: x }
   }
 
   const newGameObject: GameInfo = {

@@ -5,11 +5,7 @@ import { WordObj } from '../../types/gameState'
 import { useUserContext } from '../../contexts/UserContext'
 import { getClassNameForWordCard } from '../../utility/getClassNameForWordCard'
 
-interface IProps {
-  word: WordObj
-}
-
-export const WordCard: React.FC<IProps> = ({ word }) => {
+export const WordCard: React.FC<Props> = ({ word }) => {
   const { selectedCard, setSelectedCard } = useSelectedCard()
   const { user } = useUserContext()
 
@@ -19,4 +15,8 @@ export const WordCard: React.FC<IProps> = ({ word }) => {
       <h1>{word.word}</h1>
     </div>
   )
+}
+
+interface Props {
+  word: WordObj
 }

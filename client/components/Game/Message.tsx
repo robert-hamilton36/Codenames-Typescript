@@ -44,7 +44,7 @@ interface Props {
     user: PlayerObject
     message: string
   }
-  teamView: 'red' | 'blue' | 'general'
+  teamView: TeamMessages
 }
 
 type TeamMessages = 'red' | 'blue' | 'general'

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { PlayerObject } from '../../types/gameState'
 import { DeviceList } from './DeviceList'
 import { PlayerList } from './PlayerList'

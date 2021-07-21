@@ -1,13 +1,9 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+
 import { useSettingsReducer, State } from '../../hooks/useSettingsReducer'
 import { GamePlayMode } from './GamePlayMode'
 import { VoteSystem } from './VoteSystem'
-// import { Settings } from '../../utility/createNewGameObject'
-
-// interface Props {
-//   confirmSettings: React.Dispatch<React.SetStateAction<Settings>>
-// }
 
 export const GetSettings: React.FC<Props> = ({ confirmSettings, nextPage }) => {
   const { settings, settingsDispatcher } = useSettingsReducer()
@@ -42,7 +38,6 @@ export const GetSettings: React.FC<Props> = ({ confirmSettings, nextPage }) => {
 interface Props {
   confirmSettings: React.Dispatch<React.SetStateAction<Settings>>
   nextPage: () => void
-  // previousPage: () => void
 }
 
 interface Settings {

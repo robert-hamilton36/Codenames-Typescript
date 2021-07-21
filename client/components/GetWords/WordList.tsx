@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+
 import { getWords } from '../../contexts/FirebaseContext'
 import { shuffleArray } from '../../utility/shuffleArray'
 import { Word } from './Word'

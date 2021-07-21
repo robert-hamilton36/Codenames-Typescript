@@ -1,11 +1,10 @@
+import React, { useState } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import React, { useState } from 'react'
 
 import { Message } from './Message'
 import { useUserContext } from '../../contexts/UserContext'
 import { GameInfo } from '../../types/gameState'
-// import { writeNewMessage } from '../../firebase/messageActions'
 import { useFirebase } from '../../contexts/FirebaseContext'
 
 export const MessageContainer: React.FC<Props> = ({ game }) => {

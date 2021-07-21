@@ -1,7 +1,8 @@
 import React from 'react'
+
 import { TeamPoints } from '../../types/gameState'
 
-export const Score:React.FC<IProps> = ({ teamPoints }) => {
+export const Score:React.FC<Props> = ({ teamPoints }) => {
   return (
     <table>
       <tbody>
@@ -14,4 +15,6 @@ export const Score:React.FC<IProps> = ({ teamPoints }) => {
   )
 }
 
-type IProps = { teamPoints: TeamPoints }
+interface Props {
+  teamPoints: TeamPoints
+}

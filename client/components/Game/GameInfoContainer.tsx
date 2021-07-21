@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { GameState } from '../../types/gameState'
 import { Hint } from './Hint'
 
@@ -18,4 +19,6 @@ export const GameInfoContainer:React.FC<Props> = ({ gameState }) => {
   )
 }
 
-type Props = {gameState: GameState}
+interface Props {
+  gameState: GameState
+}

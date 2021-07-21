@@ -2,7 +2,7 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import { firestore } from '../contexts/FirebaseContext'
-import { GameInfo, Team } from '../types/gameState'
+import { GameInfo } from '../types/gameState'
 import { calculatePointsFromDataAndCurrentRevealedWord, checkForWin, getNextTurnsTeam } from '../utility/gameStateInfoFunctions'
 
 export const guessActions = (firestore: firestore): GuessActionsReturn => {
@@ -74,7 +74,7 @@ export const guessActions = (firestore: firestore): GuessActionsReturn => {
 }
 
 export interface GuessActionsReturn {
-  endTurn: (gameId: string, nextTeam: Team) => Promise<firebase.firestore.Transaction>
+  endTurn: (gameId: string) => Promise<firebase.firestore.Transaction>
   changeWordToRevealed: (gameId: string, wordIndex: number) => Promise<firebase.firestore.Transaction>
 }
 

@@ -6,14 +6,32 @@ import { GameInfo, Team } from '../types/gameState'
 import { calculatePointsFromDataAndCurrentRevealedWord, checkForWin, getNextTurnsTeam } from '../utility/gameStateInfoFunctions'
 
 export const guessActions = (firestore: firestore): GuessActionsReturn => {
-  const guessRightContinueTurn = (gameId: string) => {
-    const ref = firestore.collection('Games').doc(gameId)
-    return firestore.runTransaction((transaction) => {
-      return transaction.get(ref)
-        .then(() => {
-          return transaction.update(ref, { 'gameState.guessesLeft': firebase.firestore.FieldValue.increment(-1) })
-        })
-    })
+  const __guessRightContinueTurn = (ref, transaction) => {
+    console.log('__guessRightContinueTurn')
+    return transaction.update(ref, { 'gameState.guessesLeft': firebase.firestore.FieldValue.increment(-1) })
+  }
+
+  const __endTurn = (ref, transaction, nextTeam) => {
+    console.log('__endTurn')
+    transaction.update(ref, { 'gameState.hint': firebase.firestore.FieldValue.delete() })
+    transaction.update(ref, { 'gameState.guessesLeft': 0 })
+    return transaction.update(ref, { 'gameState.teamTurn': nextTeam })
+  }
+
+  const calculateGuessResults = (gameData: GameInfo, votedWordIndex: number, ref, transaction) => {
+    console.log('calculateGuessResults')
+    const nextTeam = getNextTurnsTeam(gameData)
+    const votedWord = gameData.gameState.words[votedWordIndex]
+    if (votedWord.key === 'assassin') {
+      return transaction.update(ref, { 'gameState.win': nextTeam })
+    }
+
+    if (votedWord.key !== gameData.gameState.teamTurn || gameData.gameState.guessesLeft === 1) {
+      // end turn as wrong card selected, or this was the last guessesLeft
+      __endTurn(ref, transaction, nextTeam)
+    } else {
+      __guessRightContinueTurn(ref, transaction)
+    }
   }
 
   const endTurn = (gameId: string) => {
@@ -43,20 +61,31 @@ export const guessActions = (firestore: firestore): GuessActionsReturn => {
             transaction.update(ref, { 'gameState.gameStart': false })
             return transaction.update(ref, { 'gameState.win': true })
           }
+          calculateGuessResults(data.data() as GameInfo, wordIndex, ref, transaction)
           return null
         })
     })
   }
 
   return {
-    guessRightContinueTurn,
     endTurn,
     changeWordToRevealed
   }
 }
 
 export interface GuessActionsReturn {
-  guessRightContinueTurn: (gameId: string) => Promise<firebase.firestore.Transaction>
   endTurn: (gameId: string, nextTeam: Team) => Promise<firebase.firestore.Transaction>
   changeWordToRevealed: (gameId: string, wordIndex: number) => Promise<firebase.firestore.Transaction>
 }
+
+// old functions from first revision
+// guessRightContinueTurn: (gameId: string) => Promise<firebase.firestore.Transaction>
+// const guessRightContinueTurn = (gameId: string) => {
+//   const ref = firestore.collection('Games').doc(gameId)
+//   return firestore.runTransaction((transaction) => {
+//     return transaction.get(ref)
+//       .then(() => {
+//         return transaction.update(ref, { 'gameState.guessesLeft': firebase.firestore.FieldValue.increment(-1) })
+//       })
+//   })
+// }

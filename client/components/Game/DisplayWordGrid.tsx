@@ -1,22 +1,11 @@
 import React from 'react'
+
 import { WordList } from '../../types/gameState'
+import { makeArrayFromObject } from '../../utility/makeArrayFromObject'
 import { WordCard } from './WordCard'
 
-interface Props {
-  wordList: WordList
-}
-
-const makeArrayFromWordListObject = (wordList) => {
-  const newArray = []
-  for (const x in wordList) {
-    newArray.push(wordList[x])
-  }
-
-  return newArray
-}
-
 export const DisplayWordGrid: React.FC<Props> = ({ wordList }) => {
-  const wordListArray = makeArrayFromWordListObject(wordList)
+  const wordListArray = makeArrayFromObject(wordList)
   return (
     <>
       <div className="board">
@@ -24,4 +13,8 @@ export const DisplayWordGrid: React.FC<Props> = ({ wordList }) => {
       </div>
     </>
   )
+}
+
+interface Props {
+  wordList: WordList
 }

@@ -8,6 +8,7 @@ import { gameplayActions, GameplayActionReturn } from '../firebase/gameplayActio
 import { guessActions, GuessActionsReturn } from '../firebase/guessActions'
 import { voteActions, VoteActionReturn } from '../firebase/voteActions'
 import { GameInfo } from '../types/gameState'
+import { messageActions, MessageReturn } from '../firebase/messageActions'
 
 interface ProvidedContextFirebase {
   app: app,
@@ -128,5 +129,11 @@ export const useGuessActions = (): GuessActionsReturn => {
 export const useVoteActions = (): VoteActionReturn => {
   const { firestore } = useFirebase()
   const actions = voteActions(firestore)
+  return actions
+}
+
+export const useMessageActions = (): MessageReturn => {
+  const { firestore } = useFirebase()
+  const actions = messageActions(firestore)
   return actions
 }

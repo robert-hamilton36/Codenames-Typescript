@@ -69,7 +69,7 @@ interface PlayerObject {
   uid: string
 }
 
-type TeamColour = 'red' | 'blue' | undefined
+type TeamColour = 'red' | 'blue'
 
 interface Settings {
   gameplayMode: 'individual' | 'tabletop',
@@ -79,6 +79,8 @@ interface Settings {
 }
 
 type Team = 'red' | 'blue'
+
+type MessageTeams = 'red' | 'blue' | 'general'
 
 interface WordList{
   0: WordObj

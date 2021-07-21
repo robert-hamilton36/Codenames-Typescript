@@ -1,31 +1,18 @@
 import React from 'react'
-import 'firebase/firestore'
-import firebase from 'firebase/app'
 
-import { MessageObj, PlayerObject } from '../../types/gameState'
+import { PlayerObject, MessageTeams } from '../../types/gameState'
 import { useUserContext } from '../../contexts/UserContext'
-import { useFirebase } from '../../contexts/FirebaseContext'
+import { useMessageActions } from '../../contexts/FirebaseContext'
 
 export const Message: React.FC<Props> = ({ messageObj, teamView }) => {
-  const { user } = useUserContext()
+  const { user, gameId } = useUserContext()
   const owner = messageObj.user.uid === user.uid || user.host
-  const { firestore } = useFirebase()
-
-  const deleteMessages = (gameId: string, messageObj: MessageObj, team: TeamMessages): Promise<firebase.firestore.Transaction> => {
-    const ref = firestore.collection('Games').doc(gameId)
-    return firestore.runTransaction((transaction) => {
-      return transaction.get(ref)
-        .then(() => {
-          const path = 'messages.' + team
-          return transaction.update(ref, { [path]: firebase.firestore.FieldValue.arrayRemove(messageObj) })
-        })
-    })
-  }
+  const { deleteMessage } = useMessageActions()
 
   const handleDelete = () => {
-    deleteMessages('3CGSsXSrXjiFisnASZe9', messageObj, teamView)
-    return null
+    return deleteMessage(gameId, messageObj, teamView)
   }
+
   return (
     <li className="message">
       <div>
@@ -44,7 +31,5 @@ interface Props {
     user: PlayerObject
     message: string
   }
-  teamView: TeamMessages
+  teamView: MessageTeams
 }
-
-type TeamMessages = 'red' | 'blue' | 'general'

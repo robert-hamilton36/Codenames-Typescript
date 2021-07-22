@@ -13,8 +13,7 @@ export const useUserActions = (): UserActions => {
   return userActions
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function UserProvider ({ children }) {
+export const UserProvider: React.FC<React.ReactNode> = ({ children }) => {
   const [user, userActions] = useNewUser()
   const [gameId, setGameId] = useState('')
 

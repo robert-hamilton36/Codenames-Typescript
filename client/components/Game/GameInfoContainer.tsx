@@ -4,6 +4,13 @@ import { GameState } from '../../types/gameState'
 import { Hint } from './Hint'
 
 export const GameInfoContainer:React.FC<Props> = ({ gameState }) => {
+  if (!gameState.gameStart) {
+    return (
+      <>
+        <h1>Waiting for game to start</h1>
+      </>
+    )
+  }
   if (gameState.win) {
     return (
       <div>

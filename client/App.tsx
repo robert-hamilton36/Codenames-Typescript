@@ -1,6 +1,6 @@
 import React from 'react'
-import { ErrorProvider } from './contexts/ErrorContext'
 
+import { ErrorProvider } from './contexts/ErrorContext'
 import { FirebaseProvider } from './contexts/FirebaseContext'
 import { SelectedCardProvider } from './contexts/SelectedCardContext'
 import { UserProvider } from './contexts/UserContext'

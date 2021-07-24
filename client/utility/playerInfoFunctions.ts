@@ -14,4 +14,24 @@ export const getOppositeRole = (selectedPlayer: PlayerObject): Role => {
   return 'spymaster'
 }
 
+export const bothTeamsHaveASpymasters = (players: PlayerObject[]): boolean => {
+  if (players.find(player => player.team === 'blue' && player.spymaster)) {
+    if (players.find(player => player.team === 'red' && player.spymaster)) {
+      return true
+    }
+  }
+
+  return false
+}
+
+export const bothTeamsHaveAtLeastTwoPlayers = (players: PlayerObject[]): boolean => {
+  if (players.filter((player) => player.team === 'red').length >= 2) {
+    if (players.filter((player) => player.team === 'blue').length >= 2) {
+      return true
+    }
+  }
+
+  return false
+}
+
 type Role = 'operative' | 'spymaster'

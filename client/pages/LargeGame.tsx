@@ -10,6 +10,7 @@ import { VoteTable } from '../components/Game/VoteTable'
 import { GameInfo } from '../types/gameState'
 import { Gameplay } from '../components/Gameplay/Gameplay'
 import { StartGameButton } from '../components/Game/StartGameButton'
+import { LeaveGameButton } from '../components/Game/LeaveGameButton'
 
 export const LargeGame: React.FC<Props> = ({ data }) => {
   return (
@@ -20,6 +21,7 @@ export const LargeGame: React.FC<Props> = ({ data }) => {
       </div>
       <div className='startGame'>
         <StartGameButton gameInfo={data}/>
+        <LeaveGameButton />
       </div>
       <div className='gameInfo'>
         <GameInfoContainer gameState={data.gameState}/>

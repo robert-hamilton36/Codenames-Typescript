@@ -5,6 +5,7 @@ import { MessageContainer } from '../components/Game/MessageContainer'
 import { Score } from '../components/Game/Score'
 import { PlayerInfo } from '../components/PlayerInfo/PlayerInfo'
 import { GameInfoContainer } from '../components/Game/GameInfoContainer'
+import { VoteTable } from '../components/Game/VoteTable'
 
 import { GameInfo } from '../types/gameState'
 import { Gameplay } from '../components/Gameplay/Gameplay'
@@ -15,6 +16,7 @@ export const LargeGame: React.FC<Props> = ({ data }) => {
     <div className='largeGameContainer'>
       <div className="players">
         <PlayerInfo playerList={data.players} tableTop={false}/>
+        <VoteTable votes={data.gameState.votes}/>
       </div>
       <div className='startGame'>
         <StartGameButton gameInfo={data}/>

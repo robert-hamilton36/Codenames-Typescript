@@ -4,7 +4,7 @@ import { getWords } from '../../contexts/FirebaseContext'
 import { shuffleArray } from '../../utility/shuffleArray'
 import { Word } from './Word'
 
-export const WordList: React.FC<Props> = ({ setFinalWordList, nextPage, previousPage }) => {
+export const WordList: React.FC<Props> = ({ setFinalWordList }) => {
   const [wordList, setWordList] = useState<string[]>([])
   const allWords = getWords()
 
@@ -32,7 +32,6 @@ export const WordList: React.FC<Props> = ({ setFinalWordList, nextPage, previous
 
   const handleSubmit = () => {
     setFinalWordList(wordList)
-    nextPage()
   }
 
   return (
@@ -40,7 +39,6 @@ export const WordList: React.FC<Props> = ({ setFinalWordList, nextPage, previous
       <ul>
         {wordList.map((word, idx) => <Word key={word + idx} word={word} setItem={setItem} getNewWord = {getNewSingleWord}/>)}
       </ul>
-      <button onClick={previousPage}>Back</button>
       <button onClick={handleSubmit}>Submit</button>
       <button onClick={getNewWords}>Get New Words</button>
     </div>
@@ -49,6 +47,4 @@ export const WordList: React.FC<Props> = ({ setFinalWordList, nextPage, previous
 
 interface Props {
   setFinalWordList: React.Dispatch<React.SetStateAction<string[]>>
-  nextPage: () => void
-  previousPage: () => void
 }

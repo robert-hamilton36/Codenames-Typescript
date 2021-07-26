@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { useJoinGameActions } from '../contexts/FirebaseContext'
@@ -23,17 +23,36 @@ export const CreateGame: React.FC = () => {
     history.push('/game')
   }
 
+  const handleHome = () => {
+    history.push('/')
+  }
+
+  useEffect(() => {
+    if (user.name !== '') {
+      nextPage()
+    }
+  }, [user, finalWordList, settings])
+
   if (pageNumber === 0) {
     return (
-      <AskName nextPage={nextPage} previousPage={previousPage} />
+      <>
+        <AskName />
+        <button onClick={handleHome}>Home</button>
+      </>
     )
   } else if (pageNumber === 1) {
     return (
-      <WordList setFinalWordList={setFinalWordList} nextPage={nextPage} previousPage={previousPage}/>
+      <>
+        <WordList setFinalWordList={setFinalWordList} />
+        <button onClick={previousPage}>Back</button>
+      </>
     )
   } else if (pageNumber === 2) {
     return (
-      <GetSettings confirmSettings={confirmSettings} nextPage={nextPage} />
+      <>
+        <GetSettings confirmSettings={confirmSettings} />
+        <button onClick={previousPage}>Back</button>
+      </>
     )
   }
   return (
@@ -41,11 +60,10 @@ export const CreateGame: React.FC = () => {
       <h1>Hello: {user.name}</h1>
       <h1>{settings?.gameplayMode}</h1>
       <h1>{settings?.voteSystem}</h1>
-      {/* {finalWordList && finalWordList.map(word => <h5 key={word}>{word}</h5>)} */}
-      {settings && <div>
+      <div>
         <button onClick={previousPage}>Back</button>
         <button onClick={handleCreate}>Create Game</button>
-      </div> }
+      </div>
     </>
   )
 }

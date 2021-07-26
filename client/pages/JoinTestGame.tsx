@@ -3,33 +3,50 @@ import { useHistory } from 'react-router-dom'
 
 import { AskName } from '../components/AskName'
 import { useJoinGameActions } from '../contexts/FirebaseContext'
-import { useUserActions, useUserContext } from '../contexts/UserContext'
+import { useUserContext } from '../contexts/UserContext'
 import { usePageNumber } from '../hooks/usePageNumber'
 
 export const JoinTestGame: React.FC = () => {
-  const { pageNumber, nextPage, previousPage } = usePageNumber(2)
+  const { pageNumber, nextPage, previousPage } = usePageNumber(1)
   const { joinGame } = useJoinGameActions()
   const { user, setGameId } = useUserContext()
-  const { makeHost } = useUserActions()
   const history = useHistory()
 
   const handleJoin = () => {
-    return joinGame(user, 'Test')
+    const newUser = {
+      ...user,
+      host: true
+    }
+    return joinGame(newUser, 'Test')
       .then(() => setGameId('Test'))
       .then(() => history.push('/game'))
   }
 
+  const handleHome = () => {
+    history.push('/')
+  }
+
   useEffect(() => {
-    makeHost(true)
-  }, [pageNumber])
+    console.log(user)
+    if (user.name !== '') {
+      nextPage()
+    }
+  }, [user])
 
   if (pageNumber === 0) {
     return (
-      <AskName nextPage={nextPage} previousPage={previousPage} />
+      <>
+        <AskName />
+        <button onClick={handleHome}>Home</button>
+      </>
     )
-  } else {
+  }
+  if (pageNumber === 1) {
     return (
-      <button onClick={handleJoin}>Join Game</button>
+      <>
+        <button onClick={handleJoin}>Join Game</button>
+        <button onClick={previousPage}>Back</button>
+      </>
     )
   }
 }

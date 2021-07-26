@@ -1,9 +1,8 @@
 import React from 'react'
 
-export const GameList: React.FC<Props> = ({ games, setGameToJoin, nextPage }) => {
+export const GameList: React.FC<Props> = ({ games, setGameToJoin }) => {
   const handleClick = (gameId) => {
     setGameToJoin(gameId)
-    nextPage()
   }
   return (
     <ul>
@@ -15,5 +14,4 @@ export const GameList: React.FC<Props> = ({ games, setGameToJoin, nextPage }) =>
 interface Props {
   games: string[]
   setGameToJoin: React.Dispatch<React.SetStateAction<string>>
-  nextPage: () => void
 }

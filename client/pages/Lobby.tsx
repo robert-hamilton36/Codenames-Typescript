@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { AskName } from '../components/AskName'
@@ -21,16 +21,38 @@ export const Lobby: React.FC = () => {
       .then(() => setGameId(gameToJoin))
       .then(() => history.push('/game'))
   }
+
+  const handleHome = () => {
+    history.push('/')
+  }
+
+  useEffect(() => {
+    console.log(gameToJoin)
+    if (user.name !== '') {
+      nextPage()
+    }
+  }, [user, gameToJoin])
+
   if (!games) {
     return (<h1>Loading ...</h1>)
   }
 
   if (pageNumber === 0) {
-    return <GameList games={games} setGameToJoin={setGameToJoin} nextPage={nextPage} />
+    return (
+      <>
+        <AskName />
+        <button onClick={handleHome}>Home</button>
+      </>
+    )
   }
 
   if (pageNumber === 1) {
-    return <AskName nextPage={nextPage} previousPage={previousPage}/>
+    return (
+      <>
+        <GameList games={games} setGameToJoin={setGameToJoin} />
+        <button onClick={previousPage}>Back</button>
+      </>
+    )
   }
 
   if (pageNumber === 2) {

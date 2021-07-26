@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useUserActions } from '../contexts/UserContext'
 import { validateName } from '../utility/validation'
 
-export const AskName: React.FC<Props> = ({ nextPage, previousPage }) => {
+export const AskName: React.FC = () => {
   const [name, setName] = useState('')
   const [error, setError] = useState('')
   const { setUser } = useUserActions()
@@ -15,9 +15,7 @@ export const AskName: React.FC<Props> = ({ nextPage, previousPage }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     if (validateName(name, setError)) {
-      setUser(name)
-      nextPage()
-      return null
+      return setUser(name)
     }
   }
 
@@ -27,14 +25,8 @@ export const AskName: React.FC<Props> = ({ nextPage, previousPage }) => {
       <form onSubmit={handleSubmit}>
         <label>Enter Name:</label>
         <input type='text' value={name} onChange={handleUserChange}/>
-        <button onClick={previousPage}>Back</button>
         <input type='submit'/>
       </form>
     </>
   )
-}
-
-interface Props {
-  nextPage?: () => void
-  previousPage?: () => void
 }

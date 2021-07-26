@@ -1,13 +1,11 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
-// import { Test } from './components/Game/Test'
-import { Lobby } from './pages/Lobby'
-import { MenuPage } from './pages/MenuPage'
 import { CreateGame } from './pages/CreateGame'
 import { Game } from './pages/Game'
-// import { Hello } from './components/Hello'
 import { JoinTestGame } from './pages/JoinTestGame'
+import { Lobby } from './pages/Lobby'
+import { MenuPage } from './pages/MenuPage'
 
 export const Routes: React.FC = () => {
   return (

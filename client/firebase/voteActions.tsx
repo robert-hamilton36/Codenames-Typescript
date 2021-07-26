@@ -2,28 +2,21 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import { firestore } from '../contexts/FirebaseContext'
-import { VoteObject } from '../types/gameState'
+import { GameInfo, VoteObject } from '../types/gameState'
+import { checkForUnanimousVote, filterOutUsersOldVote, findUsersVoteInvertItsLockStatus } from '../utility/firebaseActionHelperFunctions'
+import { TransactionRevealWordHandleGuess } from '../utility/firebaseTransactions'
 
 export const voteActions = (firestore: firestore): VoteActionReturn => {
-  const clearVotes = (gameId: string) => {
-    const ref = firestore.collection('Games').doc(gameId)
-    return ref.update({ 'gameState.votes': [] })
-  }
-
   const addPlayerVote = (gameId: string, voteObj: VoteObject) => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
         .then((data) => {
-          const votesArray = data.data().gameState.votes
-          // checks to see if player has already voted and remove old vote
-          if (votesArray.find((vote) => vote.player.uid === voteObj.player.uid)) {
-            const filteredVoteArray = votesArray.filter(vote => vote.player.uid !== voteObj.player.uid)
-            filteredVoteArray.push(voteObj)
-            return transaction.update(ref, { 'gameState.votes': filteredVoteArray })
-          } else {
-            return transaction.update(ref, { 'gameState.votes': firebase.firestore.FieldValue.arrayUnion(voteObj) })
-          }
+          const votes = data.data().gameState.votes
+          // checks to see if player has already voted and removes that old vote
+          const filteredVoteArray = filterOutUsersOldVote(votes, voteObj.player.uid)
+          filteredVoteArray.push(voteObj)
+          return transaction.update(ref, { 'gameState.votes': filteredVoteArray })
         })
     })
   }
@@ -33,7 +26,8 @@ export const voteActions = (firestore: firestore): VoteActionReturn => {
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
         .then((data) => {
-          const filteredVoteArray = data.data().gameState.votes.filter(vote => vote.player.uid !== userId)
+          const votes = data.data().gameState.votes
+          const filteredVoteArray = filterOutUsersOldVote(votes, userId)
           return transaction.update(ref, { 'gameState.votes': filteredVoteArray })
         })
     })
@@ -44,24 +38,22 @@ export const voteActions = (firestore: firestore): VoteActionReturn => {
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
         .then((data) => {
-          const voteArray = data.data().gameState.votes
-          const returnedArray = voteArray.map((voteObj) => {
-            if (voteObj.player.uid === userId) {
-              return {
-                wordObj: voteObj.wordObj,
-                player: voteObj.player,
-                locked: !voteObj.locked
-              }
-            }
-            return voteObj
-          })
+          const gameInfo = data.data() as GameInfo
+          const numberOfOperativesInCurrentTeam = gameInfo.players.filter(player => !player.spymaster && player.team === gameInfo.gameState.teamTurn)
+          const votes = gameInfo.gameState.votes
+          const usersVote = votes.find(vote => vote.player.uid === userId)
+          const returnedArray = findUsersVoteInvertItsLockStatus(votes, userId)
+          // checks to see if consensus for a guess has been reached
+          // and then makes the guess
+          if (checkForUnanimousVote(returnedArray, numberOfOperativesInCurrentTeam.length)) {
+            return TransactionRevealWordHandleGuess(ref, transaction, usersVote.wordObj.index, gameInfo)
+          }
           return transaction.update(ref, { 'gameState.votes': returnedArray })
         })
     })
   }
 
   return {
-    clearVotes,
     addPlayerVote,
     removePlayersVote,
     invertLockStatusForPlayersVote
@@ -69,7 +61,6 @@ export const voteActions = (firestore: firestore): VoteActionReturn => {
 }
 
 export interface VoteActionReturn {
-  clearVotes: (gameId: string) => Promise<void>
   addPlayerVote: (gameId: string, voteObj: VoteObject) => Promise<firebase.firestore.Transaction>
   removePlayersVote: (gameId: string, playerUid: string) => Promise<firebase.firestore.Transaction>
   invertLockStatusForPlayersVote: (gameId: string, userId: string) => Promise<firebase.firestore.Transaction>

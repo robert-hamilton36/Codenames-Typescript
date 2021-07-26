@@ -16,10 +16,8 @@ export const Game: React.FC = () => {
 
   useEffect(() => {
     let updatedUser
-    console.log('hello')
     if (data) {
       updatedUser = data?.players.find(player => {
-        console.log(player)
         if (player.uid === user.uid) {
           return player
         }

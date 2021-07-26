@@ -51,8 +51,6 @@ const reducer = (state: User, action: Action) => {
   } else if (action.type === 'team') {
     result.team = action.team
   } else if (action.type === 'update') {
-    console.log('reducer')
-    console.log(action.newUser)
     return action.newUser
   }
   return result
@@ -83,7 +81,6 @@ export const useNewUser: UseNewUser = () => {
   }
 
   const updateUser = (newUser: PlayerObject) => {
-    console.log('hello updateUser')
     dispatch({ type: 'update', newUser: newUser })
   }
 

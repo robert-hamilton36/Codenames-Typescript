@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { useUserActions } from '../contexts/UserContext'
+import { validateName } from '../utility/validation'
 
 export const AskName: React.FC<Props> = ({ nextPage, previousPage }) => {
   const [name, setName] = useState('')
@@ -11,21 +12,9 @@ export const AskName: React.FC<Props> = ({ nextPage, previousPage }) => {
     setName(e.target.value)
   }
 
-  const validateName = (name) => {
-    if (name === '') {
-      setError('Please enter a name')
-      return false
-    } else if (!/^[A-Z a-z]+$/.test(name)) {
-      setError('Name can only contain letters')
-      return false
-    } else {
-      return true
-    }
-  }
-
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (validateName(name)) {
+    if (validateName(name, setError)) {
       setUser(name)
       nextPage()
       return null

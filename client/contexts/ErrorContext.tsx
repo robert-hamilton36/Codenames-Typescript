@@ -22,5 +22,7 @@ export const ErrorProvider: React.FC<React.ReactNode> = ({ children }) => {
 
 interface ContextReturn {
   error: string
-  setError: React.Dispatch<React.SetStateAction<string>>
+  setError: SetError
 }
+
+export type SetError = React.Dispatch<React.SetStateAction<string>>

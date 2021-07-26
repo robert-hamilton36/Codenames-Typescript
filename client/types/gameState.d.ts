@@ -37,9 +37,10 @@ interface TeamPoints {
 }
 
 interface VoteObject {
+  skip?: boolean
   locked: boolean,
   player: User,
-  wordObj: WordObj
+  wordObj?: WordObj
 }
 
 interface WordObj{

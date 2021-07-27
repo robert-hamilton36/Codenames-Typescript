@@ -4,7 +4,8 @@ import 'firebase/firestore'
 import { firestore } from '../contexts/FirebaseContext'
 import { GameInfo, VoteObject } from '../types/gameState'
 import { checkForUnanimousVote, filterOutUsersOldVote, findUsersVoteInvertItsLockStatus } from '../utility/firebaseActionHelperFunctions'
-import { TransactionRevealWordHandleGuess } from '../utility/firebaseTransactions'
+import { TransactionEndTurn, TransactionRevealWordHandleGuess } from '../utility/firebaseTransactions'
+import { getNextTurnsTeam } from '../utility/gameStateInfoFunctions'
 
 export const voteActions = (firestore: firestore): VoteActionReturn => {
   const addPlayerVote = (gameId: string, voteObj: VoteObject) => {
@@ -39,6 +40,7 @@ export const voteActions = (firestore: firestore): VoteActionReturn => {
       return transaction.get(ref)
         .then((data) => {
           const gameInfo = data.data() as GameInfo
+          const nextTeam = getNextTurnsTeam(gameInfo)
           const numberOfOperativesInCurrentTeam = gameInfo.players.filter(player => !player.spymaster && player.team === gameInfo.gameState.teamTurn)
           const votes = gameInfo.gameState.votes
           const usersVote = votes.find(vote => vote.player.uid === userId)
@@ -46,6 +48,9 @@ export const voteActions = (firestore: firestore): VoteActionReturn => {
           // checks to see if consensus for a guess has been reached
           // and then makes the guess
           if (checkForUnanimousVote(returnedArray, numberOfOperativesInCurrentTeam.length)) {
+            if (usersVote.skip) {
+              return TransactionEndTurn(ref, transaction, nextTeam)
+            }
             return TransactionRevealWordHandleGuess(ref, transaction, usersVote.wordObj.index, gameInfo)
           }
           return transaction.update(ref, { 'gameState.votes': returnedArray })

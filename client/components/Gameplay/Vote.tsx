@@ -9,7 +9,7 @@ export const Vote: React.FC<Props> = ({ votes }) => {
   const [votedForSkipped, setVotedForSkipped] = useState<boolean>(false)
   const [votedForWord, setVotedForWord] = useState<boolean>(false)
   const { user, gameId } = useUserContext()
-  const { selectedCard } = useSelectedCard()
+  const { selectedCard, setSelectedCard } = useSelectedCard()
   const { addPlayerVote, removePlayersVote, invertLockStatusForPlayersVote } = useVoteActions()
 
   useEffect(() => {
@@ -44,6 +44,7 @@ export const Vote: React.FC<Props> = ({ votes }) => {
 
   const handleLockIn = () => {
     invertLockStatusForPlayersVote(gameId, user.uid)
+    setSelectedCard(null)
   }
 
   const handleSkip = () => {

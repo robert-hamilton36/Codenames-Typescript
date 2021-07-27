@@ -17,6 +17,7 @@ const __TransactionChangeWordToRevealed = (ref: Ref, transaction: Transaction, w
   const location = 'gameState.words.' + wordIndex + '.revealed'
   const teamPoints = calculatePointsFromDataAndCurrentRevealedWord(gamedata, wordIndex)
   transaction.update(ref, { [location]: true })
+  transaction.update(ref, { 'gameState.votes': [] })
   return transaction.update(ref, { 'gameState.teamPoints': teamPoints })
 }
 

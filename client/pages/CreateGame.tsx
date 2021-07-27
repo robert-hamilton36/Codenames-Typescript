@@ -18,7 +18,7 @@ export const CreateGame: React.FC = () => {
   const history = useHistory()
 
   const handleCreate = () => {
-    const gameObj = createGameObject(user, ['red', 'blue'], settings, finalWordList)
+    const gameObj = createGameObject(user, settings, finalWordList)
     createGame(gameObj)
     history.push('/game')
   }

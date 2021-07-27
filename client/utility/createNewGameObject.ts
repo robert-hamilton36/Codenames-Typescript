@@ -1,8 +1,8 @@
 import { boardKeyCreator } from './boardKeyCreator'
 // eslint-disable-next-line import/no-unresolved
-import { User, GameInfo, TeamPoints, GameState, WordList } from '../types/gameState'
+import { User, GameInfo, TeamPoints, GameState, WordList, Team } from '../types/gameState'
 
-export const createGameObject = (user: User, teams: Teams, settings: Settings, listWords: string[]): GameInfo => {
+export const createGameObject = (user: User, settings: Settings, listWords: string[], teams = ['red', 'blue']): GameInfo => {
   const { boardKey, firstTurnTeam } = boardKeyCreator()
 
   const scoresForWin = { red: 0, blue: 0 }
@@ -42,7 +42,7 @@ export const createGameObject = (user: User, teams: Teams, settings: Settings, l
       uid: user.uid
     }],
     settings: {
-      teams: teams,
+      teams: teams as Team[],
       scoresForWin: scoresForWin,
       ...settings
     }
@@ -86,8 +86,6 @@ type RestartGameStateReturn = {
   gameState: GameState;
   scoresForWin: TeamPoints;
 }
-
-type Teams = ['red', 'blue']
 
 export interface Settings {
   gameplayMode: 'individual' | 'tabletop',

@@ -18,16 +18,9 @@ export const Gameplay: React.FC<Props> = ({ gameData }) => {
   //   makeHost(true)
   // }, [])
 
-  if (!gameStarted(gameData)) {
-    return (
-      <h1>Waiting for game start</h1>
-    )
-  }
-
-  if (gameWon(gameData)) {
-    return (
-      <h1>Waiting for host to start new game</h1>
-    )
+  if (user.host && gameWon(gameData)) {
+    // the component for this state is rendered from main board
+    return null
   }
 
   if (!usersTeamsTurn(gameData, user)) {

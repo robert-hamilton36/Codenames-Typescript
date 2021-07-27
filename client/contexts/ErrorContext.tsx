@@ -7,7 +7,7 @@ export function useErrorContext (): ContextReturn {
 }
 
 export const ErrorProvider: React.FC<React.ReactNode> = ({ children }) => {
-  const [error, setError] = useState('')
+  const [error, setError] = useState<Error>(null)
 
   const provided = {
     error,

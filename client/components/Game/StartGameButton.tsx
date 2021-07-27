@@ -4,25 +4,26 @@ import { useErrorContext } from '../../contexts/ErrorContext'
 import { useGameplayActions } from '../../contexts/FirebaseContext'
 import { useUserContext } from '../../contexts/UserContext'
 import { GameInfo } from '../../types/gameState'
-import { validateStart } from '../../utility/validation'
+import { validateGameStart } from '../../Validations/gameStateValidations'
 
 export const StartGameButton: React.FC<Props> = ({ gameInfo }) => {
-  const { user, gameId } = useUserContext()
+  const { gameId } = useUserContext()
   const { startGame } = useGameplayActions()
   const { setError } = useErrorContext()
 
   const handleStart = () => {
-    if (validateStart(gameInfo, setError)) {
-      startGame(gameId)
+    try {
+      if (validateGameStart(gameInfo)) {
+        startGame(gameId)
+      }
+    } catch (error) {
+      setError(error)
     }
   }
 
-  if (user.host && !gameInfo.gameState.gameStart) {
-    return (
-      <button onClick={handleStart}>Start Game</button>
-    )
-  }
-  return null
+  return (
+    <button onClick={handleStart}>Start Game</button>
+  )
 }
 
 interface Props {

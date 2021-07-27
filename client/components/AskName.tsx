@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 
 import { useUserActions } from '../contexts/UserContext'
-import { validateName } from '../utility/validation'
+import { validateName } from '../Validations/nameValidation'
 
 export const AskName: React.FC = () => {
   const [name, setName] = useState('')
-  const [error, setError] = useState('')
+  const [error, setError] = useState<Error>(null)
   const { setUser } = useUserActions()
 
   const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,14 +14,18 @@ export const AskName: React.FC = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (validateName(name, setError)) {
-      return setUser(name)
+    try {
+      if (validateName(name)) {
+        return setUser(name)
+      }
+    } catch (error) {
+      setError(error)
     }
   }
 
   return (
     <>
-      {error && <h1>{error}</h1>}
+      {error && <h1>{error.message}</h1>}
       <form onSubmit={handleSubmit}>
         <label>Enter Name:</label>
         <input type='text' value={name} onChange={handleUserChange}/>

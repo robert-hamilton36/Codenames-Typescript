@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { DisplayWordGrid } from '../components/Game/DisplayWordGrid'
 import { MessageContainer } from '../components/Game/MessageContainer'
 import { Score } from '../components/Game/Score'
@@ -11,8 +10,10 @@ import { GameInfo } from '../types/gameState'
 import { Gameplay } from '../components/Gameplay/Gameplay'
 import { StartGameButton } from '../components/Game/StartGameButton'
 import { LeaveGameButton } from '../components/Game/LeaveGameButton'
+import { useUserContext } from '../contexts/UserContext'
 
 export const LargeGame: React.FC<Props> = ({ data }) => {
+  const { user } = useUserContext()
   return (
     <div className='largeGameContainer'>
       <div className="players">
@@ -20,7 +21,7 @@ export const LargeGame: React.FC<Props> = ({ data }) => {
         <VoteTable votes={data.gameState.votes}/>
       </div>
       <div className='startGame'>
-        <StartGameButton gameInfo={data}/>
+        { user.host && !data.gameState.gameStart && <StartGameButton gameInfo={data}/>}
         <LeaveGameButton />
       </div>
       <div className='gameInfo'>

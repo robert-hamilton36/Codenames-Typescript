@@ -3,8 +3,8 @@ import 'firebase/firestore'
 
 import { firestore } from '../contexts/FirebaseContext'
 import { GameInfo, VoteObject } from '../types/gameState'
-import { checkForUnanimousVote, filterOutUsersOldVote, findUsersVoteInvertItsLockStatus } from '../utility/firebaseActionHelperFunctions'
-import { TransactionEndTurn, TransactionRevealWordHandleGuess } from '../utility/firebaseTransactions'
+import { checkForUnanimousVote, filterOutUsersOldVote, findUsersVoteInvertItsLockStatus } from './firebaseActionHelperFunctions'
+import { TransactionEndTurn, TransactionRevealWordHandleGuess } from './firebaseTransactions'
 import { getNextTurnsTeam } from '../utility/gameStateInfoFunctions'
 
 export const voteActions = (firestore: firestore): VoteActionReturn => {

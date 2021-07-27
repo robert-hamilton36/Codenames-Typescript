@@ -3,7 +3,7 @@ import 'firebase/firestore'
 
 import { firestore } from '../contexts/FirebaseContext'
 import { GameInfo } from '../types/gameState'
-import { TransactionRevealWordHandleGuess, TransactionEndTurn } from '../utility/firebaseTransactions'
+import { TransactionRevealWordHandleGuess, TransactionEndTurn } from './firebaseTransactions'
 import { getNextTurnsTeam } from '../utility/gameStateInfoFunctions'
 
 export const guessActions = (firestore: firestore): GuessActionsReturn => {

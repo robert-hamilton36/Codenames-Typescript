@@ -5,13 +5,8 @@ interface GameInfo {
   gameState: GameState,
   host: User
   messages: Messages
-  players: PlayerObject[]
+  players: User[]
   settings: Settings
-}
-
-interface User {
-  name: string,
-  uid: string
 }
 
 interface GameState {
@@ -59,15 +54,15 @@ interface Messages {
 interface MessageObj {
   message: string,
   time?: Timestamp,
-  user: PlayerObject
+  user: User
 }
 
-interface PlayerObject {
-  host?: boolean,
+interface User {
   name: string,
+  uid: string,
+  host?: boolean,
   spymaster?: boolean,
-  team: TeamColour
-  uid: string
+  team?: TeamColour
 }
 
 type TeamColour = 'red' | 'blue'

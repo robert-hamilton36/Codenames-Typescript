@@ -1,4 +1,4 @@
-import { GameInfo, PlayerObject, Team, TeamColour } from '../types/gameState'
+import { GameInfo, User, Team, TeamColour } from '../types/gameState'
 
 export const gameWon = (gameData: GameInfo): boolean => {
   if (gameData.gameState.win) {
@@ -7,7 +7,7 @@ export const gameWon = (gameData: GameInfo): boolean => {
   return false
 }
 
-export const usersTeamsTurn = (gameData: GameInfo, user: PlayerObject): boolean => {
+export const usersTeamsTurn = (gameData: GameInfo, user: User): boolean => {
   if (gameData.gameState.teamTurn === user.team) {
     return true
   }
@@ -63,8 +63,7 @@ export const gamesCurrentTurnHasAHint = (gameData: GameInfo): boolean => {
   return false
 }
 
-export const getCurrentTurnsSpymatersName = (gameData: GameInfo): PlayerObject => {
-  console.log(gameData.players.find(player => player.team === gameData.gameState.teamTurn && player.spymaster))
+export const getCurrentTurnsSpymatersName = (gameData: GameInfo): User => {
   return gameData.players.find(player => player.team === gameData.gameState.teamTurn && player.spymaster)
 }
 

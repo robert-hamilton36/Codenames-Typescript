@@ -1,11 +1,11 @@
-import { PlayerObject, WordObj } from '../types/gameState'
+import { User, WordObj } from '../types/gameState'
 
-export const getClassNameForWordCard = (selectedCard: WordObj, user: PlayerObject, word: WordObj): string => {
-  let className = 'codeCard '
-  if (selectedCard?.word === word?.word) {
+export const getClassNameForWordCard = (selectedCard: WordObj, user: User, displayWord: WordObj): string => {
+  let className = 'wordCard '
+  if (selectedCard?.word === displayWord?.word) {
     className += 'selected'
-  } else if (word.revealed || user.spymaster) {
-    className += word.key
+  } else if (displayWord.revealed || user.spymaster) {
+    className += displayWord.key
   }
 
   return className

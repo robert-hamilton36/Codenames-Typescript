@@ -67,7 +67,7 @@ export const restartGameState = (listWords: string[], teams = ['red', 'blue']): 
 
   const boardObject = {}
   for (const x in listWords) {
-    boardObject[x] = { word: listWords[x], key: boardKey[x], revealed: false }
+    boardObject[x] = { word: listWords[x], key: boardKey[x], revealed: false, index: x }
   }
 
   const gameState: GameState = {

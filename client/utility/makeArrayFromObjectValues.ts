@@ -1,4 +1,4 @@
-export function makeArrayFromObject<K extends Key, V> (object: {[key in K]: V}): V[] {
+export function makeArrayFromObjectValues<K extends Key, V> (object: {[key in K]: V}): V[] {
   const newArray = []
   for (const x in object) {
     newArray.push(object[x])

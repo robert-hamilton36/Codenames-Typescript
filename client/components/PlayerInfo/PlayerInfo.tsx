@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { PlayerObject } from '../../types/gameState'
+import { User } from '../../types/gameState'
 import { DeviceList } from './DeviceList'
 import { PlayerList } from './PlayerList'
 
@@ -17,6 +17,6 @@ export const PlayerInfo: React.FC<Props> = ({ playerList, tableTop }) => {
 }
 
 interface Props {
-  playerList: PlayerObject[]
+  playerList: User[]
   tableTop: boolean
 }

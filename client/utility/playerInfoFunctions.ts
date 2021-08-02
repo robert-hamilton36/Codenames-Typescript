@@ -1,20 +1,20 @@
-import { PlayerObject, Team } from '../types/gameState'
+import { User, Team } from '../types/gameState'
 
-export const getOppositeTeamColour = (selectedPlayer: PlayerObject): Team => {
+export const getOppositeTeamColour = (selectedPlayer: User): Team => {
   if (selectedPlayer.team === 'red') {
     return 'blue'
   }
   return 'red'
 }
 
-export const getOppositeRole = (selectedPlayer: PlayerObject): Role => {
+export const getOppositeRole = (selectedPlayer: User): Role => {
   if (selectedPlayer.spymaster) {
     return 'operative'
   }
   return 'spymaster'
 }
 
-export const bothTeamsHaveASpymasters = (players: PlayerObject[]): boolean => {
+export const bothTeamsHaveASpymasters = (players: User[]): boolean => {
   if (players.find(player => player.team === 'blue' && player.spymaster)) {
     if (players.find(player => player.team === 'red' && player.spymaster)) {
       return true
@@ -24,7 +24,7 @@ export const bothTeamsHaveASpymasters = (players: PlayerObject[]): boolean => {
   return false
 }
 
-export const bothTeamsHaveAtLeastTwoPlayers = (players: PlayerObject[]): boolean => {
+export const bothTeamsHaveAtLeastTwoPlayers = (players: User[]): boolean => {
   if (players.filter((player) => player.team === 'red').length >= 2) {
     if (players.filter((player) => player.team === 'blue').length >= 2) {
       return true

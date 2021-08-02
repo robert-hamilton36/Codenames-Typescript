@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { PlayerObject, MessageTeams } from '../../types/gameState'
+import { User, MessageTeams } from '../../types/gameState'
 import { useUserContext } from '../../contexts/UserContext'
 import { useMessageActions } from '../../contexts/FirebaseContext'
 
@@ -28,7 +28,7 @@ export const Message: React.FC<Props> = ({ messageObj, teamView }) => {
 
 interface Props {
   messageObj: {
-    user: PlayerObject
+    user: User
     message: string
   }
   teamView: MessageTeams

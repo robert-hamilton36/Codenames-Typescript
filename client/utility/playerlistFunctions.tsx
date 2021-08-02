@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { PlayerObject } from '../types/gameState'
+import { User } from '../types/gameState'
 
-export const makePlayerTableRows: MakePlayerTables = (playerlist: PlayerObject[], setSelectedPlayer: SetSelectedPlayer) => {
+export const makePlayerTableRows: MakePlayerTables = (playerlist: User[], setSelectedPlayer: SetSelectedPlayer) => {
   const blueSpymaster = playerlist.find(player => player.spymaster && player.team === 'blue')
   const redSpymaster = playerlist.find(player => player.spymaster && player.team === 'red')
   const blueOperatives = playerlist.filter(player => !player.spymaster && player.team === 'blue')
@@ -29,5 +29,5 @@ export const makePlayerTableRows: MakePlayerTables = (playerlist: PlayerObject[]
   return [spymasterTable, operativeTable]
 }
 
-type MakePlayerTables = (playerlist: PlayerObject[], setSelectedPlayer: SetSelectedPlayer) => (JSX.Element | JSX.Element[])[]
-type SetSelectedPlayer = (Value: PlayerObject) => void
+type MakePlayerTables = (playerlist: User[], setSelectedPlayer: SetSelectedPlayer) => (JSX.Element | JSX.Element[])[]
+type SetSelectedPlayer = (Value: User) => void

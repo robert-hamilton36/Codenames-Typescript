@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { WordObj, PlayerObject } from '../types/gameState'
+import { WordObj, User } from '../types/gameState'
 
-export const usePlayerSelectorDeselector = (): [UserType, (Value: UserType) => void ] => {
-  const [value, setValue] = useState<UserType>(null)
-  function setCustomValue (newValue: UserType) {
+export const usePlayerSelectorDeselector = (): [User, (Value: User) => void ] => {
+  const [value, setValue] = useState<User>(null)
+  function setCustomValue (newValue: User) {
     if (!value) {
       setValue(newValue)
     } else if (newValue?.uid === value?.uid) {
@@ -14,8 +14,6 @@ export const usePlayerSelectorDeselector = (): [UserType, (Value: UserType) => v
   }
   return [value, setCustomValue]
 }
-
-type UserType = PlayerObject
 
 export const useWordSelectorDeselector = (): [WordType, (Value: WordType) => void ] => {
   const [value, setValue] = useState<WordType>(null)

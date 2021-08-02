@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-import { GameInfo, PlayerObject, TeamColour, User } from '../types/gameState'
+import { GameInfo, TeamColour, User } from '../types/gameState'
 import { useUserContext } from '../contexts/UserContext'
 import { firestore } from '../contexts/FirebaseContext'
 import { getTeamForNewPlayer } from '../utility/gameStateInfoFunctions'
@@ -29,7 +29,7 @@ export const joinGameActions = (firestore: firestore): JoinGameActionReturn => {
         .then(data => {
           const gameState = data.data() as GameInfo
           const team: TeamColour = getTeamForNewPlayer(gameState)
-          const playerObj: PlayerObject = { ...user, team }
+          const playerObj: User = { ...user, team }
           transaction.update(ref, { players: firebase.firestore.FieldValue.arrayUnion(playerObj) })
           return data
         })

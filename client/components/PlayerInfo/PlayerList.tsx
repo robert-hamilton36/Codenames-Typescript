@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useUserContext } from '../../contexts/UserContext'
 import { usePlayerSelectorDeselector } from '../../hooks/useSelectorDeselector'
-import { PlayerObject } from '../../types/gameState'
+import { User } from '../../types/gameState'
 import { makePlayerTableRows } from '../../utility/playerlistFunctions'
 import { HostOptions } from './HostOptions'
 
@@ -43,4 +43,4 @@ export const PlayerList: React.FC<Props> = ({ playerList }) => {
   )
 }
 
-type Props = {playerList: PlayerObject[]}
+type Props = {playerList: User[]}

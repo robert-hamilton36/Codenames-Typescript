@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { PlayerObject } from '../../types/gameState'
+import { User } from '../../types/gameState'
 import { usePlayerActions, useJoinGameActions } from '../../contexts/FirebaseContext'
 import { useUserContext } from '../../contexts/UserContext'
 import { getOppositeRole, getOppositeTeamColour } from '../../utility/playerInfoFunctions'
@@ -44,6 +44,6 @@ export const HostOptions: React.FC<Props> = ({ selectedPlayer, setSelectedPlayer
 }
 
 interface Props {
-  selectedPlayer: PlayerObject
-  setSelectedPlayer: (Value: PlayerObject) => void
+  selectedPlayer: User
+  setSelectedPlayer: (Value: User) => void
 }

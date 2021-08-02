@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useUserContext } from '../../contexts/UserContext'
 import { usePlayerSelectorDeselector } from '../../hooks/useSelectorDeselector'
-import { PlayerObject } from '../../types/gameState'
+import { User } from '../../types/gameState'
 import { HostOptions } from './HostOptions'
 
 export const DeviceList: React.FC<Props> = ({ devices }) => {
@@ -26,5 +26,5 @@ export const DeviceList: React.FC<Props> = ({ devices }) => {
 }
 
 interface Props {
-  devices: PlayerObject[]
+  devices: User[]
 }

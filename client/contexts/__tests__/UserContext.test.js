@@ -1,6 +1,6 @@
 import React from 'react'
 import { renderHook, act } from '@testing-library/react-hooks'
-import { UserProvider, useUserContext } from './UserContext'
+import { UserProvider, useUserContext } from '../UserContext'
 
 test('Should set gameId and user, and read those values', () => {
   const wrapper = ({ children }) => <UserProvider> {children} </UserProvider>

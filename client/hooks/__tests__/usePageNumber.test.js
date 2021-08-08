@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks'
-import { usePageNumber } from './usePageNumber'
+import { usePageNumber } from '../usePageNumber'
 
 describe('tests usePageNumber with no arguments', () => {
   test('hook renders when passed no arguments , with correct starting page number', () => {

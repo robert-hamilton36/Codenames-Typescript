@@ -1,36 +1,6 @@
 import { useReducer } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { PlayerObject } from '../types/gameState'
-
-interface User {
-  name: string,
-  uid: string,
-  host?: boolean
-  spymaster?: boolean
-  team?: 'red' | 'blue'
-}
-
-type SetUser = (value:string) => void
-type MakeSpymaster = (boolean: boolean) => void
-type MakeHost = (boolean: boolean) => void
-type SetTeam = (team: 'red' | 'blue') => void
-type UpdateUser = (newUser: PlayerObject) => void
-
-export interface UserActions {
-  setUser: SetUser,
-  makeSpymaster: MakeSpymaster,
-  makeHost: MakeHost,
-  setTeam: SetTeam,
-  updateUser: UpdateUser
-}
-type UseNewUser = () => (User | UserActions)[]
-interface Action {
-  type: string,
-  value?: string
-  boolean?: boolean
-  team?: 'red' | 'blue'
-  newUser?: PlayerObject
-}
+import { User } from '../types/gameState'
 
 const initialState: User = {
   name: '',
@@ -56,10 +26,10 @@ const reducer = (state: User, action: Action) => {
   return result
 }
 
-export const useNewUser: UseNewUser = () => {
+export const useNewUser = (): UseNewUser => {
   const [user, dispatch] = useReducer(reducer, initialState)
 
-  const setUser: SetUser = (value: string) => {
+  const setUser = (value: string) => {
     if (value === '') {
       const action = { type: 'reset' }
       dispatch(action)
@@ -68,11 +38,16 @@ export const useNewUser: UseNewUser = () => {
       dispatch(action)
     }
   }
-  const makeSpymaster = (boolean: boolean) => {
+
+  const deleteUser = () => {
+    dispatch({ type: 'reset' })
+  }
+
+  const setSpymaster = (boolean: boolean) => {
     dispatch({ type: 'spymaster', boolean: boolean })
   }
 
-  const makeHost = (boolean: boolean) => {
+  const setHost = (boolean: boolean) => {
     dispatch({ type: 'host', boolean: boolean })
   }
 
@@ -80,16 +55,41 @@ export const useNewUser: UseNewUser = () => {
     dispatch({ type: 'team', team: team })
   }
 
-  const updateUser = (newUser: PlayerObject) => {
+  const updateUser = (newUser: User) => {
     dispatch({ type: 'update', newUser: newUser })
   }
 
   const userActions = {
     setUser,
-    makeSpymaster,
-    makeHost,
+    deleteUser,
+    setSpymaster,
+    setHost,
     setTeam,
     updateUser
   }
   return [user, userActions]
+}
+
+type SetUser = (value:string) => void
+type DeleteUser = () => void
+type SetSpymaster = (boolean: boolean) => void
+type SetHost = (boolean: boolean) => void
+type SetTeam = (team: 'red' | 'blue') => void
+type UpdateUser = (newUser: User) => void
+
+export interface UserActions {
+  setUser: SetUser,
+  deleteUser: DeleteUser,
+  setSpymaster: SetSpymaster,
+  setHost: SetHost,
+  setTeam: SetTeam,
+  updateUser: UpdateUser
+}
+type UseNewUser = (User | UserActions)[]
+interface Action {
+  type: string,
+  value?: string
+  boolean?: boolean
+  team?: 'red' | 'blue'
+  newUser?: User
 }

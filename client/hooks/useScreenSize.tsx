@@ -1,8 +1,11 @@
-import useMediaQuery from 'react-responsive'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore: 'react-responsive' module causes import error, potentially has messed up type exports?
+import { useMediaQuery } from 'react-responsive'
 
 export const useScreenSize = (): ScreenSize => {
-  const isPhone = useMediaQuery({ maxWidth: 500 })
-  const isTablet = useMediaQuery({ maxWidth: 1024 })
+  const isPhone = useMediaQuery({ query: '(max-width: 500px)' })
+  const isTablet = useMediaQuery({ query: '(max-width: 1024px)' })
+  const isFullscreen = useMediaQuery({ query: '(min-width: 1024px)' })
 
   if (isPhone) {
     return 'phone'
@@ -12,7 +15,9 @@ export const useScreenSize = (): ScreenSize => {
     return 'tablet'
   }
 
-  return 'fullscreen'
+  if (isFullscreen) {
+    return 'fullscreen'
+  }
 }
 
 type ScreenSize = 'phone' | 'tablet' | 'fullscreen'

@@ -35,7 +35,9 @@ export const Game: React.FC = () => {
     } else if (screenSize === 'phone') {
       return (
         // other screen sizes
-        null
+        // null
+        <LargeGame data={data}/>
+
       )
     }
   } else {

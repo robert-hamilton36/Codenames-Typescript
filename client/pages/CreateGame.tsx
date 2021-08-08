@@ -8,8 +8,9 @@ import { GetSettings } from '../components/CreateGame/GetSettings'
 import { WordList } from '../components/GetWords/WordList'
 import { usePageNumber } from '../hooks/usePageNumber'
 import { AskName } from '../components/AskName'
+import { SettingsProvider } from '../contexts/SettingsContext'
 
-export const CreateGame: React.FC = () => {
+const CreateGamePage: React.FC = () => {
   const { pageNumber, nextPage, previousPage } = usePageNumber(3)
   const { user } = useUserContext()
   const [settings, confirmSettings] = useState<Settings>(null)
@@ -65,6 +66,14 @@ export const CreateGame: React.FC = () => {
         <button onClick={handleCreate}>Create Game</button>
       </div>
     </>
+  )
+}
+
+export const CreateGame: React.FC = () => {
+  return (
+    <SettingsProvider>
+      <CreateGamePage/>
+    </SettingsProvider>
   )
 }
 

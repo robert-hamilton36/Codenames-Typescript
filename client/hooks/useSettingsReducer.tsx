@@ -1,6 +1,6 @@
 import { useReducer } from 'react'
 
-function reducer (state: State, action: Action) {
+function reducer (state: SettingsState, action: Action) {
   const result = { ...state }
   // if settings change to tabletop, voteSystem must be spymaster-locksin
   if (action.value === 'tabletop') {
@@ -17,14 +17,14 @@ function reducer (state: State, action: Action) {
   }
 }
 
-const initialState: State = {
+export const settingsInitialState: SettingsState = {
   voteSystem: 'vote',
   gameplayMode: 'individual',
   error: ''
 }
 
 export function useSettingsReducer (): useSettingsReducerReturn {
-  const [settings, dispatch] = useReducer(reducer, initialState)
+  const [settings, dispatch] = useReducer(reducer, settingsInitialState)
 
   const settingsDispatcher = (setting: Setting, value: Value) => {
     dispatch({ setting, value })
@@ -32,25 +32,24 @@ export function useSettingsReducer (): useSettingsReducerReturn {
   return { settings, settingsDispatcher }
 }
 
-export type State = {
+type VoteSystem = 'vote' | 'spymaster-locksin'
+type GamePlayMode = 'individual' | 'tabletop'
+
+export type SettingsState = {
   voteSystem: VoteSystem;
   gameplayMode: GamePlayMode;
   error?: string;
 }
 
-type VoteSystem = 'vote' | 'spymaster-locksin'
-type GamePlayMode = 'individual' | 'tabletop'
+type Setting = 'voteSystem' | 'gameplayMode'
+type Value = VoteSystem | GamePlayMode
 
 type Action = {
   setting: Setting
   value: Value
 }
 
-type Setting = 'voteSystem' | 'gameplayMode'
-type Value = VoteSystem | GamePlayMode
-
 export type useSettingsReducerReturn = {
-  settings: State
-  // settingsDispatcher : React.Dispatch<Action>
+  settings: SettingsState
   settingsDispatcher: (setting: Setting, value: Value) => void
 }

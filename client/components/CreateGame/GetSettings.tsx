@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSettingsContext } from '../../contexts/SettingsContext'
 
-import { useSettingsReducer, State } from '../../hooks/useSettingsReducer'
-import { GamePlayMode } from './GamePlayMode'
+import { SettingsState } from '../../hooks/useSettingsReducer'
+import { GameplayMode } from './GameplayMode'
 import { VoteSystem } from './VoteSystem'
 
 export const GetSettings: React.FC<Props> = ({ confirmSettings }) => {
-  const { settings, settingsDispatcher } = useSettingsReducer()
+  const { settings } = useSettingsContext()
 
-  const removeErrorFromSettings = (dirtySettings: State) => {
+  const removeErrorFromSettings = (dirtySettings: SettingsState) => {
     delete dirtySettings.error
     const cleanSettings: Settings = dirtySettings
     return cleanSettings
@@ -17,13 +18,19 @@ export const GetSettings: React.FC<Props> = ({ confirmSettings }) => {
     confirmSettings(removeErrorFromSettings(settings))
   }
 
+  useEffect(() => {
+    console.log(settings)
+  }, [settings])
+
   return (
     <div className="settings">
-      <h2> Settings </h2>
-      {settings.error && <h3>{settings.error}</h3>}
-      <VoteSystem settings={settings} settingsDispatcher={settingsDispatcher}/>
-      <GamePlayMode settings={settings} settingsDispatcher={settingsDispatcher}/>
-      <button onClick={handleConfirm}>Confirm</button>
+      <h2 data-testid='getSettings-header'>
+        Settings
+      </h2>
+      {settings.error && <h3 data-testid='errorMessage'>{settings.error}</h3>}
+      <VoteSystem />
+      <GameplayMode/>
+      <button onClick={handleConfirm} data-testid='button'>Confirm</button>
     </div>
   )
 }

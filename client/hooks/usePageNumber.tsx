@@ -15,7 +15,7 @@ const reducer = (state, action) => {
   }
 }
 
-export const usePageNumber = (noOfPages: number): ReturnType => {
+export const usePageNumber = (noOfPages = 0): ReturnType => {
   const [pageNumber, dispatch] = useReducer(reducer, 0)
 
   const nextPage = () => {

@@ -69,6 +69,13 @@ export const useNewUser = (): UseNewUser => {
   }
   return [user, userActions]
 }
+interface Action {
+  type: string,
+  value?: string
+  boolean?: boolean
+  team?: 'red' | 'blue'
+  newUser?: User
+}
 
 type SetUser = (value:string) => void
 type DeleteUser = () => void
@@ -85,11 +92,4 @@ export interface UserActions {
   setTeam: SetTeam,
   updateUser: UpdateUser
 }
-type UseNewUser = (User | UserActions)[]
-interface Action {
-  type: string,
-  value?: string
-  boolean?: boolean
-  team?: 'red' | 'blue'
-  newUser?: User
-}
+type UseNewUser = [User, UserActions]

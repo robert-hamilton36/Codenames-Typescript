@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 
 import { useGameplayActions } from '../../contexts/FirebaseContext'
-import { useUserContext } from '../../contexts/UserContext'
+import { useGameId } from '../../contexts/GameIdContext'
+
 import { Hint } from '../../types/gameState'
 
 export const MakeHint: React.FC = () => {
   const [hint, setStateHint] = useState('')
   const [noOfWords, setNoOfWords] = useState(0)
 
-  const { gameId } = useUserContext()
+  const { gameId } = useGameId()
   const { setHint } = useGameplayActions()
 
   const submitHint = () => {

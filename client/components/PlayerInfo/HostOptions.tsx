@@ -2,13 +2,13 @@ import React from 'react'
 
 import { User } from '../../types/gameState'
 import { usePlayerActions, useJoinGameActions } from '../../contexts/FirebaseContext'
-import { useUserContext } from '../../contexts/UserContext'
+import { useGameId } from '../../contexts/GameIdContext'
 import { getOppositeRole, getOppositeTeamColour } from '../../utility/playerInfoFunctions'
 
 export const HostOptions: React.FC<Props> = ({ selectedPlayer, setSelectedPlayer }) => {
   const { editSpymasterOperative, changePlayersTeam } = usePlayerActions()
   const { kickPlayer } = useJoinGameActions()
-  const { gameId } = useUserContext()
+  const { gameId } = useGameId()
 
   const makePlayerOperativeOrSpymaster = () => {
     console.log(selectedPlayer.uid)

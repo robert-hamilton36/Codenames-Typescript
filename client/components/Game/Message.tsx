@@ -3,9 +3,12 @@ import React from 'react'
 import { User, MessageTeams } from '../../types/gameState'
 import { useUserContext } from '../../contexts/UserContext'
 import { useMessageActions } from '../../contexts/FirebaseContext'
+import { useGameId } from '../../contexts/GameIdContext'
 
 export const Message: React.FC<Props> = ({ messageObj, teamView }) => {
-  const { user, gameId } = useUserContext()
+  const { user } = useUserContext()
+  const { gameId } = useGameId()
+
   const owner = messageObj.user.uid === user.uid || user.host
   const { deleteMessage } = useMessageActions()
 

@@ -1,20 +1,20 @@
 import React from 'react'
 import { useGuessActions } from '../../contexts/FirebaseContext'
+import { useGameId } from '../../contexts/GameIdContext'
 
 import { useSelectedCard } from '../../contexts/SelectedCardContext'
-import { useUserContext } from '../../contexts/UserContext'
 
 export const SelectCard: React.FC = () => {
   const { selectedCard } = useSelectedCard()
-  const { gameId } = useUserContext()
-  const { changeWordToRevealed, endTurn } = useGuessActions()
+  const { gameId } = useGameId()
+  const { makeGuess, endTurn } = useGuessActions()
 
   const handleTurnChange = () => {
     return endTurn(gameId)
   }
 
   const submitChoice = () => {
-    return changeWordToRevealed(gameId, selectedCard.index)
+    return makeGuess(gameId, selectedCard.index)
   }
 
   if (selectedCard?.revealed) {

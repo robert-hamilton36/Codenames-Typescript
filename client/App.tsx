@@ -4,17 +4,20 @@ import { ErrorProvider } from './contexts/ErrorContext'
 import { FirebaseProvider } from './contexts/FirebaseContext'
 import { SelectedCardProvider } from './contexts/SelectedCardContext'
 import { UserProvider } from './contexts/UserContext'
+import { GameIdProvider } from './contexts/GameIdContext'
 import { Routes } from './Routes'
 
 const App: React.FC = () => {
   return (
     <ErrorProvider>
       <UserProvider>
-        <FirebaseProvider>
-          <SelectedCardProvider>
-            <Routes/>
-          </SelectedCardProvider>
-        </FirebaseProvider>
+        <GameIdProvider>
+          <FirebaseProvider>
+            <SelectedCardProvider>
+              <Routes/>
+            </SelectedCardProvider>
+          </FirebaseProvider>
+        </GameIdProvider>
       </UserProvider>
     </ErrorProvider>
   )

@@ -2,12 +2,12 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import { GameInfo, TeamColour, User } from '../types/gameState'
-import { useUserContext } from '../contexts/UserContext'
+import { useGameId } from '../contexts/GameIdContext'
 import { firestore } from '../contexts/FirebaseContext'
 import { getTeamForNewPlayer } from '../utility/gameStateInfoFunctions'
 
 export const joinGameActions = (firestore: firestore): JoinGameActionReturn => {
-  const { setGameId } = useUserContext()
+  const { setGameId } = useGameId()
 
   const createGame = (newGame: GameInfo) => {
     return firestore.collection('Games')

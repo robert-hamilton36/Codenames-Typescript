@@ -6,9 +6,10 @@ import { GameInfo } from '../types/gameState'
 import { LargeGame } from './LargeGame'
 import { useScreenSize } from '../hooks/useScreenSize'
 import { useUserActions, useUserContext } from '../contexts/UserContext'
+import { useGameId } from '../contexts/GameIdContext'
 
 export const Game: React.FC = () => {
-  const { gameId } = useUserContext()
+  const { gameId } = useGameId()
   const { user } = useUserContext()
   const { updateUser } = useUserActions()
   const data: GameInfo | null = useFirestoreSubscriber(gameId)

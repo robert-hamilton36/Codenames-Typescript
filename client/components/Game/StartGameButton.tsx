@@ -2,12 +2,12 @@ import React from 'react'
 import { useErrorContext } from '../../contexts/ErrorContext'
 
 import { useGameplayActions } from '../../contexts/FirebaseContext'
-import { useUserContext } from '../../contexts/UserContext'
+import { useGameId } from '../../contexts/GameIdContext'
 import { GameInfo } from '../../types/gameState'
 import { validateGameStart } from '../../Validations/gameStateValidations'
 
 export const StartGameButton: React.FC<Props> = ({ gameInfo }) => {
-  const { gameId } = useUserContext()
+  const { gameId } = useGameId()
   const { startGame } = useGameplayActions()
   const { setError } = useErrorContext()
 

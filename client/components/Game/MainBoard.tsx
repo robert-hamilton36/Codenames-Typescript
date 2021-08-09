@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useGameplayActions } from '../../contexts/FirebaseContext'
+import { useGameId } from '../../contexts/GameIdContext'
 import { useUserContext } from '../../contexts/UserContext'
 
 import { GameInfo, GameState, TeamPoints } from '../../types/gameState'
@@ -12,7 +13,9 @@ export const MainBoard: React.FC<Props> = ({ data }) => {
   const [newGameWords, setNewGameWords] = useState<string[]>(null)
   const [gameState, setGameState] = useState<GameState>(null)
   const [scoresForWin, setScoresForWin] = useState<TeamPoints>(null)
-  const { user, gameId } = useUserContext()
+  const { user } = useUserContext()
+  const { gameId } = useGameId()
+
   const { restartNewGame } = useGameplayActions()
 
   const restartGame = () => {

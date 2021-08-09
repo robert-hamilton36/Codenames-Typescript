@@ -3,13 +3,16 @@ import { useHistory } from 'react-router-dom'
 
 import { AskName } from '../components/AskName'
 import { useJoinGameActions } from '../contexts/FirebaseContext'
+import { useGameId } from '../contexts/GameIdContext'
 import { useUserContext } from '../contexts/UserContext'
 import { usePageNumber } from '../hooks/usePageNumber'
 
 export const JoinTestGame: React.FC = () => {
   const { pageNumber, nextPage, previousPage } = usePageNumber(1)
   const { joinGame } = useJoinGameActions()
-  const { user, setGameId } = useUserContext()
+  const { user } = useUserContext()
+  const { setGameId } = useGameId()
+
   const history = useHistory()
 
   const handleJoin = () => {

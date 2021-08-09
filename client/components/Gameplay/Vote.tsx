@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useVoteActions } from '../../contexts/FirebaseContext'
+import { useGameId } from '../../contexts/GameIdContext'
 import { useSelectedCard } from '../../contexts/SelectedCardContext'
 import { useUserContext } from '../../contexts/UserContext'
 import { VoteObject } from '../../types/gameState'
@@ -8,7 +9,8 @@ export const Vote: React.FC<Props> = ({ votes }) => {
   const [usersVote, setUsersVote] = useState<VoteObject>(null)
   const [votedForSkipped, setVotedForSkipped] = useState<boolean>(false)
   const [votedForWord, setVotedForWord] = useState<boolean>(false)
-  const { user, gameId } = useUserContext()
+  const { gameId } = useGameId()
+  const { user } = useUserContext()
   const { selectedCard, setSelectedCard } = useSelectedCard()
   const { addPlayerVote, removePlayersVote, invertLockStatusForPlayersVote } = useVoteActions()
 

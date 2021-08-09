@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { useNewUser, UserActions } from '../hooks/useNewUser'
 import { User } from '../types/gameState'
 
-const UserContext = React.createContext(null)
+const UserContext = React.createContext<Context>(null)
 
-export function useUserContext (): ContextReturn {
+export function useUserContext (): Context {
   return useContext(UserContext)
 }
 
@@ -15,23 +15,19 @@ export const useUserActions = (): UserActions => {
 
 export const UserProvider: React.FC<React.ReactNode> = ({ children }) => {
   const [user, userActions] = useNewUser()
-  const [gameId, setGameId] = useState('')
 
-  const provided = {
+  const value = {
     user,
-    userActions,
-    gameId,
-    setGameId
+    userActions
   }
+
   return (
-    <UserContext.Provider value={provided}>
+    <UserContext.Provider value={value}>
       {children}
     </UserContext.Provider>
   )
 }
-interface ContextReturn {
+interface Context {
   user: User,
   userActions: UserActions,
-  gameId: string,
-  setGameId: React.Dispatch<React.SetStateAction<string>>
 }

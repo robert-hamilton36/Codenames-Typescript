@@ -14,8 +14,8 @@ export const WordList: React.FC<Props> = ({ setFinalWordList }) => {
   }
 
   const getNewSingleWord = () => {
-    let word: string
-    if (!wordList.includes(word)) {
+    let word = shuffleArray(allWords).slice(0, 1)[0]
+    while (wordList.includes(word)) {
       word = shuffleArray(allWords).slice(0, 1)[0]
     }
     return word
@@ -36,11 +36,11 @@ export const WordList: React.FC<Props> = ({ setFinalWordList }) => {
 
   return (
     <div>
-      <ul>
+      <ul data-testid='wordList'>
         {wordList.map((word, idx) => <Word key={word + idx} word={word} setItem={setItem} getNewWord = {getNewSingleWord}/>)}
       </ul>
-      <button onClick={handleSubmit}>Submit</button>
-      <button onClick={getNewWords}>Get New Words</button>
+      <button onClick={handleSubmit} data-testid='submitButton'>Submit</button>
+      <button onClick={getNewWords} data-testid='getNewWordsButton'>Get New Words</button>
     </div>
   )
 }

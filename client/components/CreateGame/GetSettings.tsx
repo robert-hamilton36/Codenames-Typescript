@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useSettingsContext } from '../../contexts/SettingsContext'
 
 import { SettingsState } from '../../hooks/useSettingsReducer'
@@ -17,10 +17,6 @@ export const GetSettings: React.FC<Props> = ({ confirmSettings }) => {
   const handleConfirm = () => {
     confirmSettings(removeErrorFromSettings(settings))
   }
-
-  useEffect(() => {
-    console.log(settings)
-  }, [settings])
 
   return (
     <div className="settings">

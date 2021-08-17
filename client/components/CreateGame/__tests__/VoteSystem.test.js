@@ -42,7 +42,7 @@ test('should render VoteSystem with correct setting, voteSystem: vote', () => {
 })
 
 test('should correctly update the spymaster-locksin radio button to checked when user clicks spymaster-locksin input', () => {
-  const { getByTestId, rerender } = render(
+  const { getByTestId } = render(
     <SettingsProvider>
       <VoteSystem />
     </SettingsProvider>
@@ -55,19 +55,13 @@ test('should correctly update the spymaster-locksin radio button to checked when
   expect(SpymasterLocksinInput.checked).toBe(false)
 
   fireEvent.click(SpymasterLocksinInput, { target: { name: 'voteSystem', value: 'spymaster-locksin' } })
-
-  rerender(
-    <SettingsProvider>
-      <VoteSystem />
-    </SettingsProvider>
-  )
 
   expect(voteInput.checked).toBe(false)
   expect(SpymasterLocksinInput.checked).toBe(true)
 })
 
 test('should correctly update the vote radio button to checked when user clicks vote input', () => {
-  const { getByTestId, rerender } = render(
+  const { getByTestId } = render(
     <SettingsProvider>
       <VoteSystem />
     </SettingsProvider>
@@ -81,22 +75,10 @@ test('should correctly update the vote radio button to checked when user clicks 
 
   fireEvent.click(SpymasterLocksinInput, { target: { name: 'voteSystem', value: 'spymaster-locksin' } })
 
-  rerender(
-    <SettingsProvider>
-      <VoteSystem />
-    </SettingsProvider>
-  )
-
   expect(voteInput.checked).toBe(false)
   expect(SpymasterLocksinInput.checked).toBe(true)
 
   fireEvent.click(voteInput, { target: { name: 'voteSystem', value: 'vote' } })
-
-  rerender(
-    <SettingsProvider>
-      <VoteSystem />
-    </SettingsProvider>
-  )
 
   expect(voteInput.checked).toBe(true)
   expect(SpymasterLocksinInput.checked).toBe(false)

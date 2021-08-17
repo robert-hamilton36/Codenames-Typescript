@@ -42,7 +42,7 @@ test('should render GameplayMode with correct setting, gamePlayMode: individual'
 })
 
 test('should correctly update the tabletop radio button to checked when user clicks tabletop input', () => {
-  const { getByTestId, rerender } = render(
+  const { getByTestId } = render(
     <SettingsProvider>
       <GameplayMode />
     </SettingsProvider>
@@ -55,19 +55,13 @@ test('should correctly update the tabletop radio button to checked when user cli
   expect(tabletopInput.checked).toBe(false)
 
   fireEvent.click(tabletopInput, { target: { name: 'gameplayMode', value: 'tabletop' } })
-
-  rerender(
-    <SettingsProvider>
-      <GameplayMode />
-    </SettingsProvider>
-  )
 
   expect(individualInput.checked).toBe(false)
   expect(tabletopInput.checked).toBe(true)
 })
 
 test('should correctly update the individual radio button to checked when user clicks individual input', () => {
-  const { getByTestId, rerender } = render(
+  const { getByTestId } = render(
     <SettingsProvider>
       <GameplayMode />
     </SettingsProvider>
@@ -81,22 +75,10 @@ test('should correctly update the individual radio button to checked when user c
 
   fireEvent.click(tabletopInput, { target: { name: 'gameplayMode', value: 'tabletop' } })
 
-  rerender(
-    <SettingsProvider>
-      <GameplayMode />
-    </SettingsProvider>
-  )
-
   expect(individualInput.checked).toBe(false)
   expect(tabletopInput.checked).toBe(true)
 
   fireEvent.click(individualInput, { target: { name: 'gameplayMode', value: 'individual' } })
-
-  rerender(
-    <SettingsProvider>
-      <GameplayMode />
-    </SettingsProvider>
-  )
 
   expect(individualInput.checked).toBe(true)
   expect(tabletopInput.checked).toBe(false)

@@ -8,7 +8,7 @@ export const AskName: React.FC = () => {
   const [error, setError] = useState<Error>(null)
   const { setUser } = useUserActions()
 
-  const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUserChange = (e) => {
     setName(e.target.value)
   }
 
@@ -25,11 +25,11 @@ export const AskName: React.FC = () => {
 
   return (
     <>
-      {error && <h1>{error.message}</h1>}
-      <form onSubmit={handleSubmit}>
-        <label>Enter Name:</label>
-        <input type='text' value={name} onChange={handleUserChange}/>
-        <input type='submit'/>
+      {error && <h1 data-testid='errorMessage'>{error.message}</h1>}
+      <form onSubmit={handleSubmit} data-testid='form'>
+        <label data-testid='label'>Enter Name:</label>
+        <input type='text' value={name} onChange={handleUserChange} data-testid='nameInput'/>
+        <input type='submit' data-testid='submitInput'/>
       </form>
     </>
   )

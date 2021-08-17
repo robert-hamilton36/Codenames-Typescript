@@ -6,7 +6,12 @@ export const GameList: React.FC<Props> = ({ games, setGameToJoin }) => {
   }
   return (
     <ul>
-      {games.map((game, id) => <li key={game + id}>{game}<button onClick={() => handleClick(game)}>Join Game</button></li>)}
+      {games.map((game, index) => (
+        <li key={game + index} data-testid={'li' + index}>
+          <p data-testid={'p' + index}>{game}</p>
+          <button onClick={() => handleClick(game)} data-testid={'button' + index}>Join Game</button>
+        </li>)
+      )}
     </ul>
   )
 }

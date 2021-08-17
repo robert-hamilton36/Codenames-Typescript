@@ -12,11 +12,11 @@ export const DeviceList: React.FC<Props> = ({ devices }) => {
   return (
     <div className = "playerList">
       <table>
-        <tbody>
-          {devices.map((device) => {
+        <tbody data-testid='deviceList'>
+          {devices.map((device, index) => {
             let string = device.name + ' - '
-            device.spymaster ? string += 'Spymaster' : string += ' Operative'
-            return <tr key={device.name}><td onClick={() => setSelectedDevice(device)}>{string}</td></tr>
+            device.spymaster ? string += 'Spymaster' : string += 'Operative'
+            return <tr key={device.uid}><td onClick={() => setSelectedDevice(device)} data-testid={'device' + index}>{string}</td></tr>
           })}
         </tbody>
       </table>

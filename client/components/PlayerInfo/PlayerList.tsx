@@ -16,24 +16,24 @@ export const PlayerList: React.FC<Props> = ({ playerList }) => {
       <table>
         <thead>
           <tr>
-            <th>Red</th>
-            <th>Blue</th>
+            <th data-testid='redHeader'>Red</th>
+            <th data-testid='blueHeader'>Blue</th>
           </tr>
         </thead>
         <thead>
           <tr>
-            <th colSpan={2}>Spymasters</th>
+            <th colSpan={2} data-testid='spymasterHeader'>Spymasters</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody data-testid='spymastersContainer'>
           {makeSpymasterTable}
         </tbody>
         <thead>
           <tr>
-            <th colSpan={2}>Operatives</th>
+            <th colSpan={2} data-testid='operativeHeader'>Operatives</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody data-testid='operativesContainer'>
           {makeOperativeTable}
         </tbody>
       </table>

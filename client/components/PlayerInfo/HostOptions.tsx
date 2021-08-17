@@ -11,7 +11,6 @@ export const HostOptions: React.FC<Props> = ({ selectedPlayer, setSelectedPlayer
   const { gameId } = useGameId()
 
   const makePlayerOperativeOrSpymaster = () => {
-    console.log(selectedPlayer.uid)
     return editSpymasterOperative(gameId, selectedPlayer.uid)
       .then(() => {
         return setSelectedPlayer(null)
@@ -33,12 +32,12 @@ export const HostOptions: React.FC<Props> = ({ selectedPlayer, setSelectedPlayer
   }
 
   return (
-    <div>
-      <h1>Selected Player: {selectedPlayer.name}</h1>
-      <h1>Team: {selectedPlayer.team}</h1>
-      <button onClick={makePlayerOperativeOrSpymaster}>Make {getOppositeRole(selectedPlayer)}</button>
-      <button onClick={changePlayerTeam}>{getOppositeTeamColour(selectedPlayer)} Team</button>
-      <button onClick={removePlayer}>Kick </button>
+    <div data-testid='hostOptionsContainer'>
+      <h1 data-testid='nameHeader'>Selected Player: {selectedPlayer.name}</h1>
+      <h1 data-testid='teamHeader'>Team: {selectedPlayer.team}</h1>
+      <button onClick={makePlayerOperativeOrSpymaster} data-testid='buttonChangeRole'>Make {getOppositeRole(selectedPlayer)}</button>
+      <button onClick={changePlayerTeam} data-testid='buttonChangeTeam'>{getOppositeTeamColour(selectedPlayer)} Team</button>
+      <button onClick={removePlayer} data-testid='buttonKick'>Kick</button>
     </div>
   )
 }

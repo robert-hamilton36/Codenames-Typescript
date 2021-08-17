@@ -48,6 +48,12 @@ export const blueOperative = {
   uid: 'bd7ee7f0-67cc-44f2-a2b4-6545f593c722'
 }
 
+export const blueOperativeCopyWithDifferentUid = {
+  name: 'Yoda',
+  team: 'blue',
+  uid: '657e245b-cef0-3c72-5abd-47cf24467f92'
+}
+
 export const redOperative = {
   name: 'Emperor Palpatine',
   team: 'red',

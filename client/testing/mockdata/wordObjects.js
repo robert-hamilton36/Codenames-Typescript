@@ -2,128 +2,152 @@ export const beforeGameStartWordList = {
   0: {
     key: 'red',
     revealed: false,
-    word: 'Park'
+    word: 'Park',
+    index: 0
   },
   1: {
     key: 'blue',
     revealed: false,
-    word: 'Mass'
+    word: 'Mass',
+    index: 1
   },
   2: {
     key: 'blue',
     revealed: false,
-    word: 'Horseshoe'
+    word: 'Horseshoe',
+    index: 2
   },
   3: {
     key: 'red',
     revealed: false,
-    word: 'King'
+    word: 'King',
+    index: 3
   },
   4: {
     key: 'red',
     revealed: false,
-    word: 'Mammoth'
+    word: 'Mammoth',
+    index: 4
   },
   5: {
     key: 'red',
     revealed: false,
-    word: 'Dinosaur'
+    word: 'Dinosaur',
+    index: 5
   },
   6: {
     key: 'neutral',
     revealed: false,
-    word: 'Gas'
+    word: 'Gas',
+    index: 6
   },
   7: {
     key: 'blue',
     revealed: false,
-    word: 'Africa'
-
+    word: 'Africa',
+    index: 7
   },
   8: {
     key: 'neutral',
     revealed: false,
-    word: 'Opera'
+    word: 'Opera',
+    index: 8
   },
   9: {
     key: 'red',
     revealed: false,
-    word: 'Rat'
+    word: 'Rat',
+    index: 9
   },
   10: {
     key: 'red',
     revealed: false,
-    word: 'Kiwi'
+    word: 'Kiwi',
+    index: 10
   },
   11: {
     key: 'blue',
     revealed: false,
-    word: 'Box'
+    word: 'Box',
+    index: 11
   },
   12: {
     key: 'neutral',
     revealed: false,
-    word: 'Belt'
+    word: 'Belt',
+    index: 12
   },
   13: {
     key: 'blue',
     revealed: false,
-    word: 'Jam'
+    word: 'Jam',
+    index: 13
   },
   14: {
     key: 'neutral',
     revealed: false,
-    word: 'Robot'
+    word: 'Robot',
+    index: 14
   },
   15: {
     key: 'assassin',
     revealed: false,
-    word: 'Limousine'
+    word: 'Limousine',
+    index: 15
   },
   16: {
     key: 'neutral',
     revealed: false,
-    word: 'Swing'
+    word: 'Swing',
+    index: 16
   },
   17: {
     key: 'red',
     revealed: false,
-    word: 'Root'
+    word: 'Root',
+    index: 17
   },
   18: {
     key: 'red',
     revealed: false,
-    word: 'Sub'
+    word: 'Sub',
+    index: 18
   },
   19: {
     key: 'blue',
     revealed: false,
-    word: 'Center'
+    word: 'Center',
+    index: 19
   },
   20: {
     key: 'blue',
     revealed: false,
-    word: 'Mouth'
+    word: 'Mouth',
+    index: 20
   },
   21: {
     key: 'neutral',
     revealed: false,
-    word: 'Needle'
+    word: 'Needle',
+    index: 21
   },
   22: {
     key: 'red',
     revealed: false,
-    word: 'Sprint'
+    word: 'Sprint',
+    index: 22
   },
   23: {
     key: 'blue',
     revealed: false,
-    word: 'Revolution'
+    word: 'Revolution',
+    index: 23
   },
   24: {
     key: 'neutral',
     revealed: false,
-    word: 'Hole'
+    word: 'Hole',
+    index: 24
   }
 }
 
@@ -131,127 +155,260 @@ export const gameWonWordList = {
   0: {
     key: 'red',
     revealed: true,
-    word: 'Park'
+    word: 'Park',
+    index: 0
   },
   1: {
     key: 'blue',
     revealed: false,
-    word: 'Mass'
+    word: 'Mass',
+    index: 1
   },
   2: {
     key: 'blue',
     revealed: false,
-    word: 'Horseshoe'
+    word: 'Horseshoe',
+    index: 2
   },
   3: {
     key: 'red',
     revealed: true,
-    word: 'King'
+    word: 'King',
+    index: 3
   },
   4: {
     key: 'red',
     revealed: true,
-    word: 'Mammoth'
+    word: 'Mammoth',
+    index: 4
   },
   5: {
     key: 'red',
     revealed: true,
-    word: 'Dinosaur'
+    word: 'Dinosaur',
+    index: 5
   },
   6: {
     key: 'neutral',
     revealed: false,
-    word: 'Gas'
+    word: 'Gas',
+    index: 6
   },
   7: {
     key: 'blue',
     revealed: true,
-    word: 'Africa'
-
+    word: 'Africa',
+    index: 7
   },
   8: {
     key: 'neutral',
     revealed: false,
-    word: 'Opera'
+    word: 'Opera',
+    index: 8
   },
   9: {
     key: 'red',
     revealed: true,
-    word: 'Rat'
+    word: 'Rat',
+    index: 9
   },
   10: {
     key: 'red',
     revealed: true,
-    word: 'Kiwi'
+    word: 'Kiwi',
+    index: 10
   },
   11: {
     key: 'blue',
     revealed: true,
-    word: 'Box'
+    word: 'Box',
+    index: 11
   },
   12: {
     key: 'neutral',
     revealed: true,
-    word: 'Belt'
+    word: 'Belt',
+    index: 12
   },
   13: {
     key: 'blue',
     revealed: true,
-    word: 'Jam'
+    word: 'Jam',
+    index: 13
   },
   14: {
     key: 'neutral',
     revealed: false,
-    word: 'Robot'
+    word: 'Robot',
+    index: 14
   },
   15: {
     key: 'assassin',
     revealed: false,
-    word: 'Limousine'
+    word: 'Limousine',
+    index: 15
   },
   16: {
     key: 'neutral',
     revealed: true,
-    word: 'Swing'
+    word: 'Swing',
+    index: 16
   },
   17: {
     key: 'red',
     revealed: true,
-    word: 'Root'
+    word: 'Root',
+    index: 17
   },
   18: {
     key: 'red',
     revealed: true,
-    word: 'Sub'
+    word: 'Sub',
+    index: 18
   },
   19: {
     key: 'blue',
     revealed: false,
-    word: 'Center'
+    word: 'Center',
+    index: 19
   },
   20: {
     key: 'blue',
     revealed: false,
-    word: 'Mouth'
+    word: 'Mouth',
+    index: 20
   },
   21: {
     key: 'neutral',
     revealed: false,
-    word: 'Needle'
+    word: 'Needle',
+    index: 21
   },
   22: {
     key: 'red',
     revealed: true,
-    word: 'Sprint'
+    word: 'Sprint',
+    index: 22
   },
   23: {
     key: 'blue',
     revealed: false,
-    word: 'Revolution'
+    word: 'Revolution',
+    index: 23
   },
   24: {
     key: 'neutral',
     revealed: false,
-    word: 'Hole'
+    word: 'Hole',
+    index: 24
   }
 }
+
+export const fullWordArray = [
+  'Park',
+  'Mass',
+  'Horseshoe',
+  'King',
+  'Mammoth',
+  'Dinosaur',
+  'Gas',
+  'Africa',
+  'Opera',
+  'Rat',
+  'Kiwi',
+  'Box',
+  'Belt',
+  'Jam',
+  'Robot',
+  'Limousine',
+  'Swing',
+  'Root',
+  'Sub',
+  'Center',
+  'Mouth',
+  'Needle',
+  'Sprint',
+  'Revolution',
+  'Hole',
+  'Death',
+  'Dice',
+  'Dinosaur',
+  'Doctor',
+  'Dog',
+  'Dress',
+  'Dwarf',
+  'Eagle',
+  'Egypt',
+  'Engine',
+  'England',
+  'Europe',
+  'Eye',
+  'Fair',
+  'Fall',
+  'Fan',
+  'Field',
+  'File',
+  'Film',
+  'Fish',
+  'Flute',
+  'Fly',
+  'Forest',
+  'Fork',
+  'France'
+]
+
+export const firstWordArray = [
+  'Park',
+  'Mass',
+  'Horseshoe',
+  'King',
+  'Mammoth',
+  'Dinosaur',
+  'Gas',
+  'Africa',
+  'Opera',
+  'Rat',
+  'Kiwi',
+  'Box',
+  'Belt',
+  'Jam',
+  'Robot',
+  'Limousine',
+  'Swing',
+  'Root',
+  'Sub',
+  'Center',
+  'Mouth',
+  'Needle',
+  'Sprint',
+  'Revolution',
+  'Hole'
+]
+
+export const secondWordArray = [
+  'Death',
+  'Dice',
+  'Dinosaur',
+  'Doctor',
+  'Dog',
+  'Dress',
+  'Dwarf',
+  'Eagle',
+  'Egypt',
+  'Engine',
+  'England',
+  'Europe',
+  'Eye',
+  'Fair',
+  'Fall',
+  'Fan',
+  'Field',
+  'File',
+  'Film',
+  'Fish',
+  'Flute',
+  'Fly',
+  'Forest',
+  'Fork',
+  'France'
+]

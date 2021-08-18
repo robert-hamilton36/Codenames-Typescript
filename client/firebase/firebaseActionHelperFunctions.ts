@@ -4,6 +4,7 @@ export const findUsersVoteInvertItsLockStatus = (voteArray: VoteObject[], userId
   return voteArray.map((voteObj) => {
     if (voteObj.player.uid === userId) {
       return {
+        skip: voteObj?.skip,
         wordObj: voteObj.wordObj,
         player: voteObj.player,
         locked: !voteObj.locked

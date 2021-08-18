@@ -8,7 +8,7 @@ export const OperativeTurnActions: React.FC<Props> = ({ gameData }) => {
   if (gameIsTabletopMode(gameData)) {
     return (
       <>
-        <h1>Deliberate with your team</h1>
+        <h1 data-testid='tabletopModeOperativeHeader'>Deliberate with your team</h1>
         <h2>When you agree, tell spymaster your pick</h2>
       </>
     )
@@ -16,7 +16,7 @@ export const OperativeTurnActions: React.FC<Props> = ({ gameData }) => {
 
   if (!gamesCurrentTurnHasAHint(gameData)) {
     return (
-      <h1>Waiting for hint from {getCurrentTurnsSpymatersName(gameData)?.name} </h1>
+      <h1 data-testid='waitingForHintHeader'>Waiting for hint from {getCurrentTurnsSpymatersName(gameData)?.name}</h1>
     )
   }
 
@@ -28,7 +28,7 @@ export const OperativeTurnActions: React.FC<Props> = ({ gameData }) => {
 
   return (
     <>
-      <h1>Use chat to discuss and vote on word</h1>
+      <h1 data-testid='individualModeOperativeHeader'>Use chat to discuss and vote on word</h1>
       <h2>Then tell spymaster to vote</h2>
     </>
   )

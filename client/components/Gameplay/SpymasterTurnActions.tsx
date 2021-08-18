@@ -20,7 +20,7 @@ export const SpymasterTurnActions: React.FC<Props> = ({ gameData }) => {
 
   if (voteSystemIsIndividualVote(gameData)) {
     return (
-      <h1>Wait for team to lock-in votes</h1>
+      <h1 data-testid='waitForVotesHeader'>Wait for team to lock-in votes</h1>
     )
   }
 }

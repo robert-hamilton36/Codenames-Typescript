@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useUserContext, useUserActions } from '../../contexts/UserContext'
 import { GameInfo } from '../../types/gameState'
-import { gameStarted, gameWon, usersTeamsTurn } from '../../utility/gameStateInfoFunctions'
+import { gameWon, usersTeamsTurn } from '../../utility/gameStateInfoFunctions'
 import { OperativeTurnActions } from './OperativeTurnActions'
 import { SpymasterTurnActions } from './SpymasterTurnActions'
 
@@ -19,13 +19,13 @@ export const Gameplay: React.FC<Props> = ({ gameData }) => {
   // }, [])
 
   if (user.host && gameWon(gameData)) {
-    // the component for this state is rendered from main board
+    // the component for this state is now rendered from main board
     return null
   }
 
   if (!usersTeamsTurn(gameData, user)) {
     return (
-      <h1>Wait for your teams turn</h1>
+      <h1 data-testid='notYourTeamsTurnHeader'>Wait for your teams turn</h1>
     )
   }
 

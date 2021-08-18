@@ -4,37 +4,33 @@ import { useGameId } from '../../contexts/GameIdContext'
 import { useSelectedCard } from '../../contexts/SelectedCardContext'
 import { useUserContext } from '../../contexts/UserContext'
 import { VoteObject } from '../../types/gameState'
+import { userVotedForSkip, userVotedForWord } from '../../utility/playerVoteFunctions'
+import { UserNotVoted } from './UserNotVoted'
+import { VotedForSkip } from './VotedForSkip'
+import { VotedForWord } from './VotedForWord'
 
 export const Vote: React.FC<Props> = ({ votes }) => {
   const [usersVote, setUsersVote] = useState<VoteObject>(null)
-  const [votedForSkipped, setVotedForSkipped] = useState<boolean>(false)
-  const [votedForWord, setVotedForWord] = useState<boolean>(false)
   const { gameId } = useGameId()
   const { user } = useUserContext()
-  const { selectedCard, setSelectedCard } = useSelectedCard()
+  const { selectedCard } = useSelectedCard()
   const { addPlayerVote, removePlayersVote, invertLockStatusForPlayersVote } = useVoteActions()
 
   useEffect(() => {
-    const usersVote = votes.find(vote => vote.player.uid === user.uid)
-    setUsersVote(usersVote)
+    const getUsersVote = votes.find(vote => vote.player.uid === user.uid)
+    if (getUsersVote) {
+      setUsersVote(getUsersVote)
+    } else {
+      setUsersVote(null)
+    }
   }, [votes])
-
-  useEffect(() => {
-    if (usersVote?.wordObj?.word) {
-      setVotedForSkipped(false)
-      setVotedForWord(true)
-    }
-    if (usersVote?.skip) {
-      setVotedForSkipped(true)
-      setVotedForWord(false)
-    }
-  }, [usersVote])
 
   const handleVote = () => {
     const voteObj = {
       locked: false,
       player: user,
-      wordObj: selectedCard
+      wordObj: selectedCard,
+      skip: false
     }
 
     addPlayerVote(gameId, voteObj)
@@ -46,7 +42,6 @@ export const Vote: React.FC<Props> = ({ votes }) => {
 
   const handleLockIn = () => {
     invertLockStatusForPlayersVote(gameId, user.uid)
-    setSelectedCard(null)
   }
 
   const handleSkip = () => {
@@ -60,64 +55,20 @@ export const Vote: React.FC<Props> = ({ votes }) => {
     addPlayerVote(gameId, voteObj)
   }
 
-  if (votedForSkipped && selectedCard === null) {
+  if (userVotedForSkip(usersVote)) {
     return (
-      <div>
-        <h1>Voted for skip turn</h1>
-        <button onClick={handleUnvote}>Unvote</button>
-        <button onClick={handleLockIn}>Lock-in</button>
-      </div>
+      <VotedForSkip selectedCard={selectedCard} usersVote={usersVote} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />
     )
   }
 
-  if (votedForSkipped && selectedCard) {
+  if (userVotedForWord(usersVote)) {
     return (
-      <div>
-        <h1>Selected Card: {selectedCard.word}</h1>
-        <h1>Voted for skip turn</h1>
-        <button onClick={handleVote}>Change Vote</button>
-      </div>
-    )
-  }
-
-  if (selectedCard === null) {
-    return (
-      <>
-        <h1>Select a card and vote</h1>
-        <button onClick={handleSkip}>Skip</button>
-      </>
-    )
-  }
-
-  if (usersVote?.wordObj?.word === selectedCard?.word) {
-    return (
-      <div>
-        <h1>Selected Card: {selectedCard.word}</h1>
-        <button onClick={handleUnvote}>Unvote</button>
-        {usersVote.locked
-          ? <button onClick={handleLockIn}>Unlock</button>
-          : <button onClick={handleLockIn}>Lock-in</button>
-        }
-      </div>
-    )
-  }
-
-  if (votedForWord && usersVote?.wordObj?.word !== selectedCard?.word) {
-    return (
-      <div>
-        <h1>Selected Card: {selectedCard.word}</h1>
-        <button onClick={handleVote}>Change Vote</button>
-        <button onClick={handleSkip}>Skip</button>
-      </div>
+      <VotedForWord selectedCard={selectedCard} usersVote={usersVote} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />
     )
   }
 
   return (
-    <div>
-      <h1>Selected Card: {selectedCard.word}</h1>
-      <button onClick={handleVote}>Vote</button>
-      <button onClick={handleSkip}>Skip</button>
-    </div>
+    <UserNotVoted selectedCard={selectedCard} handleVote={handleVote} handleSkip={handleSkip}/>
   )
 }
 

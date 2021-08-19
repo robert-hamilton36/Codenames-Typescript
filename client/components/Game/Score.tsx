@@ -7,8 +7,8 @@ export const Score:React.FC<Props> = ({ teamPoints }) => {
     <table>
       <tbody>
         <tr>
-          <th>Red: {teamPoints.red}</th>
-          <th>Blue: {teamPoints.blue}</th>
+          <th data-testid='redScore'>Red: {teamPoints.red}</th>
+          <th data-testid='blueScore'>Blue: {teamPoints.blue}</th>
         </tr>
       </tbody>
     </table>

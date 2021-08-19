@@ -1,4 +1,6 @@
-export const beforeGameStartWordList = {
+import { WordList } from '../../types/gameState'
+
+export const wordListNoReveals: WordList = {
   0: {
     key: 'red',
     revealed: false,
@@ -151,7 +153,7 @@ export const beforeGameStartWordList = {
   }
 }
 
-export const gameWonWordList = {
+export const wordListRedTeamWin: WordList = {
   0: {
     key: 'red',
     revealed: true,

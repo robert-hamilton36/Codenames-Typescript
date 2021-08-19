@@ -11,7 +11,7 @@ import { useGameId } from '../../../contexts/GameIdContext'
 import { useSelectedCard } from '../../../contexts/SelectedCardContext'
 import { useUserContext } from '../../../contexts/UserContext'
 
-import { beforeGameStartWordList } from '../../../testing/mockdata/wordObjects'
+import { wordListNoReveals } from '../../../testing/mockdata/wordObjects'
 import { voteObjMassPlayerAni, voteObjParkPlayerObi, voteObjSkipPlayerObi, voteObjSkipPlayerAni } from '../../../testing/mockdata/voteObjects'
 import { redSpymaster as userAnakin } from '../../../testing/mockdata/players'
 
@@ -32,7 +32,7 @@ UserNotVoted.mockReturnValue(<div data-testid='userNotVoted'>UserNotVoted</div>)
 VotedForSkip.mockReturnValue(<div data-testid='votedForSkip'>VotedForSkip</div>)
 VotedForWord.mockReturnValue(<div data-testid='votedForWord'>VotedForWord</div>)
 
-const parkCardObj = beforeGameStartWordList[0]
+const parkCardObj = wordListNoReveals[0]
 
 beforeEach(() => {
   useGameId.mockReturnValue({ gameId: 'sUhCubsdZeKRsepPr9ag' })

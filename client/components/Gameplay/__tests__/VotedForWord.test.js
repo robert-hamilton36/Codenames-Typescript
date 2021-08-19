@@ -1,15 +1,15 @@
 import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
 import { VotedForWord } from '../VotedForWord'
-import { beforeGameStartWordList } from '../../../testing/mockdata/wordObjects'
+import { wordListNoReveals } from '../../../testing/mockdata/wordObjects'
 import { voteObjMassPlayerAni, voteObjParkPlayerObi, voteObjParkLockedPlayerObi } from '../../../testing/mockdata/voteObjects'
 
 const handleVote = jest.fn()
 const handleUnvote = jest.fn()
 const handleLockIn = jest.fn()
 
-const parkCardObject = beforeGameStartWordList[0]
-const massCardObject = beforeGameStartWordList[1]
+const parkCardObject = wordListNoReveals[0]
+const massCardObject = wordListNoReveals[1]
 
 afterEach(() => jest.clearAllMocks())
 

@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 import { usePlayerSelectorDeselector, useWordSelectorDeselector } from '../useSelectorDeselector'
 import { blueSpymaster, redSpymaster } from '../../testing/mockdata/players'
-import { beforeGameStartWordList as words, gameWonWordList } from '../../testing/mockdata/wordObjects'
+import { wordListNoReveals as words, wordListRedTeamWin } from '../../testing/mockdata/wordObjects'
 
 describe('tests usePlayerSelectorDeselector hook', () => {
   test('usePlayerSelectorDeselector renders properly with correct initial state', () => {
@@ -139,7 +139,7 @@ describe('tests useWordSelectorDeselector hook', () => {
     expect(word).toBeNull()
 
     act(() => {
-      setWord(gameWonWordList[0])
+      setWord(wordListRedTeamWin[0])
 
       const [word2] = result.current
       expect(word2).toBeNull()

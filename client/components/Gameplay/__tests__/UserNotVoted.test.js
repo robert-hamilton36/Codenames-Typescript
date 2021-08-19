@@ -1,12 +1,12 @@
 import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
 import { UserNotVoted } from '../UserNotVoted'
-import { beforeGameStartWordList } from '../../../testing/mockdata/wordObjects'
+import { wordListNoReveals } from '../../../testing/mockdata/wordObjects'
 
 const handleVote = jest.fn()
 const handleSkip = jest.fn()
 
-const parkCardObject = beforeGameStartWordList[0]
+const parkCardObject = wordListNoReveals[0]
 
 afterEach(() => jest.clearAllMocks())
 

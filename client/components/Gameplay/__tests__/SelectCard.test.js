@@ -6,7 +6,7 @@ import { useGuessActions } from '../../../contexts/FirebaseContext'
 import { useGameId } from '../../../contexts/GameIdContext'
 import { useSelectedCard } from '../../../contexts/SelectedCardContext'
 
-import { gameWonWordList } from '../../../testing/mockdata/wordObjects'
+import { wordListRedTeamWin } from '../../../testing/mockdata/wordObjects'
 
 jest.mock('../../../contexts/FirebaseContext')
 jest.mock('../../../contexts/GameIdContext')
@@ -15,8 +15,8 @@ jest.mock('../../../contexts/SelectedCardContext')
 const makeGuess = jest.fn(() => Promise.resolve())
 const endTurn = jest.fn(() => Promise.resolve())
 
-const revealedWord = gameWonWordList[0]
-const unrevealedWord = gameWonWordList[1]
+const revealedWord = wordListRedTeamWin[0]
+const unrevealedWord = wordListRedTeamWin[1]
 
 beforeEach(() => {
   jest.clearAllMocks()

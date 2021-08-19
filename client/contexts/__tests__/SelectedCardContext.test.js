@@ -1,7 +1,7 @@
 import React from 'react'
 import { renderHook, act } from '@testing-library/react-hooks'
 import { SelectedCardProvider, useSelectedCard } from '../SelectedCardContext'
-import { beforeGameStartWordList as wordList } from '../../testing/mockdata/wordObjects'
+import { wordListNoReveals as wordList } from '../../testing/mockdata/wordObjects'
 
 test('provider should render with empty initial state', () => {
   const wrapper = ({ children }) => <SelectedCardProvider> {children} </SelectedCardProvider>

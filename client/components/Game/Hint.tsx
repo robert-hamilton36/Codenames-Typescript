@@ -6,17 +6,17 @@ export const Hint: React.FC<Props> = ({ gameState }) => {
   if (gameState.hint) {
     return (
       <>
-        <p>Guesses left: {gameState.guessesLeft} </p>
-        <p>Hint: {gameState.hint.hint} {gameState.hint.numberOfWords}</p>
+        <p data-testid='guessesLeftParagraph'>Guesses left: {gameState.guessesLeft}</p>
+        <p data-testid='hintParagraph'>Hint: {gameState.hint.hint} {gameState.hint.numberOfWords}</p>
       </>
     )
   } else if (gameState.gameStart) {
     return (
-      <h1>Waiting for hint</h1>
+      <h1 data-testid='waitForHintHeader'>Waiting for hint</h1>
     )
   } else {
     return (
-      <h1>Waiting for game start</h1>
+      <h1 data-testid='waitForGameStartHeader'>Waiting for game start</h1>
     )
   }
 }

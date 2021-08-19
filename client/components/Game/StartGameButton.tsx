@@ -22,7 +22,7 @@ export const StartGameButton: React.FC<Props> = ({ gameInfo }) => {
   }
 
   return (
-    <button onClick={handleStart}>Start Game</button>
+    <button onClick={handleStart} data-testid='startGameButton'>Start Game</button>
   )
 }
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
 import { VotedForWord } from '../VotedForWord'
 import { wordListNoReveals } from '../../../testing/mockdata/wordObjects'
-import { voteObjMassPlayerAni, voteObjParkPlayerObi, voteObjParkLockedPlayerObi } from '../../../testing/mockdata/voteObjects'
+import { voteObjMassBlueSpymaster, voteObjParkRedSpymaster, voteObjParkLockedRedSpymaster } from '../../../testing/mockdata/voteObjects'
 
 const handleVote = jest.fn()
 const handleUnvote = jest.fn()
@@ -15,7 +15,7 @@ afterEach(() => jest.clearAllMocks())
 
 describe('tests for no selected card', () => {
   test('should render correct text and values with a users vote not locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={null} usersVote={voteObjMassPlayerAni} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={null} usersVote={voteObjMassBlueSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')
@@ -31,8 +31,8 @@ describe('tests for no selected card', () => {
     const removeLockinButton = queryByTestId('removeLockinButton')
     const lockinButton = queryByTestId('lockinButton')
 
-    expect(votedForHeader.textContent).toBe('Voted for: ' + voteObjMassPlayerAni.wordObj.word)
-    expect(removeVoteButton.textContent).toBe('Remove ' + voteObjMassPlayerAni.wordObj.word + ' vote')
+    expect(votedForHeader.textContent).toBe('Voted for: ' + voteObjMassBlueSpymaster.wordObj.word)
+    expect(removeVoteButton.textContent).toBe('Remove ' + voteObjMassBlueSpymaster.wordObj.word + ' vote')
 
     expect(removeLockinButton).toBeNull()
     expect(lockinButton).not.toBeNull()
@@ -41,7 +41,7 @@ describe('tests for no selected card', () => {
   })
 
   test('should call correct function, handleUnvote when remove vote button is pressed with a users vote not locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={null} usersVote={voteObjMassPlayerAni} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={null} usersVote={voteObjMassBlueSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')
@@ -51,7 +51,7 @@ describe('tests for no selected card', () => {
     expect(noSelectedCardVotedForWordDiv).not.toBeNull()
     expect(selectedWordSameAsVotedWordDiv).toBeNull()
     expect(currentVoteNotSameAsSelectedCardDiv).toBeNull()
-    expect(removeVoteButton.textContent).toBe('Remove ' + voteObjMassPlayerAni.wordObj.word + ' vote')
+    expect(removeVoteButton.textContent).toBe('Remove ' + voteObjMassBlueSpymaster.wordObj.word + ' vote')
 
     expect(handleUnvote).toHaveBeenCalledTimes(0)
 
@@ -61,7 +61,7 @@ describe('tests for no selected card', () => {
   })
 
   test('should call correct function, handleLockIn when Lock-in vote button is pressed with a users vote not locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={null} usersVote={voteObjMassPlayerAni} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={null} usersVote={voteObjMassBlueSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')
@@ -81,7 +81,7 @@ describe('tests for no selected card', () => {
   })
 
   test('should render correct text and values with a users vote thats locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={null} usersVote={voteObjParkLockedPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={null} usersVote={voteObjParkLockedRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')
@@ -97,8 +97,8 @@ describe('tests for no selected card', () => {
     const removeLockinButton = queryByTestId('removeLockinButton')
     const lockinButton = queryByTestId('lockinButton')
 
-    expect(votedForHeader.textContent).toBe('Voted for: ' + voteObjParkLockedPlayerObi.wordObj.word)
-    expect(removeVoteButton.textContent).toBe('Remove ' + voteObjParkLockedPlayerObi.wordObj.word + ' vote')
+    expect(votedForHeader.textContent).toBe('Voted for: ' + voteObjParkLockedRedSpymaster.wordObj.word)
+    expect(removeVoteButton.textContent).toBe('Remove ' + voteObjParkLockedRedSpymaster.wordObj.word + ' vote')
 
     expect(removeLockinButton).not.toBeNull()
     expect(lockinButton).toBeNull()
@@ -107,7 +107,7 @@ describe('tests for no selected card', () => {
   })
 
   test('should call correct function, handleUnvote when remove vote button is pressed with a users vote thats locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={null} usersVote={voteObjParkLockedPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={null} usersVote={voteObjParkLockedRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')
@@ -117,7 +117,7 @@ describe('tests for no selected card', () => {
     expect(noSelectedCardVotedForWordDiv).not.toBeNull()
     expect(selectedWordSameAsVotedWordDiv).toBeNull()
     expect(currentVoteNotSameAsSelectedCardDiv).toBeNull()
-    expect(removeVoteButton.textContent).toBe('Remove ' + voteObjParkLockedPlayerObi.wordObj.word + ' vote')
+    expect(removeVoteButton.textContent).toBe('Remove ' + voteObjParkLockedRedSpymaster.wordObj.word + ' vote')
 
     expect(handleUnvote).toHaveBeenCalledTimes(0)
 
@@ -127,7 +127,7 @@ describe('tests for no selected card', () => {
   })
 
   test('should call correct function, handleLockIn when Lock-in vote button is pressed with a users vote thats locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={null} usersVote={voteObjParkLockedPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={null} usersVote={voteObjParkLockedRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')
@@ -149,7 +149,7 @@ describe('tests for no selected card', () => {
 
 describe('tests for when selected card is the same as usersVote', () => {
   test('should render correct text and values when users vote not locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={parkCardObject} usersVote={voteObjParkPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={parkCardObject} usersVote={voteObjParkRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')
@@ -175,7 +175,7 @@ describe('tests for when selected card is the same as usersVote', () => {
   })
 
   test('should call correct function, handleUnvote, when Remove vote button is clicked with a users vote not locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={parkCardObject} usersVote={voteObjParkPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={parkCardObject} usersVote={voteObjParkRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')
@@ -195,7 +195,7 @@ describe('tests for when selected card is the same as usersVote', () => {
   })
 
   test('should call correct function, handleLockIn, when lockInButton is clicked with a users vote not locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={parkCardObject} usersVote={voteObjParkPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={parkCardObject} usersVote={voteObjParkRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')
@@ -215,7 +215,7 @@ describe('tests for when selected card is the same as usersVote', () => {
   })
 
   test('should render correct text and values when users vote is locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={parkCardObject} usersVote={voteObjParkLockedPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={parkCardObject} usersVote={voteObjParkLockedRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')
@@ -241,7 +241,7 @@ describe('tests for when selected card is the same as usersVote', () => {
   })
 
   test('should call correct function, handleUnvote, when Remove vote button is clicked with a users vote thats locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={parkCardObject} usersVote={voteObjParkLockedPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={parkCardObject} usersVote={voteObjParkLockedRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')
@@ -261,7 +261,7 @@ describe('tests for when selected card is the same as usersVote', () => {
   })
 
   test('should call correct function, handleLockIn, when lockInButton is clicked with a users vote thats locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={parkCardObject} usersVote={voteObjParkLockedPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={parkCardObject} usersVote={voteObjParkLockedRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')
@@ -283,7 +283,7 @@ describe('tests for when selected card is the same as usersVote', () => {
 
 describe('tests for when selected card is different then usersVote', () => {
   test('should render correct text and values', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={massCardObject} usersVote={voteObjParkPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={massCardObject} usersVote={voteObjParkRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')
@@ -297,13 +297,13 @@ describe('tests for when selected card is different then usersVote', () => {
     const selectedCardHeader = getByTestId('selectedCardHeader')
     const changeVoteButton = getByTestId('changeVoteButton')
 
-    expect(votedForHeader.textContent).toBe('Voted for: ' + voteObjParkPlayerObi.wordObj.word)
+    expect(votedForHeader.textContent).toBe('Voted for: ' + voteObjParkRedSpymaster.wordObj.word)
     expect(selectedCardHeader.textContent).toBe('Selected Card: ' + massCardObject.word)
     expect(changeVoteButton.textContent).toBe('Change Vote to ' + massCardObject.word)
   })
 
   test('should call correct function, handleVote, when vhangeVoteButton is clicked', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={massCardObject} usersVote={voteObjParkPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForWord selectedCard={massCardObject} usersVote={voteObjParkRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const noSelectedCardVotedForWordDiv = queryByTestId('noSelectedCardVotedForWordDiv')
     const selectedWordSameAsVotedWordDiv = queryByTestId('selectedWordSameAsVotedWordDiv')

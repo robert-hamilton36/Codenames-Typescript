@@ -12,7 +12,7 @@ import { useSelectedCard } from '../../../contexts/SelectedCardContext'
 import { useUserContext } from '../../../contexts/UserContext'
 
 import { wordListNoReveals } from '../../../testing/mockdata/wordObjects'
-import { voteObjMassPlayerAni, voteObjParkPlayerObi, voteObjSkipPlayerObi, voteObjSkipPlayerAni } from '../../../testing/mockdata/voteObjects'
+import { voteObjParkRedSpymaster, voteObjMassBlueSpymaster, voteObjSkipBlueSpymaster, voteObjSkipRedSpymaster } from '../../../testing/mockdata/voteObjects'
 import { redSpymaster as userAnakin } from '../../../testing/mockdata/players'
 
 jest.mock('../UserNotVoted')
@@ -61,7 +61,7 @@ test('should render with correct text and values with no votes', () => {
 
 test('should render with correct text and values with one vote for a word which is not the usersVote', () => {
   useSelectedCard.mockReturnValue(parkCardObj)
-  const votes = [voteObjParkPlayerObi]
+  const votes = [voteObjMassBlueSpymaster]
   const { queryByTestId } = render(<Vote votes={votes}/>)
 
   const votedForSkip = queryByTestId('votedForSkip')
@@ -76,7 +76,7 @@ test('should render with correct text and values with one vote for a word which 
 
 test('should render with correct text and values with one vote for a skip which is not the usersVote', () => {
   useSelectedCard.mockReturnValue(parkCardObj)
-  const votes = [voteObjSkipPlayerObi]
+  const votes = [voteObjSkipBlueSpymaster]
   const { queryByTestId } = render(<Vote votes={votes}/>)
 
   const votedForSkip = queryByTestId('votedForSkip')
@@ -91,7 +91,7 @@ test('should render with correct text and values with one vote for a skip which 
 
 test('should render with correct text and values when user has voted for a word', () => {
   useSelectedCard.mockReturnValue(parkCardObj)
-  const votes = [voteObjMassPlayerAni]
+  const votes = [voteObjParkRedSpymaster]
   const { queryByTestId } = render(<Vote votes={votes}/>)
 
   const votedForSkip = queryByTestId('votedForSkip')
@@ -106,7 +106,7 @@ test('should render with correct text and values when user has voted for a word'
 
 test('should render with correct text and values when user has voted for skip', () => {
   useSelectedCard.mockReturnValue(parkCardObj)
-  const votes = [voteObjSkipPlayerAni]
+  const votes = [voteObjSkipRedSpymaster]
   const { queryByTestId } = render(<Vote votes={votes}/>)
 
   const votedForSkip = queryByTestId('votedForSkip')
@@ -120,7 +120,7 @@ test('should render with correct text and values when user has voted for skip', 
 })
 
 test('should correctly update usersVote via useEffect when votes are updated', () => {
-  const { rerender, queryByTestId } = render(<Vote votes={[voteObjSkipPlayerObi]}/>)
+  const { rerender, queryByTestId } = render(<Vote votes={[voteObjSkipBlueSpymaster]}/>)
 
   let votedForSkip = queryByTestId('votedForSkip')
   let votedForWord = queryByTestId('votedForWord')
@@ -131,7 +131,7 @@ test('should correctly update usersVote via useEffect when votes are updated', (
   expect(userNotVoted).not.toBeNull()
   expect(userNotVoted.textContent).toBe('UserNotVoted')
 
-  rerender(<Vote votes={[voteObjSkipPlayerObi, voteObjSkipPlayerAni]}/>)
+  rerender(<Vote votes={[voteObjSkipBlueSpymaster, voteObjSkipRedSpymaster]}/>)
 
   votedForSkip = queryByTestId('votedForSkip')
   votedForWord = queryByTestId('votedForWord')

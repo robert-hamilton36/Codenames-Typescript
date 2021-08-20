@@ -1,5 +1,5 @@
 import { userVotedForSkip, userVotedForWord } from '../playerVoteFunctions'
-import { voteObjParkPlayerObi, voteObjParkLockedPlayerObi, voteObjSkipPlayerObi, voteObjSkipLockedPlayerObi } from '../../testing/mockdata/voteObjects'
+import { voteObjParkRedSpymaster, voteObjParkLockedRedSpymaster, voteObjSkipRedSpymaster, voteObjSkipLockedRedSpymaster } from '../../testing/mockdata/voteObjects'
 
 const emptyVote = {
   user: {
@@ -17,22 +17,22 @@ describe('tests for userVotedForSkip', () => {
   })
 
   test('should return false with a vote for a word', () => {
-    const hasUserVotedForSkip = userVotedForSkip(voteObjParkPlayerObi)
+    const hasUserVotedForSkip = userVotedForSkip(voteObjParkRedSpymaster)
     expect(hasUserVotedForSkip).toBe(false)
   })
 
   test('should return false with a vote for a word thats locked in', () => {
-    const hasUserVotedForSkip = userVotedForSkip(voteObjParkLockedPlayerObi)
+    const hasUserVotedForSkip = userVotedForSkip(voteObjParkLockedRedSpymaster)
     expect(hasUserVotedForSkip).toBe(false)
   })
 
   test('should return true with a vote for skip', () => {
-    const hasUserVotedForSkip = userVotedForSkip(voteObjSkipPlayerObi)
+    const hasUserVotedForSkip = userVotedForSkip(voteObjSkipRedSpymaster)
     expect(hasUserVotedForSkip).toBe(true)
   })
 
   test('should return true with a vote for skip thats locked in', () => {
-    const hasUserVotedForSkip = userVotedForSkip(voteObjSkipLockedPlayerObi)
+    const hasUserVotedForSkip = userVotedForSkip(voteObjSkipLockedRedSpymaster)
     expect(hasUserVotedForSkip).toBe(true)
   })
 })
@@ -44,22 +44,22 @@ describe('tests for userVotedForWord', () => {
   })
 
   test('should return true with a vote for a word', () => {
-    const hasUserVotedForWord = userVotedForWord(voteObjParkPlayerObi)
+    const hasUserVotedForWord = userVotedForWord(voteObjParkRedSpymaster)
     expect(hasUserVotedForWord).toBe(true)
   })
 
   test('should return true with a vote for a word thats locked in', () => {
-    const hasUserVotedForWord = userVotedForWord(voteObjParkLockedPlayerObi)
+    const hasUserVotedForWord = userVotedForWord(voteObjParkLockedRedSpymaster)
     expect(hasUserVotedForWord).toBe(true)
   })
 
   test('should return false with a vote for skip', () => {
-    const hasUserVotedForWord = userVotedForWord(voteObjSkipPlayerObi)
+    const hasUserVotedForWord = userVotedForWord(voteObjSkipRedSpymaster)
     expect(hasUserVotedForWord).toBe(false)
   })
 
   test('should return false with a vote for skip thats locked in', () => {
-    const hasUserVotedForWord = userVotedForWord(voteObjSkipLockedPlayerObi)
+    const hasUserVotedForWord = userVotedForWord(voteObjSkipLockedRedSpymaster)
     expect(hasUserVotedForWord).toBe(false)
   })
 })

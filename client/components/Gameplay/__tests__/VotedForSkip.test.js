@@ -2,7 +2,7 @@ import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
 import { VotedForSkip } from '../VotedForSkip'
 import { wordListNoReveals } from '../../../testing/mockdata/wordObjects'
-import { voteObjSkipPlayerObi, voteObjSkipLockedPlayerObi } from '../../../testing/mockdata/voteObjects'
+import { voteObjSkipRedSpymaster, voteObjSkipLockedRedSpymaster } from '../../../testing/mockdata/voteObjects'
 
 const handleVote = jest.fn()
 const handleUnvote = jest.fn()
@@ -14,7 +14,7 @@ afterEach(() => jest.clearAllMocks())
 
 describe('tests for no selected card', () => {
   test('should render correct text and values, when usersVote is not locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={null} usersVote={voteObjSkipPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={null} usersVote={voteObjSkipRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const selectedCardVotedForSkip = queryByTestId('selectedCardVotedForSkip')
     const noSelectedCardVotedForSkip = queryByTestId('noSelectedCardVotedForSkip')
@@ -38,7 +38,7 @@ describe('tests for no selected card', () => {
   })
 
   test('should call handleUnvote, when usersVote is not locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={null} usersVote={voteObjSkipPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={null} usersVote={voteObjSkipRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const selectedCardVotedForSkip = queryByTestId('selectedCardVotedForSkip')
     const noSelectedCardVotedForSkip = queryByTestId('noSelectedCardVotedForSkip')
@@ -56,7 +56,7 @@ describe('tests for no selected card', () => {
   })
 
   test('should call handleLockIn, when usersVote is not locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={null} usersVote={voteObjSkipPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={null} usersVote={voteObjSkipRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const selectedCardVotedForSkip = queryByTestId('selectedCardVotedForSkip')
     const noSelectedCardVotedForSkip = queryByTestId('noSelectedCardVotedForSkip')
@@ -74,7 +74,7 @@ describe('tests for no selected card', () => {
   })
 
   test('should render correct text and values, when usersVote is locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={null} usersVote={voteObjSkipLockedPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={null} usersVote={voteObjSkipLockedRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const selectedCardVotedForSkip = queryByTestId('selectedCardVotedForSkip')
     const noSelectedCardVotedForSkip = queryByTestId('noSelectedCardVotedForSkip')
@@ -98,7 +98,7 @@ describe('tests for no selected card', () => {
   })
 
   test('should call handleUnvote, when usersVote is locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={null} usersVote={voteObjSkipLockedPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={null} usersVote={voteObjSkipLockedRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const selectedCardVotedForSkip = queryByTestId('selectedCardVotedForSkip')
     const noSelectedCardVotedForSkip = queryByTestId('noSelectedCardVotedForSkip')
@@ -116,7 +116,7 @@ describe('tests for no selected card', () => {
   })
 
   test('should call handleLockIn, when usersVote is locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={null} usersVote={voteObjSkipLockedPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={null} usersVote={voteObjSkipLockedRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const selectedCardVotedForSkip = queryByTestId('selectedCardVotedForSkip')
     const noSelectedCardVotedForSkip = queryByTestId('noSelectedCardVotedForSkip')
@@ -136,7 +136,7 @@ describe('tests for no selected card', () => {
 
 describe('tests for when there is a selected card', () => {
   test('should render correct text and values, when usersVote is not locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={parkCardObject} usersVote={voteObjSkipPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={parkCardObject} usersVote={voteObjSkipRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const selectedCardVotedForSkip = queryByTestId('selectedCardVotedForSkip')
     const noSelectedCardVotedForSkip = queryByTestId('noSelectedCardVotedForSkip')
@@ -152,7 +152,7 @@ describe('tests for when there is a selected card', () => {
   })
 
   test('should call handleVote, when usersVote is not locked in', () => {
-    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={parkCardObject} usersVote={voteObjSkipPlayerObi} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
+    const { queryByTestId, getByTestId } = render(<VotedForSkip selectedCard={parkCardObject} usersVote={voteObjSkipRedSpymaster} handleVote={handleVote} handleUnvote={handleUnvote} handleLockIn={handleLockIn} />)
 
     const selectedCardVotedForSkip = queryByTestId('selectedCardVotedForSkip')
     const noSelectedCardVotedForSkip = queryByTestId('noSelectedCardVotedForSkip')

@@ -18,6 +18,6 @@ export const LeaveGameButton: React.FC = () => {
       .then(() => history.push('/'))
   }
   return (
-    <button onClick={handleClick}>Leave Game</button>
+    <button onClick={handleClick} data-testid='leaveGameButton'>Leave Game</button>
   )
 }

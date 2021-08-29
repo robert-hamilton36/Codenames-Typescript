@@ -1,4 +1,5 @@
 import { GameInfo } from '../../types/gameState'
+import { blueOperative, blueSpymaster, redHostOperative, redSpymaster } from './players'
 import { wordListNoReveals, wordListRedTeamWin } from './wordObjects'
 
 export const gameDataIndividualVotePreStart: GameInfo = {
@@ -22,32 +23,7 @@ export const gameDataIndividualVotePreStart: GameInfo = {
     general: [],
     red: []
   },
-  players: [
-    {
-      host: true,
-      name: 'R2-D2',
-      team: 'red',
-      uid: 'dd3b8c97-102c-4e88-962b-4ba5ffb032aa'
-    },
-    {
-      name: 'Obi Wan',
-      team: 'blue',
-      uid: '68e683be-27a1-4f06-868d-f0818cde8df5',
-      spymaster: true
-    },
-    {
-      name: 'Anakin',
-      team: 'red',
-      uid: '7ace9e1c-fda8-4088-b7a5-9cd9878ca1ab',
-      spymaster: true
-    },
-    {
-      name: 'Yoda',
-      team: 'blue',
-      uid: 'bd7ee7f0-67cc-44f2-a2b4-6545f593c722'
-    }
-
-  ],
+  players: [redHostOperative, blueSpymaster, redSpymaster, blueOperative],
   settings: {
     gameplayMode: 'individual',
     scoresForWin: {
@@ -83,32 +59,7 @@ export const gameDataIndividualVoteStartNoHint: GameInfo = {
     general: [],
     red: []
   },
-  players: [
-    {
-      host: true,
-      name: 'R2-D2',
-      team: 'red',
-      uid: 'dd3b8c97-102c-4e88-962b-4ba5ffb032aa'
-    },
-    {
-      name: 'Obi Wan',
-      team: 'blue',
-      uid: '68e683be-27a1-4f06-868d-f0818cde8df5',
-      spymaster: true
-    },
-    {
-      name: 'Anakin',
-      team: 'red',
-      uid: '7ace9e1c-fda8-4088-b7a5-9cd9878ca1ab',
-      spymaster: true
-    },
-    {
-      name: 'Yoda',
-      team: 'blue',
-      uid: 'bd7ee7f0-67cc-44f2-a2b4-6545f593c722'
-    }
-
-  ],
+  players: [redHostOperative, blueSpymaster, redSpymaster, blueOperative],
   settings: {
     gameplayMode: 'individual',
     scoresForWin: {
@@ -149,32 +100,7 @@ export const gameDataIndividualVoteStartFirstHint: GameInfo = {
     general: [],
     red: []
   },
-  players: [
-    {
-      host: true,
-      name: 'R2-D2',
-      team: 'red',
-      uid: 'dd3b8c97-102c-4e88-962b-4ba5ffb032aa'
-    },
-    {
-      name: 'Obi Wan',
-      team: 'blue',
-      uid: '68e683be-27a1-4f06-868d-f0818cde8df5',
-      spymaster: true
-    },
-    {
-      name: 'Anakin',
-      team: 'red',
-      uid: '7ace9e1c-fda8-4088-b7a5-9cd9878ca1ab',
-      spymaster: true
-    },
-    {
-      name: 'Yoda',
-      team: 'blue',
-      uid: 'bd7ee7f0-67cc-44f2-a2b4-6545f593c722'
-    }
-
-  ],
+  players: [redHostOperative, blueSpymaster, redSpymaster, blueOperative],
   settings: {
     gameplayMode: 'individual',
     scoresForWin: {
@@ -214,32 +140,7 @@ export const gameDataIndividualSpymasterLocksinStartFirstHint: GameInfo = {
     general: [],
     red: []
   },
-  players: [
-    {
-      host: true,
-      name: 'R2-D2',
-      team: 'red',
-      uid: 'dd3b8c97-102c-4e88-962b-4ba5ffb032aa'
-    },
-    {
-      name: 'Obi Wan',
-      team: 'blue',
-      uid: '68e683be-27a1-4f06-868d-f0818cde8df5',
-      spymaster: true
-    },
-    {
-      name: 'Anakin',
-      team: 'red',
-      uid: '7ace9e1c-fda8-4088-b7a5-9cd9878ca1ab',
-      spymaster: true
-    },
-    {
-      name: 'Yoda',
-      team: 'blue',
-      uid: 'bd7ee7f0-67cc-44f2-a2b4-6545f593c722'
-    }
-
-  ],
+  players: [redHostOperative, blueSpymaster, redSpymaster, blueOperative],
   settings: {
     gameplayMode: 'individual',
     scoresForWin: {
@@ -275,32 +176,7 @@ export const gameDataTabletopStartNoHint: GameInfo = {
     general: [],
     red: []
   },
-  players: [
-    {
-      host: true,
-      name: 'R2-D2',
-      team: 'red',
-      uid: 'dd3b8c97-102c-4e88-962b-4ba5ffb032aa'
-    },
-    {
-      name: 'Obi Wan',
-      team: 'blue',
-      uid: '68e683be-27a1-4f06-868d-f0818cde8df5',
-      spymaster: true
-    },
-    {
-      name: 'Anakin',
-      team: 'red',
-      uid: '7ace9e1c-fda8-4088-b7a5-9cd9878ca1ab',
-      spymaster: true
-    },
-    {
-      name: 'Yoda',
-      team: 'blue',
-      uid: 'bd7ee7f0-67cc-44f2-a2b4-6545f593c722'
-    }
-
-  ],
+  players: [redHostOperative, blueSpymaster, redSpymaster, blueOperative],
   settings: {
     gameplayMode: 'tabletop',
     scoresForWin: {
@@ -337,32 +213,7 @@ export const gameDataRedTeamWon: GameInfo = {
     general: [],
     red: []
   },
-  players: [
-    {
-      host: true,
-      name: 'R2-D2',
-      team: 'red',
-      uid: 'dd3b8c97-102c-4e88-962b-4ba5ffb032aa'
-    },
-    {
-      name: 'Obi Wan',
-      team: 'blue',
-      uid: '68e683be-27a1-4f06-868d-f0818cde8df5',
-      spymaster: true
-    },
-    {
-      name: 'Anakin',
-      team: 'red',
-      uid: '7ace9e1c-fda8-4088-b7a5-9cd9878ca1ab',
-      spymaster: true
-    },
-    {
-      name: 'Yoda',
-      team: 'blue',
-      uid: 'bd7ee7f0-67cc-44f2-a2b4-6545f593c722'
-    }
-
-  ],
+  players: [redHostOperative, blueSpymaster, redSpymaster, blueOperative],
   settings: {
     gameplayMode: 'individual',
     scoresForWin: {

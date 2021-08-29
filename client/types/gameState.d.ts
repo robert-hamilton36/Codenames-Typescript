@@ -32,11 +32,13 @@ interface TeamPoints {
 }
 
 interface VoteObject {
-  skip?: boolean
+  skip: boolean
   locked: boolean,
   player: User,
   wordObj?: WordObj
 }
+
+// todo make wordObjj nonoptional, so it will be null when not used
 
 interface WordObj{
   index: number

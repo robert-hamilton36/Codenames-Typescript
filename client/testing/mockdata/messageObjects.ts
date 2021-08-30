@@ -1,5 +1,5 @@
 import { MessageObj } from '../../types/gameState'
-import { blueSpymaster, redSpymaster } from './players'
+import { blueSpymaster, redOperative, redSpymaster } from './players'
 
 export const messageHelloThereBlueSpymaster: MessageObj = {
   message: 'Hello There',
@@ -9,4 +9,9 @@ export const messageHelloThereBlueSpymaster: MessageObj = {
 export const messageSandRedSpymaster: MessageObj = {
   message: 'I hate sand',
   user: redSpymaster
+}
+
+export const messageDoItRedOperative :MessageObj = {
+  message: 'Do it',
+  user: redOperative
 }

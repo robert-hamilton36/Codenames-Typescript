@@ -8,10 +8,10 @@ export const VoteTable: React.FC<Props> = ({ votes }) => {
     <table>
       <thead>
         <tr>
-          <th>Votes</th>
+          <th data-testid='votesHeader'>Votes</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody data-testid='votesBody'>
         {makeVotesTable(votes)}
       </tbody>
     </table>

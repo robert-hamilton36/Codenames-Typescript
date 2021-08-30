@@ -18,7 +18,8 @@ interface ProvidedContextFirebase {
 export type firestore = firebase.firestore.Firestore
 export type app = firebase.app.App
 
-const FirebaseContext = createContext<ProvidedContextFirebase | null >(null)
+// export for testing purposes
+export const FirebaseContext = createContext<ProvidedContextFirebase | null >(null)
 
 export function useFirebase ():ProvidedContextFirebase {
   return useContext(FirebaseContext)

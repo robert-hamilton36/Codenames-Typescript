@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { MessageContainer } from '../components/Game/MessageContainer'
+import { ChatContainer } from '../components/Game/ChatContainer'
 import { Score } from '../components/Game/Score'
 import { PlayerInfo } from '../components/PlayerInfo/PlayerInfo'
 import { GameInfoContainer } from '../components/Game/GameInfoContainer'
@@ -34,9 +34,12 @@ export const LargeGame: React.FC<Props> = ({ data }) => {
       <div className='score'>
         <Score teamPoints={data.gameState.teamPoints}/>
       </div>
-      <div className='chat'>
-        <MessageContainer game={data}/>
-      </div>
+      {data.settings.gameplayMode !== 'tabletop' && (
+        <div className='chat'>
+          <ChatContainer game={data}/>
+        </div>
+      )
+      }
       <div className='actions'>
         <Gameplay gameData={data}/>
       </div>

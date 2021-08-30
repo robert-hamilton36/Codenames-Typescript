@@ -7,7 +7,7 @@ import { WordCard } from './WordCard'
 export const DisplayWordGrid: React.FC<Props> = ({ wordList }) => {
   const wordListArray = makeArrayFromObjectValues(wordList)
   return (
-    <div className="board">
+    <div className="board" data-testid='board'>
       {wordListArray.map((word) => <WordCard key={word.word} word={word}/>)}
     </div>
 

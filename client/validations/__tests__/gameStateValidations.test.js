@@ -1,4 +1,4 @@
-import { validateGameStart, GameStateValidationError } from './gameStateValidations'
+import { validateGameStart, GameStateValidationError } from '../gameStateValidations'
 
 const basicGameState = {
   settings: {

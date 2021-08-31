@@ -1,4 +1,4 @@
-import { validateName, NameValidationError } from './nameValidation'
+import { validateName, NameValidationError } from '../nameValidation'
 
 test('throws error on empty name', () => {
   expect(() => {

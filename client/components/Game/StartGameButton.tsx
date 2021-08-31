@@ -4,7 +4,7 @@ import { useErrorContext } from '../../contexts/ErrorContext'
 import { useGameplayActions } from '../../contexts/FirebaseContext'
 import { useGameId } from '../../contexts/GameIdContext'
 import { GameInfo } from '../../types/gameState'
-import { validateGameStart } from '../../validations/gameStatevalidations'
+import { validateGameStart } from '../../validations/gameStateValidations'
 
 export const StartGameButton: React.FC<Props> = ({ gameInfo }) => {
   const { gameId } = useGameId()

@@ -22,7 +22,7 @@ export const LargeGame: React.FC<Props> = ({ data }) => {
         <VoteTable votes={data.gameState.votes}/>
       </div>
       <div className='startGame'>
-        { user.host && data.gameState.gameStart && <StartGameButton gameInfo={data}/>}
+        { user.host && !data.gameState.gameStart && <StartGameButton gameInfo={data}/>}
         <LeaveGameButton />
       </div>
       <div className='gameInfo'>

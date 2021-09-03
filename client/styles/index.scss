@@ -3,7 +3,10 @@
 @use 'Settings';
 html, 
 body {
-  font-family: sans-serif;
+  // font-family: sans-serif;
+  font-family: roboto;
+  margin: 0;
+  display: flex;
 }
 
 .getWord {

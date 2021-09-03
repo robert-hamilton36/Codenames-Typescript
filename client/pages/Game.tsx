@@ -27,20 +27,24 @@ export const Game: React.FC = () => {
     }
   }, [data])
 
+  if (screenSize === 'fullscreen') {
+    return (
+      // fullscreen Game
+      <LargeGame data={data}/>
+    )
+  } else if (screenSize === 'phone') {
+    return (
+      // other screen sizes
+      // null
+      <LargeGame data={data}/>
+    )
+  }
+  // temp
   if (data) {
-    if (screenSize === 'fullscreen') {
-      return (
-        // fullscreen Game
-        <LargeGame data={data}/>
-      )
-    } else if (screenSize === 'phone') {
-      return (
-        // other screen sizes
-        // null
-        <LargeGame data={data}/>
-
-      )
-    }
+    return (
+      <LargeGame data={data}/>
+    )
+  // temp until screensize is fully working
   } else {
     return (
       <h1>Loading ...</h1>

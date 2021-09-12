@@ -4,7 +4,7 @@ import { useFirestoreSubscriber } from '../contexts/FirebaseContext'
 
 import { GameInfo } from '../types/gameState'
 import { LargeGame } from './LargeGame'
-import { useScreenSize } from '../hooks/useScreenSize'
+// import { useScreenSize } from '../hooks/useScreenSize'
 import { useUserActions, useUserContext } from '../contexts/UserContext'
 import { useGameId } from '../contexts/GameIdContext'
 
@@ -13,7 +13,7 @@ export const Game: React.FC = () => {
   const { user } = useUserContext()
   const { updateUser } = useUserActions()
   const data: GameInfo | null = useFirestoreSubscriber(gameId)
-  const screenSize = useScreenSize()
+  // const screenSize = useScreenSize()
 
   useEffect(() => {
     let updatedUser
@@ -27,27 +27,29 @@ export const Game: React.FC = () => {
     }
   }, [data])
 
-  if (screenSize === 'fullscreen') {
+  if (!data) {
     return (
-      // fullscreen Game
-      <LargeGame data={data}/>
-    )
-  } else if (screenSize === 'phone') {
-    return (
-      // other screen sizes
-      // null
-      <LargeGame data={data}/>
+      <h1>Loading ...</h1>
     )
   }
-  // temp
+
+  // if (screenSize === 'fullscreen') {
+  //   return (
+  //     // fullscreen Game
+  //     <LargeGame data={data}/>
+  //   )
+  // } else if (screenSize === 'phone') {
+  //   return (
+  //     // other screen sizes
+  //     // null
+  //     <LargeGame data={data}/>
+  //   )
+  // }
+
+  // temp until screensize is fully working
   if (data) {
     return (
       <LargeGame data={data}/>
-    )
-  // temp until screensize is fully working
-  } else {
-    return (
-      <h1>Loading ...</h1>
     )
   }
 }

@@ -1,12 +1,12 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Toaster } from './components/Toaster'
 
 import { CreateGame } from './pages/CreateGame'
 import { Game } from './pages/Game'
 import { JoinTestGame } from './pages/JoinTestGame'
 import { Lobby } from './pages/Lobby'
 import { MenuPage } from './pages/MenuPage'
+import { Toaster } from './components/Toaster'
 
 export const Routes: React.FC = () => {
   return (

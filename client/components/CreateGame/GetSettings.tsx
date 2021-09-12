@@ -9,9 +9,9 @@ export const GetSettings: React.FC<Props> = ({ confirmSettings }) => {
   const { settings } = useSettingsContext()
 
   const removeErrorFromSettings = (dirtySettings: SettingsState) => {
-    delete dirtySettings.error
-    const cleanSettings: Settings = dirtySettings
-    return cleanSettings
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { error, ...cleanSettings } = dirtySettings
+    return cleanSettings as Settings
   }
 
   const handleConfirm = () => {

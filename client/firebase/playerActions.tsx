@@ -25,6 +25,7 @@ export const playerActions = (firestore: firestore): playerActionReturn => {
         .then((data) => {
           const player = data.data().players.find((player) => player.uid === userID)
           transaction.update(ref, { players: firebase.firestore.FieldValue.arrayRemove(player) })
+          // todo: remove delete keyword
           player.host ? delete player.host : player.host = true
           return transaction.update(ref, { players: firebase.firestore.FieldValue.arrayUnion(player) })
         })
@@ -40,6 +41,7 @@ export const playerActions = (firestore: firestore): playerActionReturn => {
           const player = data.data().players.find((player) => player.uid === userID)
           console.log(player)
           transaction.update(ref, { players: firebase.firestore.FieldValue.arrayRemove(player) })
+          // todo: remove delete keyword
           player.spymaster ? delete player.spymaster : player.spymaster = true
           return transaction.update(ref, { players: firebase.firestore.FieldValue.arrayUnion(player) })
         })

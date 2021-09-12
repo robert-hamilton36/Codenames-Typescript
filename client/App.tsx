@@ -1,28 +1,13 @@
 import React from 'react'
 
-import { ErrorProvider } from './contexts/ErrorContext'
-import { FirebaseProvider } from './contexts/FirebaseContext'
-import { SelectedCardProvider } from './contexts/SelectedCardContext'
-import { UserProvider } from './contexts/UserContext'
-import { GameIdProvider } from './contexts/GameIdContext'
+import { Providers } from './Providers'
 import { Routes } from './Routes'
-import { ToasterProvider } from './contexts/ToasterContext'
 
 const App: React.FC = () => {
   return (
-    <ErrorProvider>
-      <UserProvider>
-        <GameIdProvider>
-          <FirebaseProvider>
-            <SelectedCardProvider>
-              <ToasterProvider>
-                <Routes/>
-              </ToasterProvider>
-            </SelectedCardProvider>
-          </FirebaseProvider>
-        </GameIdProvider>
-      </UserProvider>
-    </ErrorProvider>
+    <Providers>
+      <Routes/>
+    </Providers>
   )
 }
 

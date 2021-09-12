@@ -1,5 +1,5 @@
 import React from 'react'
-import { useErrorContext } from '../../contexts/ErrorContext'
+import { useToaster } from '../../contexts/ToasterContext'
 
 import { useGameplayActions } from '../../contexts/FirebaseContext'
 import { useGameId } from '../../contexts/GameIdContext'
@@ -9,7 +9,7 @@ import { validateGameStart } from '../../validations/gameStateValidations'
 export const StartGameButton: React.FC<Props> = ({ gameInfo }) => {
   const { gameId } = useGameId()
   const { startGame } = useGameplayActions()
-  const { setError } = useErrorContext()
+  const { setToaster } = useToaster()
 
   const handleStart = () => {
     try {
@@ -17,7 +17,7 @@ export const StartGameButton: React.FC<Props> = ({ gameInfo }) => {
         startGame(gameId)
       }
     } catch (error) {
-      setError(error)
+      setToaster({ type: 'Error', message: error.message })
     }
   }
 

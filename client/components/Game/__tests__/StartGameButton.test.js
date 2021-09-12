@@ -4,21 +4,21 @@ import { StartGameButton } from '../StartGameButton'
 
 import { useGameplayActions } from '../../../contexts/FirebaseContext'
 import { useGameId } from '../../../contexts/GameIdContext'
-import { useErrorContext } from '../../../contexts/ErrorContext'
+import { useToaster } from '../../../contexts/ToasterContext'
 
 import { gameDataIndividualVotePreStart } from '../../../testing/mockdata/gameData'
 
 jest.mock('../../../contexts/FirebaseContext')
 jest.mock('../../../contexts/GameIdContext')
-jest.mock('../../../contexts/ErrorContext')
+jest.mock('../../../contexts/ToasterContext')
 
 const startGame = jest.fn(() => Promise.resolve())
-const setError = jest.fn()
+const setToaster = jest.fn()
 
 beforeEach(() => {
   useGameId.mockReturnValue({ gameId: '7RVPD97JXBht7q1eFe8z' })
   useGameplayActions.mockReturnValue({ startGame })
-  useErrorContext.mockReturnValue({ setError })
+  useToaster.mockReturnValue({ setToaster })
 })
 
 afterEach(() => {
@@ -40,12 +40,12 @@ test('should call correct function, startGame, when startButton is clicked with 
 
   expect(startGameButton.textContent).toBe('Start Game')
   expect(startGame).toHaveBeenCalledTimes(0)
-  expect(setError).toHaveBeenCalledTimes(0)
+  expect(setToaster).toHaveBeenCalledTimes(0)
 
   fireEvent.click(startGameButton)
 
   expect(startGame).toHaveBeenCalledTimes(1)
-  expect(setError).toHaveBeenCalledTimes(0)
+  expect(setToaster).toHaveBeenCalledTimes(0)
 })
 
 test('should call correct function, setError, when startButton is clicked with invalid data', () => {
@@ -60,11 +60,11 @@ test('should call correct function, setError, when startButton is clicked with i
   const startGameButton = getByTestId('startGameButton')
 
   expect(startGameButton.textContent).toBe('Start Game')
-  expect(setError).toHaveBeenCalledTimes(0)
+  expect(setToaster).toHaveBeenCalledTimes(0)
   expect(startGame).toHaveBeenCalledTimes(0)
 
   fireEvent.click(startGameButton)
 
   expect(startGame).toHaveBeenCalledTimes(0)
-  expect(setError).toHaveBeenCalledTimes(1)
+  expect(setToaster).toHaveBeenCalledTimes(1)
 })

@@ -1,5 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Toaster } from './components/Toaster'
 
 import { CreateGame } from './pages/CreateGame'
 import { Game } from './pages/Game'
@@ -9,14 +10,17 @@ import { MenuPage } from './pages/MenuPage'
 
 export const Routes: React.FC = () => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={MenuPage}/>
-        <Route path="/game" component={Game}/>
-        <Route path="/lobby" component={Lobby}/>
-        <Route path="/host" component={CreateGame}/>
-        <Route path="/test" component={JoinTestGame}/>
-      </Switch>
-    </Router>
+    <>
+      <Router>
+        <Switch>
+          <Route exact path="/" component={MenuPage}/>
+          <Route path="/game" component={Game}/>
+          <Route path="/lobby" component={Lobby}/>
+          <Route path="/host" component={CreateGame}/>
+          <Route path="/test" component={JoinTestGame}/>
+        </Switch>
+      </Router>
+      <Toaster />
+    </>
   )
 }

@@ -6,6 +6,7 @@ import { SelectedCardProvider } from './contexts/SelectedCardContext'
 import { UserProvider } from './contexts/UserContext'
 import { GameIdProvider } from './contexts/GameIdContext'
 import { Routes } from './Routes'
+import { ToasterProvider } from './contexts/ToasterContext'
 
 const App: React.FC = () => {
   return (
@@ -14,7 +15,9 @@ const App: React.FC = () => {
         <GameIdProvider>
           <FirebaseProvider>
             <SelectedCardProvider>
-              <Routes/>
+              <ToasterProvider>
+                <Routes/>
+              </ToasterProvider>
             </SelectedCardProvider>
           </FirebaseProvider>
         </GameIdProvider>

@@ -7,7 +7,7 @@ import { OperativeTurnActions } from '../OperativeTurnActions'
 import { SpymasterTurnActions } from '../SpymasterTurnActions'
 
 import { redSpymaster, blueSpymaster, redOperative, blueOperative } from '../../../testing/mockdata/players'
-import { gameDataIndividualVotePreStart } from '../../../testing/mockdata/gameData'
+import { gameDataIndividualVotePreStart, gameDataIndividualVoteStartNoHint } from '../../../testing/mockdata/gameData'
 
 jest.mock('../../../contexts/UserContext')
 jest.mock('../OperativeTurnActions')
@@ -20,10 +20,24 @@ beforeEach(() => {
   SpymasterTurnActions.mockReturnValue(<div data-testid='spymasterTurnActions'>spymasterTurnActions</div>)
 })
 
-test('should display wait for your turn message when users team is not the current teams turn, and user is spymaster', () => {
+test("should return null when game hasn't started", () => {
   useUserContext.mockReturnValue({ user: blueSpymaster })
 
   const { queryByTestId } = render(<Gameplay gameData={gameDataIndividualVotePreStart}/>)
+
+  const operativeTurn = queryByTestId('operativeTurnActions')
+  const spymasterTurn = queryByTestId('spymasterTurnActions')
+  const waitForYourTurnHeader = queryByTestId('notYourTeamsTurnHeader')
+
+  expect(operativeTurn).toBeNull()
+  expect(spymasterTurn).toBeNull()
+  expect(waitForYourTurnHeader).toBeNull()
+})
+
+test('should display wait for your turn message when users team is not the current teams turn, and user is spymaster', () => {
+  useUserContext.mockReturnValue({ user: blueSpymaster })
+
+  const { queryByTestId } = render(<Gameplay gameData={gameDataIndividualVoteStartNoHint}/>)
 
   const operativeTurn = queryByTestId('operativeTurnActions')
   const spymasterTurn = queryByTestId('spymasterTurnActions')
@@ -38,7 +52,7 @@ test('should display wait for your turn message when users team is not the curre
 test('should display wait for your turn message when users team is not the current teams turn, and user is operative', () => {
   useUserContext.mockReturnValue({ user: blueOperative })
 
-  const { queryByTestId } = render(<Gameplay gameData={gameDataIndividualVotePreStart}/>)
+  const { queryByTestId } = render(<Gameplay gameData={gameDataIndividualVoteStartNoHint}/>)
 
   const operativeTurn = queryByTestId('operativeTurnActions')
   const spymasterTurn = queryByTestId('spymasterTurnActions')
@@ -53,7 +67,7 @@ test('should display wait for your turn message when users team is not the curre
 test('should display spymasterTurnActions when user is spymaster is in the current teams turn', () => {
   useUserContext.mockReturnValue({ user: redSpymaster })
 
-  const { queryByTestId } = render(<Gameplay gameData={gameDataIndividualVotePreStart}/>)
+  const { queryByTestId } = render(<Gameplay gameData={gameDataIndividualVoteStartNoHint}/>)
 
   const operativeTurn = queryByTestId('operativeTurnActions')
   const spymasterTurn = queryByTestId('spymasterTurnActions')
@@ -68,7 +82,7 @@ test('should display spymasterTurnActions when user is spymaster is in the curre
 test('should display operativeTurnActions when user is operative is in the current teams turn', () => {
   useUserContext.mockReturnValue({ user: redOperative })
 
-  const { queryByTestId } = render(<Gameplay gameData={gameDataIndividualVotePreStart}/>)
+  const { queryByTestId } = render(<Gameplay gameData={gameDataIndividualVoteStartNoHint}/>)
 
   const operativeTurn = queryByTestId('operativeTurnActions')
   const spymasterTurn = queryByTestId('spymasterTurnActions')

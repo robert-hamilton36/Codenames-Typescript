@@ -1,5 +1,5 @@
 import { VoteObject } from '../../types/gameState'
-import { blueSpymaster, redSpymaster } from './players'
+import { blueOperative, blueSpymaster, redOperative, redSpymaster } from './players'
 
 export const voteObjParkRedSpymaster: VoteObject = {
   skip: false,
@@ -75,4 +75,34 @@ export const voteObjSkipLockedBlueSpymaster: VoteObject = {
   locked: true,
   player: blueSpymaster,
   wordObj: null
+}
+
+export const voteObjForceLockedBlueSpymaster: VoteObject = {
+  skip: false,
+  locked: true,
+  player: blueSpymaster,
+  wordObj: {
+    index: 1,
+    key: 'red',
+    revealed: false,
+    word: 'Force'
+  }
+}
+
+export const voteObjLightsaberBlueOperative: VoteObject = {
+  skip: false,
+  locked: false,
+  player: blueOperative,
+  wordObj: {
+    index: 0,
+    key: 'assassin',
+    revealed: true,
+    word: 'Lightsaber'
+  }
+}
+
+export const voteObjSkipRedOperative: VoteObject = {
+  skip: true,
+  locked: false,
+  player: redOperative
 }

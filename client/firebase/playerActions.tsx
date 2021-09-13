@@ -37,9 +37,7 @@ export const playerActions = (firestore: firestore): playerActionReturn => {
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
         .then((data) => {
-          console.log(data.data())
           const player = data.data().players.find((player) => player.uid === userID)
-          console.log(player)
           transaction.update(ref, { players: firebase.firestore.FieldValue.arrayRemove(player) })
           // todo: remove delete keyword
           player.spymaster ? delete player.spymaster : player.spymaster = true

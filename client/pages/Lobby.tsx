@@ -29,7 +29,6 @@ export const Lobby: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log(gameToJoin)
     if (user.name !== '') {
       nextPage()
     }

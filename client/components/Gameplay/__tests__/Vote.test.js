@@ -10,10 +10,12 @@ import { useVoteActions } from '../../../contexts/FirebaseContext'
 import { useGameId } from '../../../contexts/GameIdContext'
 import { useSelectedCard } from '../../../contexts/SelectedCardContext'
 import { useUserContext } from '../../../contexts/UserContext'
+import { makeTeamGuessLog } from '../../../utility/makeLog'
 
 import { wordListNoReveals } from '../../../testing/mockdata/wordObjects'
 import { voteObjParkRedSpymaster, voteObjMassBlueSpymaster, voteObjSkipBlueSpymaster, voteObjSkipRedSpymaster } from '../../../testing/mockdata/voteObjects'
 import { redSpymaster as userAnakin } from '../../../testing/mockdata/players'
+import { userGameLog } from '../../../testing/mockdata/gameLog'
 
 jest.mock('../UserNotVoted')
 jest.mock('../VotedForSkip')
@@ -23,6 +25,7 @@ jest.mock('../../../contexts/FirebaseContext')
 jest.mock('../../../contexts/GameIdContext')
 jest.mock('../../../contexts/SelectedCardContext')
 jest.mock('../../../contexts/UserContext')
+jest.mock('../../../utility/makeLog')
 
 const addPlayerVote = jest.fn(() => Promise.resolve())
 const removePlayersVote = jest.fn(() => Promise.resolve())
@@ -31,6 +34,8 @@ const invertLockStatusForPlayersVote = jest.fn(() => Promise.resolve())
 UserNotVoted.mockReturnValue(<div data-testid='userNotVoted'>UserNotVoted</div>)
 VotedForSkip.mockReturnValue(<div data-testid='votedForSkip'>VotedForSkip</div>)
 VotedForWord.mockReturnValue(<div data-testid='votedForWord'>VotedForWord</div>)
+
+makeTeamGuessLog.mockReturnValue(userGameLog[1])
 
 const parkCardObj = wordListNoReveals[0]
 

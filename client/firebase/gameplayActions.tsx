@@ -2,7 +2,8 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import { firestore } from '../contexts/FirebaseContext'
-import { GameState, Hint, Team, TeamPoints } from '../types/gameState'
+import { GameState, Hint, LogEntry, Team, TeamPoints, User } from '../types/gameState'
+import { TransactionAddLog } from './firebaseTransactions'
 
 export const gameplayActions = (firestore: firestore): GameplayActionReturn => {
   const startGame = (gameId: string) => {
@@ -16,18 +17,20 @@ export const gameplayActions = (firestore: firestore): GameplayActionReturn => {
       return transaction.get(ref)
         .then(() => {
           transaction.update(ref, { gameState: gameState })
+          transaction.update(ref, { gameLog: [] })
           return transaction.update(ref, { 'settings.scoreForWin': scoresForWin })
         })
     })
   }
 
-  const setHint = (gameId: string, hint: Hint) => {
+  const setHint = (gameId: string, hint: Hint, user: User, log: LogEntry) => {
     const ref = firestore.collection('Games').doc(gameId)
     const numOfGuesses = hint.numberOfWords + 1
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
         .then(() => {
           transaction.update(ref, { 'gameState.hint': hint })
+          TransactionAddLog(ref, transaction, log)
           return transaction.update(ref, { 'gameState.guessesLeft': numOfGuesses })
         })
     })
@@ -61,7 +64,7 @@ export const gameplayActions = (firestore: firestore): GameplayActionReturn => {
 export interface GameplayActionReturn {
   startGame: (gameId: string) => Promise<void>
   restartNewGame: (gameId: string, gameState: GameState, scoresForWin: TeamPoints) => Promise<firebase.firestore.Transaction>
-  setHint: (gameId: string, hint: Hint) => Promise<firebase.firestore.Transaction>
+  setHint: (gameId: string, hint: Hint, user: User, log: LogEntry) => Promise<firebase.firestore.Transaction>
   changeTeamsTurn: (gameId: string, team: Team) => Promise<firebase.firestore.Transaction>
   teamWinGame: (gameId: string, team: Team) => Promise<void>
 }

@@ -5,12 +5,19 @@ import { SelectCard } from '../SelectCard'
 import { useGuessActions } from '../../../contexts/FirebaseContext'
 import { useGameId } from '../../../contexts/GameIdContext'
 import { useSelectedCard } from '../../../contexts/SelectedCardContext'
+import { useUserContext } from '../../../contexts/UserContext'
+
+import { makeUserGuessLog } from '../../../utility/makeLog'
 
 import { wordListRedTeamWin } from '../../../testing/mockdata/wordObjects'
+import { blueOperative, redOperative2 } from '../../../testing/mockdata/players'
+import { userGameLog } from '../../../testing/mockdata/gameLog'
 
 jest.mock('../../../contexts/FirebaseContext')
 jest.mock('../../../contexts/GameIdContext')
 jest.mock('../../../contexts/SelectedCardContext')
+jest.mock('../../../contexts/UserContext')
+jest.mock('../../../utility/makeLog')
 
 const makeGuess = jest.fn(() => Promise.resolve())
 const endTurn = jest.fn(() => Promise.resolve())
@@ -26,6 +33,8 @@ beforeEach(() => {
 
 test('should render with correct text and values with no card', () => {
   useSelectedCard.mockReturnValue({ selectedCard: null })
+  useUserContext.mockReturnValue({ user: null })
+
   const { queryByTestId } = render(<SelectCard />)
 
   const cardRevealedHeader = queryByTestId('cardRevealedHeader')
@@ -49,6 +58,8 @@ test('should render with correct text and values with no card', () => {
 
 test('should render with correct text and values with a card that is not revealed', () => {
   useSelectedCard.mockReturnValue({ selectedCard: unrevealedWord })
+  useUserContext.mockReturnValue({ user: null })
+
   const { queryByTestId } = render(<SelectCard />)
 
   const cardRevealedHeader = queryByTestId('cardRevealedHeader')
@@ -73,6 +84,8 @@ test('should render with correct text and values with a card that is not reveale
 
 test('should render with correct text and values with a card that is revealed', () => {
   useSelectedCard.mockReturnValue({ selectedCard: revealedWord })
+  useUserContext.mockReturnValue({ user: null })
+
   const { queryByTestId } = render(<SelectCard />)
 
   const cardRevealedHeader = queryByTestId('cardRevealedHeader')
@@ -94,6 +107,9 @@ test('should render with correct text and values with a card that is revealed', 
 
 test('should fire the endTurn function with gameId when endTurnButton is clicked when no card is selected', () => {
   useSelectedCard.mockReturnValue({ selectedCard: null })
+  makeUserGuessLog.mockReturnValue(userGameLog[2])
+  useUserContext.mockReturnValue({ user: redOperative2 })
+
   const { queryByTestId } = render(<SelectCard />)
 
   const noSelectedcardHeader = queryByTestId('noSelectedcardHeader')
@@ -111,10 +127,16 @@ test('should fire the endTurn function with gameId when endTurnButton is clicked
 
   expect(endTurn).toHaveBeenCalledTimes(1)
   expect(endTurn.mock.calls[0][0]).toBe('sUhCubsdZeKRsepPr9ag')
+  expect(endTurn.mock.calls[0][1]).toEqual(redOperative2)
+  expect(endTurn.mock.calls[0][2]).toEqual(userGameLog[2])
+  expect(endTurn.mock.calls[0][3]).toBeUndefined()
 })
 
 test('should fire the makeGuess function with gameId & selectedCard.index when selectWordButton is clicked when card is not revealed', () => {
   useSelectedCard.mockReturnValue({ selectedCard: unrevealedWord })
+  makeUserGuessLog.mockReturnValue(userGameLog[4])
+  useUserContext.mockReturnValue({ user: blueOperative })
+
   const { queryByTestId } = render(<SelectCard />)
 
   const selectedWordheader = queryByTestId('selectedWordheader')
@@ -136,10 +158,16 @@ test('should fire the makeGuess function with gameId & selectedCard.index when s
   expect(makeGuess).toHaveBeenCalledTimes(1)
   expect(makeGuess.mock.calls[0][0]).toBe('sUhCubsdZeKRsepPr9ag')
   expect(makeGuess.mock.calls[0][1]).toBe(unrevealedWord.index)
+  expect(makeGuess.mock.calls[0][2]).toEqual(blueOperative)
+  expect(makeGuess.mock.calls[0][3]).toEqual(userGameLog[4])
+  expect(makeGuess.mock.calls[0][4]).toBeUndefined()
 })
 
 test('should fire the endTurn function with gameId & selectedCard.index when endTurnButton is clicked when card is not revealed', () => {
   useSelectedCard.mockReturnValue({ selectedCard: unrevealedWord })
+  makeUserGuessLog.mockReturnValue(userGameLog[2])
+  useUserContext.mockReturnValue({ user: redOperative2 })
+
   const { queryByTestId } = render(<SelectCard />)
 
   const selectedWordheader = queryByTestId('selectedWordheader')
@@ -160,4 +188,7 @@ test('should fire the endTurn function with gameId & selectedCard.index when end
 
   expect(endTurn).toHaveBeenCalledTimes(1)
   expect(endTurn.mock.calls[0][0]).toBe('sUhCubsdZeKRsepPr9ag')
+  expect(endTurn.mock.calls[0][1]).toEqual(redOperative2)
+  expect(endTurn.mock.calls[0][2]).toEqual(userGameLog[2])
+  expect(endTurn.mock.calls[0][3]).toBeUndefined()
 })

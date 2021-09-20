@@ -22,7 +22,7 @@ export const OperativeTurnActions: React.FC<Props> = ({ gameData }) => {
 
   if (voteSystemIsIndividualVote(gameData)) {
     return (
-      <Vote votes={gameData.gameState.votes}/>
+      <Vote votes={gameData.gameState.votes} gameLog={gameData.gameLog}/>
     )
   }
 

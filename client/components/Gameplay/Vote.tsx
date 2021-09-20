@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react'
+
 import { useVoteActions } from '../../contexts/FirebaseContext'
 import { useGameId } from '../../contexts/GameIdContext'
 import { useSelectedCard } from '../../contexts/SelectedCardContext'
 import { useUserContext } from '../../contexts/UserContext'
-import { VoteObject } from '../../types/gameState'
-import { userVotedForSkip, userVotedForWord } from '../../utility/playerVoteFunctions'
+
 import { UserNotVoted } from './UserNotVoted'
 import { VotedForSkip } from './VotedForSkip'
 import { VotedForWord } from './VotedForWord'
 
-export const Vote: React.FC<Props> = ({ votes }) => {
+import { makeTeamGuessLog } from '../../utility/makeLog'
+import { userVotedForSkip, userVotedForWord } from '../../utility/playerVoteFunctions'
+
+import { LogEntry, VoteObject } from '../../types/gameState'
+
+export const Vote: React.FC<Props> = ({ votes, gameLog }) => {
   const [usersVote, setUsersVote] = useState<VoteObject>(null)
   const { gameId } = useGameId()
   const { user } = useUserContext()
@@ -41,7 +46,8 @@ export const Vote: React.FC<Props> = ({ votes }) => {
   }
 
   const handleLockIn = () => {
-    invertLockStatusForPlayersVote(gameId, user.uid)
+    const log = makeTeamGuessLog(gameLog, user, usersVote.wordObj)
+    invertLockStatusForPlayersVote(gameId, user, log)
   }
 
   const handleSkip = () => {
@@ -74,4 +80,5 @@ export const Vote: React.FC<Props> = ({ votes }) => {
 
 interface Props {
   votes: VoteObject[]
+  gameLog: LogEntry[]
 }

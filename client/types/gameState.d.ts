@@ -2,11 +2,37 @@ import firebase from 'firebase/app'
 import Timestamp = firebase.firestore.Timestamp
 
 interface GameInfo {
+  gameLog: LogEntry[]
   gameState: GameState,
   host: User
   messages: Messages
   players: User[]
   settings: Settings
+}
+
+type LogEntry = UserHintLogEntry | UserGuessLogEntry | TeamGuessLogEntry
+
+interface UserHintLogEntry {
+  type: 'user'
+  entryNum: number
+  action: 'hint'
+  user: User
+  hint: Hint
+}
+interface UserGuessLogEntry {
+  type: 'user'
+  entryNum: number
+  action: 'guess' |'skip'
+  user: User
+  word?: WordObj
+}
+
+interface TeamGuessLogEntry {
+  type: 'team'
+  entryNum: number
+  action: 'guess' |'skip'
+  team: TeamColour
+  word?: WordObj
 }
 
 interface GameState {

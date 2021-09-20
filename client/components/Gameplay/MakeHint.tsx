@@ -2,13 +2,17 @@ import React, { useState } from 'react'
 
 import { useGameplayActions } from '../../contexts/FirebaseContext'
 import { useGameId } from '../../contexts/GameIdContext'
+import { useUserContext } from '../../contexts/UserContext'
 
-import { Hint } from '../../types/gameState'
+import { makeUserHintLog } from '../../utility/makeLog'
 
-export const MakeHint: React.FC = () => {
+import { Hint, LogEntry } from '../../types/gameState'
+
+export const MakeHint: React.FC<Props> = ({ gameLog }) => {
   const [hint, setStateHint] = useState('')
   const [noOfWords, setNoOfWords] = useState(0)
 
+  const { user } = useUserContext()
   const { gameId } = useGameId()
   const { setHint } = useGameplayActions()
 
@@ -17,7 +21,8 @@ export const MakeHint: React.FC = () => {
       hint,
       numberOfWords: noOfWords
     }
-    setHint(gameId, hintObj)
+    const log = makeUserHintLog(gameLog, user, hintObj)
+    setHint(gameId, hintObj, user, log)
   }
 
   return (
@@ -31,6 +36,10 @@ export const MakeHint: React.FC = () => {
       <input type="submit" onClick={submitHint} data-testid='submitButton'/>
     </>
   )
+}
+
+interface Props {
+  gameLog: LogEntry[]
 }
 
 // todo programatically determine max amount of words possible to choose, one team is 9 the other is 8

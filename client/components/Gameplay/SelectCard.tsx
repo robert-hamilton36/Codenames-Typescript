@@ -1,20 +1,26 @@
 import React from 'react'
 import { useGuessActions } from '../../contexts/FirebaseContext'
 import { useGameId } from '../../contexts/GameIdContext'
-
 import { useSelectedCard } from '../../contexts/SelectedCardContext'
+import { useUserContext } from '../../contexts/UserContext'
 
-export const SelectCard: React.FC = () => {
+import { makeUserGuessLog } from '../../utility/makeLog'
+import { LogEntry } from '../../types/gameState'
+
+export const SelectCard: React.FC<Props> = ({ gameLog }) => {
   const { selectedCard } = useSelectedCard()
+  const { user } = useUserContext()
   const { gameId } = useGameId()
   const { makeGuess, endTurn } = useGuessActions()
 
   const handleTurnChange = () => {
-    return endTurn(gameId)
+    const log = makeUserGuessLog(gameLog, user)
+    return endTurn(gameId, user, log)
   }
 
   const submitChoice = () => {
-    return makeGuess(gameId, selectedCard.index)
+    const log = makeUserGuessLog(gameLog, user, selectedCard)
+    return makeGuess(gameId, selectedCard.index, user, log)
   }
 
   if (selectedCard?.revealed) {
@@ -39,4 +45,8 @@ export const SelectCard: React.FC = () => {
       <button onClick={handleTurnChange}data-testid='endTurnButton'>End Turn</button>
     </>
   )
+}
+
+interface Props {
+  gameLog: LogEntry[]
 }

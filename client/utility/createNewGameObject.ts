@@ -25,6 +25,7 @@ export const createGameObject = (user: User, settings: Settings, listWords: stri
   }
 
   const newGameObject: GameInfo = {
+    gameLog: [],
     gameState: {
       gameStart: false,
       guesses: 0,

@@ -3,7 +3,7 @@ import 'firebase/firestore'
 
 import { calculatePointsFromDataAndCurrentRevealedWord, checkForWin } from './firebaseActionHelperFunctions'
 import { getNextTurnsTeam } from '../utility/gameStateInfoFunctions'
-import { GameInfo, Team } from '../types/gameState'
+import { GameInfo, LogEntry, Team } from '../types/gameState'
 
 const __TransactionDecreaseGuessesLeft = (ref: Ref, transaction: Transaction): Transaction => {
   return transaction.update(ref, { 'gameState.guessesLeft': firebase.firestore.FieldValue.increment(-1) })
@@ -50,6 +50,10 @@ export const TransactionRevealWordHandleGuess = (ref: Ref, transaction: Transact
   }
   __TransactionChangeWordToRevealed(ref, transaction, wordIndex, gameData)
   return __CalculateGuessResults(ref, transaction, gameData, wordIndex)
+}
+
+export const TransactionAddLog = (ref: Ref, transaction: Transaction, log: LogEntry): Transaction => {
+  return transaction.update(ref, { gameLog: firebase.firestore.FieldValue.arrayUnion(log) })
 }
 
 type Ref = firebase.firestore.DocumentReference<firebase.firestore.DocumentData>

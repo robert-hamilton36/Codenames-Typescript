@@ -1,7 +1,8 @@
 import React from 'react'
 
-import { GameState } from '../../types/gameState'
 import { Hint } from './Hint'
+
+import { GameState } from '../../types/gameState'
 
 export const GameInfoContainer:React.FC<Props> = ({ gameState }) => {
   if (gameState.win) {

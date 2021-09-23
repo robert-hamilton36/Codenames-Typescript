@@ -2,8 +2,10 @@ import React from 'react'
 
 import { useSelectedCard } from '../../contexts/SelectedCardContext'
 import { useUserContext } from '../../contexts/UserContext'
-import { getClassNameForWordCard } from '../../utility/getClassNameForWordCard'
+
 import { WordObj } from '../../types/gameState'
+
+import { getClassNameForWordCard } from '../../utility/getClassNameForWordCard'
 
 export const WordCard: React.FC<Props> = ({ word }) => {
   const { selectedCard, setSelectedCard } = useSelectedCard()

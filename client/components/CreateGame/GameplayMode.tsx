@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { useSettingsContext } from '../../contexts/SettingsContext'
 
 export const GameplayMode: React.FC = () => {

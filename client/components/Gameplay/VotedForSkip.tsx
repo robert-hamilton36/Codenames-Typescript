@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { VoteObject, WordObj } from '../../types/gameState'
 
 export const VotedForSkip: React.FC<Props> = ({ selectedCard, usersVote, handleVote, handleUnvote, handleLockIn }) => {

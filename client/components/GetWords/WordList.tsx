@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
-import { getWords } from '../../contexts/FirebaseContext'
-import { shuffleArray } from '../../utility/shuffleArray'
 import { Word } from './Word'
+
+import { getWords } from '../../contexts/FirebaseContext'
+
+import { shuffleArray } from '../../utility/shuffleArray'
 
 export const WordList: React.FC<Props> = ({ setFinalWordList }) => {
   const [wordList, setWordList] = useState<string[]>([])

@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { MessageTeams } from '../../types/gameState'
-import { useUserContext } from '../../contexts/UserContext'
-import { useGameId } from '../../contexts/GameIdContext'
+
 import { useMessageActions } from '../../contexts/FirebaseContext'
+import { useGameId } from '../../contexts/GameIdContext'
+import { useUserContext } from '../../contexts/UserContext'
+
+import { MessageTeams } from '../../types/messages'
 
 export const WriteNewMessage: React.FC<Props> = ({ teamView }) => {
   const [message, setMessage] = useState('')

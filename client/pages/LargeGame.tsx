@@ -1,17 +1,19 @@
 import React from 'react'
 
 import { ChatContainer } from '../components/Game/ChatContainer'
-import { Score } from '../components/Game/Score'
-import { PlayerInfo } from '../components/PlayerInfo/PlayerInfo'
 import { GameInfoContainer } from '../components/Game/GameInfoContainer'
-import { VoteTable } from '../components/Game/VoteTable'
-
-import { GameInfo } from '../types/gameState'
-import { Gameplay } from '../components/Gameplay/Gameplay'
-import { StartGameButton } from '../components/Game/StartGameButton'
 import { LeaveGameButton } from '../components/Game/LeaveGameButton'
 import { MainBoard } from '../components/Game/MainBoard'
+import { Score } from '../components/Game/Score'
+import { StartGameButton } from '../components/Game/StartGameButton'
+import { VoteTable } from '../components/Game/VoteTable'
+
+import { Gameplay } from '../components/Gameplay/Gameplay'
+import { PlayerInfo } from '../components/PlayerInfo/PlayerInfo'
+
 import { useUserContext } from '../contexts/UserContext'
+
+import { GameInfo } from '../types/gameInfo'
 
 export const LargeGame: React.FC<Props> = ({ data }) => {
   const { user } = useUserContext()

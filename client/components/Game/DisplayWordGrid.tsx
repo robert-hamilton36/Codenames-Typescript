@@ -1,8 +1,10 @@
 import React from 'react'
 
-import { WordList } from '../../types/gameState'
-import { makeArrayFromObjectValues } from '../../utility/makeArrayFromObjectValues'
 import { WordCard } from './WordCard'
+
+import { WordList } from '../../types/gameState'
+
+import { makeArrayFromObjectValues } from '../../utility/makeArrayFromObjectValues'
 
 export const DisplayWordGrid: React.FC<Props> = ({ wordList }) => {
   const wordListArray = makeArrayFromObjectValues(wordList)

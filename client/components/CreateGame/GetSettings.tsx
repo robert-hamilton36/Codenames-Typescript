@@ -1,9 +1,11 @@
 import React from 'react'
+
+import { GameplayMode } from './GameplayMode'
+import { VoteSystem } from './VoteSystem'
+
 import { useSettingsContext } from '../../contexts/SettingsContext'
 
 import { SettingsState } from '../../hooks/useSettingsReducer'
-import { GameplayMode } from './GameplayMode'
-import { VoteSystem } from './VoteSystem'
 
 export const GetSettings: React.FC<Props> = ({ confirmSettings }) => {
   const { settings } = useSettingsContext()

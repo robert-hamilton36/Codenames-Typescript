@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { useJoinGameActions } from '../contexts/FirebaseContext'
-import { useUserContext } from '../contexts/UserContext'
-import { createGameObject } from '../utility/createNewGameObject'
+import { AskName } from '../components/AskName'
 import { GetSettings } from '../components/CreateGame/GetSettings'
 import { WordList } from '../components/GetWords/WordList'
-import { usePageNumber } from '../hooks/usePageNumber'
-import { AskName } from '../components/AskName'
+
+import { useJoinGameActions } from '../contexts/FirebaseContext'
 import { SettingsProvider } from '../contexts/SettingsContext'
+import { useUserContext } from '../contexts/UserContext'
+
+import { usePageNumber } from '../hooks/usePageNumber'
+
+import { createGameObject } from '../utility/createNewGameObject'
 
 const CreateGamePage: React.FC = () => {
   const { pageNumber, nextPage, previousPage } = usePageNumber(3)

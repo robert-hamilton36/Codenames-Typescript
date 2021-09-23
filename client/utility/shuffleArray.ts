@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const shuffleArray: (array: any[]) => any[] = (array: any[]) => {
+export const shuffleArray = (array: unknown[]): unknown[] => {
   const NewArray = array
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));

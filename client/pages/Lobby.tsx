@@ -3,9 +3,11 @@ import { useHistory } from 'react-router-dom'
 
 import { AskName } from '../components/AskName'
 import { GameList } from '../components/GameList'
+
 import { useFirestoreCollectionSubscriber, useJoinGameActions } from '../contexts/FirebaseContext'
 import { useGameId } from '../contexts/GameIdContext'
 import { useUserContext } from '../contexts/UserContext'
+
 import { usePageNumber } from '../hooks/usePageNumber'
 
 export const Lobby: React.FC = () => {

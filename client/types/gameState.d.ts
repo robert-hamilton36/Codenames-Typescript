@@ -1,63 +1,28 @@
-import firebase from 'firebase/app'
-import Timestamp = firebase.firestore.Timestamp
+import { User } from './user'
 
-interface GameInfo {
-  gameLog: LogEntry[]
-  gameState: GameState,
-  host: User
-  messages: Messages
-  players: User[]
-  settings: Settings
+export interface GameState {
+  gameStart: boolean
+  guesses: number
+  guessesLeft?: number
+  hint?: Hint
+  teamPoints: TeamPoints
+  teamTurn: Team
+  votes: VoteObject[]
+  win?: Team
+  words: WordList
 }
 
-type LogEntry = UserHintLogEntry | UserGuessLogEntry | TeamGuessLogEntry
-
-interface UserHintLogEntry {
-  type: 'user'
-  entryNum: number
-  action: 'hint'
-  user: User
-  hint: Hint
-}
-interface UserGuessLogEntry {
-  type: 'user'
-  entryNum: number
-  action: 'guess' |'skip'
-  user: User
-  word?: WordObj
-}
-
-interface TeamGuessLogEntry {
-  type: 'team'
-  entryNum: number
-  action: 'guess' |'skip'
-  team: TeamColour
-  word?: WordObj
-}
-
-interface GameState {
-  gameStart: boolean,
-  guesses: number,
-  guessesLeft?: number,
-  hint?: Hint,
-  teamPoints: TeamPoints,
-  teamTurn: 'red' | 'blue',
-  votes: VoteObject[],
-  win?: Team,
-  words: WordList,
-}
-
-interface Hint {
-  hint: string,
+export interface Hint {
+  hint: string
   numberOfWords: number
 }
 
-interface TeamPoints {
-  blue: number,
+export interface TeamPoints {
+  blue: number
   red: number
 }
 
-interface VoteObject {
+export interface VoteObject {
   skip: boolean
   locked: boolean,
   player: User,
@@ -66,47 +31,16 @@ interface VoteObject {
 
 // todo make wordObjj nonoptional, so it will be null when not used
 
-interface WordObj{
+export interface WordObj{
   index: number
   key: 'neutral' | 'red' | 'blue' | 'assassin',
   revealed: boolean,
   word: string,
 }
 
-interface Messages {
-  general: MessageObj[],
-  blue?: MessageObj[],
-  red?: MessageObj[]
-}
+export type Team = 'red' | 'blue'
 
-interface MessageObj {
-  message: string,
-  time?: Timestamp,
-  user: User
-}
-
-interface User {
-  name: string,
-  uid: string,
-  host?: boolean,
-  spymaster?: boolean,
-  team?: TeamColour
-}
-
-type TeamColour = 'red' | 'blue'
-
-interface Settings {
-  gameplayMode: 'individual' | 'tabletop',
-  scoresForWin: TeamPoints,
-  teams: Team[],
-  voteSystem: 'individual-locksin'| 'vote' | 'spymaster-locksin'
-}
-
-type Team = 'red' | 'blue'
-
-type MessageTeams = 'red' | 'blue' | 'general'
-
-interface WordList{
+export interface WordList{
   0: WordObj
   1: WordObj
   2: WordObj

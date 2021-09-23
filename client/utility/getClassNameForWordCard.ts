@@ -1,4 +1,5 @@
-import { User, WordObj } from '../types/gameState'
+import { WordObj } from '../types/gameState'
+import { User } from '../types/user'
 
 // todo add words color coding only if game has started
 export const getClassNameForWordCard = (selectedCard: WordObj, user: User, displayWord: WordObj): string => {

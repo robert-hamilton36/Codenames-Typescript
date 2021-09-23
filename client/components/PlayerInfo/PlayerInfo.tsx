@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { User } from '../../types/gameState'
 import { DeviceList } from './DeviceList'
 import { PlayerList } from './PlayerList'
+
+import { User } from '../../types/user'
 
 export const PlayerInfo: React.FC<Props> = ({ playerList, tableTop }) => {
   if (tableTop) {

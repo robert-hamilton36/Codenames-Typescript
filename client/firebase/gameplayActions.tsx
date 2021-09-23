@@ -1,9 +1,13 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-import { firestore } from '../contexts/FirebaseContext'
-import { GameState, Hint, LogEntry, Team, TeamPoints, User } from '../types/gameState'
 import { TransactionAddLog } from './firebaseTransactions'
+
+import { firestore } from '../contexts/FirebaseContext'
+
+import { LogEntry } from '../types/gameLog'
+import { GameState, Hint, Team, TeamPoints } from '../types/gameState'
+import { User } from '../types/user'
 
 export const gameplayActions = (firestore: firestore): GameplayActionReturn => {
   const startGame = (gameId: string) => {

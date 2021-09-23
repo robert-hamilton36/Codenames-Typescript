@@ -2,7 +2,8 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import { firestore } from '../contexts/FirebaseContext'
-import { MessageObj, MessageTeams } from '../types/gameState'
+
+import { MessageObj, MessageTeams } from '../types/messages'
 
 export const messageActions = (firestore: firestore): MessageReturn => {
   const writeNewMessage = (gameId: string, message: MessageObj, messageTeam: MessageTeams) => {

@@ -1,10 +1,13 @@
 import React from 'react'
 
-import { useUserContext } from '../../contexts/UserContext'
-import { GameInfo } from '../../types/gameState'
-import { gameStarted, usersTeamsTurn } from '../../utility/gameStateInfoFunctions'
 import { OperativeTurnActions } from './OperativeTurnActions'
 import { SpymasterTurnActions } from './SpymasterTurnActions'
+
+import { useUserContext } from '../../contexts/UserContext'
+
+import { GameInfo } from '../../types/gameInfo'
+
+import { gameStarted, usersTeamsTurn } from '../../utility/gameStateInfoFunctions'
 
 export const Gameplay: React.FC<Props> = ({ gameData }) => {
   const { user } = useUserContext()

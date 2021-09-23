@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react'
 
+import { UserNotVoted } from './UserNotVoted'
+import { VotedForSkip } from './VotedForSkip'
+import { VotedForWord } from './VotedForWord'
+
 import { useVoteActions } from '../../contexts/FirebaseContext'
 import { useGameId } from '../../contexts/GameIdContext'
 import { useSelectedCard } from '../../contexts/SelectedCardContext'
 import { useUserContext } from '../../contexts/UserContext'
 
-import { UserNotVoted } from './UserNotVoted'
-import { VotedForSkip } from './VotedForSkip'
-import { VotedForWord } from './VotedForWord'
+import { LogEntry } from '../../types/gameLog'
+import { VoteObject } from '../../types/gameState'
 
 import { makeTeamGuessLog } from '../../utility/makeLog'
 import { userVotedForSkip, userVotedForWord } from '../../utility/playerVoteFunctions'
-
-import { LogEntry, VoteObject } from '../../types/gameState'
 
 export const Vote: React.FC<Props> = ({ votes, gameLog }) => {
   const [usersVote, setUsersVote] = useState<VoteObject>(null)

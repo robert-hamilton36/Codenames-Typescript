@@ -1,6 +1,8 @@
 import { boardKeyCreator } from './boardKeyCreator'
-// eslint-disable-next-line import/no-unresolved
-import { User, GameInfo, TeamPoints, GameState, WordList, Team } from '../types/gameState'
+
+import { GameInfo } from '../types/gameInfo'
+import { TeamPoints, GameState, WordList, Team } from '../types/gameState'
+import { User } from '../types/user'
 
 export const createGameObject = (user: User, settings: Settings, listWords: string[], teams = ['red', 'blue']): GameInfo => {
   const { boardKey, firstTurnTeam } = boardKeyCreator()

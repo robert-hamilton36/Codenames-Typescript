@@ -2,7 +2,8 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import { firestore } from '../contexts/FirebaseContext'
-import { TeamColour } from '../types/gameState'
+
+import { TeamColour } from '../types/user'
 
 export const playerActions = (firestore: firestore): playerActionReturn => {
   const changePlayersTeam = (gameId: string, userID: string, team: TeamColour) => {

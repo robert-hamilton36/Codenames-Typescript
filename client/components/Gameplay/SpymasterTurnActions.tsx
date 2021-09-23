@@ -1,9 +1,11 @@
 import React from 'react'
 
-import { GameInfo } from '../../types/gameState'
-import { gamesCurrentTurnHasAHint, voteSystemIsIndividualLocksIn, voteSystemIsIndividualVote, voteSystemIsSpymasterLocksIn } from '../../utility/gameStateInfoFunctions'
 import { MakeHint } from './MakeHint'
 import { SelectCard } from './SelectCard'
+
+import { GameInfo } from '../../types/gameInfo'
+
+import { gamesCurrentTurnHasAHint, voteSystemIsIndividualLocksIn, voteSystemIsIndividualVote, voteSystemIsSpymasterLocksIn } from '../../utility/gameStateInfoFunctions'
 
 export const SpymasterTurnActions: React.FC<Props> = ({ gameData }) => {
   if (!gamesCurrentTurnHasAHint(gameData)) {

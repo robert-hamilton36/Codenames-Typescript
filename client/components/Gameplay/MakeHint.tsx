@@ -4,9 +4,10 @@ import { useGameplayActions } from '../../contexts/FirebaseContext'
 import { useGameId } from '../../contexts/GameIdContext'
 import { useUserContext } from '../../contexts/UserContext'
 
-import { makeUserHintLog } from '../../utility/makeLog'
+import { Hint } from '../../types/gameState'
+import { LogEntry } from '../../types/gameLog'
 
-import { Hint, LogEntry } from '../../types/gameState'
+import { makeUserHintLog } from '../../utility/makeLog'
 
 export const MakeHint: React.FC<Props> = ({ gameLog }) => {
   const [hint, setStateHint] = useState('')

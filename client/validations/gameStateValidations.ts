@@ -1,4 +1,5 @@
-import { GameInfo } from '../types/gameState'
+import { GameInfo } from '../types/gameInfo'
+
 import { gameIsTabletopMode } from '../utility/gameStateInfoFunctions'
 import { bothTeamsHaveASpymasters, bothTeamsHaveAtLeastTwoPlayers } from '../utility/playerInfoFunctions'
 

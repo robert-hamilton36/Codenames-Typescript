@@ -1,10 +1,14 @@
 import React from 'react'
 
-import { useUserContext } from '../../contexts/UserContext'
-import { usePlayerSelectorDeselector } from '../../hooks/useSelectorDeselector'
-import { User } from '../../types/gameState'
-import { makePlayerTableRows } from '../../utility/playerlistFunctions'
 import { HostOptions } from './HostOptions'
+
+import { useUserContext } from '../../contexts/UserContext'
+
+import { usePlayerSelectorDeselector } from '../../hooks/useSelectorDeselector'
+
+import { User } from '../../types/user'
+
+import { makePlayerTableRows } from '../../utility/playerlistFunctions'
 
 export const PlayerList: React.FC<Props> = ({ playerList }) => {
   const [selectedPlayer, setSelectedPlayer] = usePlayerSelectorDeselector()

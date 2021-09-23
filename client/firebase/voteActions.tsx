@@ -1,10 +1,16 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-import { firestore } from '../contexts/FirebaseContext'
-import { GameInfo, LogEntry, User, VoteObject } from '../types/gameState'
 import { checkForUnanimousVote, filterOutUsersOldVote, findUsersVoteInvertItsLockStatus } from './firebaseActionHelperFunctions'
 import { TransactionAddLog, TransactionEndTurn, TransactionRevealWordHandleGuess } from './firebaseTransactions'
+
+import { firestore } from '../contexts/FirebaseContext'
+
+import { GameInfo } from '../types/gameInfo'
+import { LogEntry } from '../types/gameLog'
+import { VoteObject } from '../types/gameState'
+import { User } from '../types/user'
+
 import { getNextTurnsTeam } from '../utility/gameStateInfoFunctions'
 
 export const voteActions = (firestore: firestore): VoteActionReturn => {

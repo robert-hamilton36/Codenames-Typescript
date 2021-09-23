@@ -1,4 +1,6 @@
-import { GameInfo, User, Team, TeamColour } from '../types/gameState'
+import { GameInfo } from '../types/gameInfo'
+import { Team } from '../types/gameState'
+import { User, TeamColour } from '../types/user'
 
 export const gameWon = (gameData: GameInfo): boolean => {
   if (gameData.gameState.win) {

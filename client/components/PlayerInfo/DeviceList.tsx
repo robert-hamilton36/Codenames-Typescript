@@ -1,9 +1,12 @@
 import React from 'react'
 
-import { useUserContext } from '../../contexts/UserContext'
-import { usePlayerSelectorDeselector } from '../../hooks/useSelectorDeselector'
-import { User } from '../../types/gameState'
 import { HostOptions } from './HostOptions'
+
+import { useUserContext } from '../../contexts/UserContext'
+
+import { usePlayerSelectorDeselector } from '../../hooks/useSelectorDeselector'
+
+import { User } from '../../types/user'
 
 export const DeviceList: React.FC<Props> = ({ devices }) => {
   const [selectedDevice, setSelectedDevice] = usePlayerSelectorDeselector()

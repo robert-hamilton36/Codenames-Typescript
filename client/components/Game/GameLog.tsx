@@ -1,5 +1,7 @@
 import React from 'react'
-import { LogEntry } from '../../types/gameState'
+
+import { LogEntry } from '../../types/gameLog'
+
 import { makeGameLogJSX } from '../../utility/makeGameLogJSX'
 
 export const GameLog: React.FC<Props> = ({ gameLog }) => {

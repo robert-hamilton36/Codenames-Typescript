@@ -1,4 +1,5 @@
-import { User, Team } from '../types/gameState'
+import { Team } from '../types/gameState'
+import { User } from '../types/user'
 
 export const getOppositeTeamColour = (selectedPlayer: User): Team => {
   if (selectedPlayer.team === 'red') {

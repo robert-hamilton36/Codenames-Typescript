@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
-import { useUserContext } from '../../contexts/UserContext'
+
 import { MessageContainer } from './MessageContainer'
 import { WriteNewMessage } from './WriteNewMessage'
-import { GameInfo, MessageTeams } from '../../types/gameState'
+
+import { useUserContext } from '../../contexts/UserContext'
+
+import { GameInfo } from '../../types/gameInfo'
+import { MessageTeams } from '../../types/messages'
 
 export const ChatContainer: React.FC<Props> = ({ game }) => {
   const [teamView, setTeamView] = useState<MessageTeams>('general')

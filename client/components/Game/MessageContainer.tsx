@@ -1,7 +1,8 @@
 import React from 'react'
 
 import { Message } from './Message'
-import { Messages, MessageTeams } from '../../types/gameState'
+
+import { Messages, MessageTeams } from '../../types/messages'
 
 export const MessageContainer: React.FC<Props> = ({ messages, teamView }) => {
   return (

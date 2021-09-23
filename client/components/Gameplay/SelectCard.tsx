@@ -1,11 +1,13 @@
 import React from 'react'
+
 import { useGuessActions } from '../../contexts/FirebaseContext'
 import { useGameId } from '../../contexts/GameIdContext'
 import { useSelectedCard } from '../../contexts/SelectedCardContext'
 import { useUserContext } from '../../contexts/UserContext'
 
 import { makeUserGuessLog } from '../../utility/makeLog'
-import { LogEntry } from '../../types/gameState'
+
+import { LogEntry } from '../../types/gameLog'
 
 export const SelectCard: React.FC<Props> = ({ gameLog }) => {
   const { selectedCard } = useSelectedCard()

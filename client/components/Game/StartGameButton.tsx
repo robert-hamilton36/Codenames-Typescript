@@ -1,9 +1,11 @@
 import React from 'react'
-import { useToaster } from '../../contexts/ToasterContext'
 
 import { useGameplayActions } from '../../contexts/FirebaseContext'
 import { useGameId } from '../../contexts/GameIdContext'
-import { GameInfo } from '../../types/gameState'
+import { useToaster } from '../../contexts/ToasterContext'
+
+import { GameInfo } from '../../types/gameInfo'
+
 import { validateGameStart } from '../../validations/gameStateValidations'
 
 export const StartGameButton: React.FC<Props> = ({ gameInfo }) => {

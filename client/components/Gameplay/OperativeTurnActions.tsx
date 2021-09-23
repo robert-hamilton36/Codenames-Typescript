@@ -2,8 +2,10 @@ import React from 'react'
 
 import { Vote } from './Vote'
 import { SelectCard } from './SelectCard'
+
+import { GameInfo } from '../../types/gameInfo'
+
 import { gameIsTabletopMode, gamesCurrentTurnHasAHint, getCurrentTurnsSpymatersName, voteSystemIsIndividualLocksIn, voteSystemIsIndividualVote } from '../../utility/gameStateInfoFunctions'
-import { GameInfo } from '../../types/gameState'
 
 export const OperativeTurnActions: React.FC<Props> = ({ gameData }) => {
   if (gameIsTabletopMode(gameData)) {

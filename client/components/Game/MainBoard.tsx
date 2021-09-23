@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 
+import { DisplayWordGrid } from './DisplayWordGrid'
+import { WordList } from '../GetWords/WordList'
+
 import { useGameplayActions } from '../../contexts/FirebaseContext'
 import { useGameId } from '../../contexts/GameIdContext'
 import { useUserContext } from '../../contexts/UserContext'
 
-import { WordList } from '../GetWords/WordList'
-import { DisplayWordGrid } from './DisplayWordGrid'
+import { GameInfo } from '../../types/gameInfo'
+import { GameState, TeamPoints } from '../../types/gameState'
 
 import { restartGameState } from '../../utility/createNewGameObject'
 import { gameWon } from '../../utility/gameStateInfoFunctions'
-
-import { GameInfo, GameState, TeamPoints } from '../../types/gameState'
 
 export const MainBoard: React.FC<Props> = ({ data }) => {
   const [newGameWords, setNewGameWords] = useState<string[]>(null)

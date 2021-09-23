@@ -2,8 +2,12 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import { calculatePointsFromDataAndCurrentRevealedWord, checkForWin } from './firebaseActionHelperFunctions'
+
+import { GameInfo } from '../types/gameInfo'
+import { Team } from '../types/gameState'
+import { LogEntry } from '../types/gameLog'
+
 import { getNextTurnsTeam } from '../utility/gameStateInfoFunctions'
-import { GameInfo, LogEntry, Team } from '../types/gameState'
 
 const __TransactionDecreaseGuessesLeft = (ref: Ref, transaction: Transaction): Transaction => {
   return transaction.update(ref, { 'gameState.guessesLeft': firebase.firestore.FieldValue.increment(-1) })

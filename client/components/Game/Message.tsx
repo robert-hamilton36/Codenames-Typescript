@@ -3,7 +3,9 @@ import React from 'react'
 import { useUserContext } from '../../contexts/UserContext'
 import { useMessageActions } from '../../contexts/FirebaseContext'
 import { useGameId } from '../../contexts/GameIdContext'
-import { User, MessageTeams } from '../../types/gameState'
+
+import { User } from '../../types/user'
+import { MessageTeams } from '../../types/messages'
 
 export const Message: React.FC<Props> = ({ messageObj, teamView }) => {
   const { user } = useUserContext()

@@ -1,5 +1,6 @@
 import React from 'react'
-import { LogEntry, TeamGuessLogEntry, UserGuessLogEntry, UserHintLogEntry } from '../types/gameState'
+
+import { LogEntry, TeamGuessLogEntry, UserGuessLogEntry, UserHintLogEntry } from '../types/gameLog'
 
 const makeUserHintEntryJSX = (log: UserHintLogEntry): JSX.Element => {
   return (

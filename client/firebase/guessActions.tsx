@@ -1,9 +1,14 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-import { firestore } from '../contexts/FirebaseContext'
-import { GameInfo, User, LogEntry } from '../types/gameState'
 import { TransactionRevealWordHandleGuess, TransactionEndTurn, TransactionAddLog } from './firebaseTransactions'
+
+import { firestore } from '../contexts/FirebaseContext'
+
+import { GameInfo } from '../types/gameInfo'
+import { LogEntry } from '../types/gameLog'
+import { User } from '../types/user'
+
 import { getNextTurnsTeam } from '../utility/gameStateInfoFunctions'
 
 export const guessActions = (firestore: firestore): GuessActionsReturn => {

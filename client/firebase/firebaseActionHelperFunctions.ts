@@ -1,4 +1,5 @@
-import { GameInfo, TeamPoints, VoteObject } from '../types/gameState'
+import { GameInfo } from '../types/gameInfo'
+import { TeamPoints, VoteObject } from '../types/gameState'
 
 export const findUsersVoteInvertItsLockStatus = (voteArray: VoteObject[], userId: string): VoteObject[] => {
   return voteArray.map((voteObj) => {

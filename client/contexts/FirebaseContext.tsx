@@ -2,24 +2,24 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
-import { joinGameActions, JoinGameActionReturn } from '../firebase/joinGameActions'
-import { playerActions, playerActionReturn } from '../firebase/playerActions'
+
 import { gameplayActions, GameplayActionReturn } from '../firebase/gameplayActions'
 import { guessActions, GuessActionsReturn } from '../firebase/guessActions'
-import { voteActions, VoteActionReturn } from '../firebase/voteActions'
-import { GameInfo } from '../types/gameState'
+import { joinGameActions, JoinGameActionReturn } from '../firebase/joinGameActions'
 import { messageActions, MessageReturn } from '../firebase/messageActions'
+import { playerActions, playerActionReturn } from '../firebase/playerActions'
+import { voteActions, VoteActionReturn } from '../firebase/voteActions'
 
+import { GameInfo } from '../types/gameInfo'
+
+export type firestore = firebase.firestore.Firestore
+export type app = firebase.app.App
 interface ProvidedContextFirebase {
   app: app,
   firestore: firestore,
 }
 
-export type firestore = firebase.firestore.Firestore
-export type app = firebase.app.App
-
-// export for testing purposes
-export const FirebaseContext = createContext<ProvidedContextFirebase | null >(null)
+const FirebaseContext = createContext<ProvidedContextFirebase | null >(null)
 
 export function useFirebase ():ProvidedContextFirebase {
   return useContext(FirebaseContext)

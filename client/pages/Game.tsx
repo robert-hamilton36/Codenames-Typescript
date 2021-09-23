@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react'
-import { useFirestoreSubscriber } from '../contexts/FirebaseContext'
-// import { useUserContext } from '../contexts/UserContext'
 
-import { GameInfo } from '../types/gameState'
 import { LargeGame } from './LargeGame'
-// import { useScreenSize } from '../hooks/useScreenSize'
-import { useUserActions, useUserContext } from '../contexts/UserContext'
+
+import { useFirestoreSubscriber } from '../contexts/FirebaseContext'
 import { useGameId } from '../contexts/GameIdContext'
+import { useUserActions, useUserContext } from '../contexts/UserContext'
+
+// import { useScreenSize } from '../hooks/useScreenSize'
+
+import { GameInfo } from '../types/gameInfo'
 
 export const Game: React.FC = () => {
   const { gameId } = useGameId()

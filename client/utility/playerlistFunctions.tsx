@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { User } from '../types/gameState'
+import { User } from '../types/user'
 
 export const makePlayerTableRows: MakePlayerTables = (playerlist: User[], setSelectedPlayer: SetSelectedPlayer) => {
   const blueSpymaster = playerlist.find(player => player.spymaster && player.team === 'blue')

@@ -1,6 +1,8 @@
 import React, { useContext } from 'react'
+
 import { useNewUser, UserActions } from '../hooks/useNewUser'
-import { User } from '../types/gameState'
+
+import { User } from '../types/user'
 
 const UserContext = React.createContext<Context>(null)
 

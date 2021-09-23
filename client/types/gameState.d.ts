@@ -99,7 +99,7 @@ interface Settings {
   gameplayMode: 'individual' | 'tabletop',
   scoresForWin: TeamPoints,
   teams: Team[],
-  voteSystem: 'vote' | 'spymaster-locksin'
+  voteSystem: 'individual-locksin'| 'vote' | 'spymaster-locksin'
 }
 
 type Team = 'red' | 'blue'

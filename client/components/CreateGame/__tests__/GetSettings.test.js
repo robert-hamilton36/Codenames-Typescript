@@ -28,12 +28,15 @@ test('should display error message, when settings contain an error', () => {
 
   const individualInput = getByTestId('inputForIndividualMode')
   const tabletopInput = getByTestId('inputForTabletopMode')
-  const voteInput = getByTestId('inputForVoteMode')
+  const voteModeInput = getByTestId('inputForVoteMode')
   const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode')
+  const IndividualLocksinInput = getByTestId('inputForIndividualLocksinMode')
   let errorMessage = queryByTestId('errorMessage')
 
-  expect(voteInput.checked).toBe(true)
+  expect(voteModeInput.checked).toBe(false)
   expect(SpymasterLocksinInput.checked).toBe(false)
+  expect(IndividualLocksinInput.checked).toBe(true)
+
   expect(individualInput.checked).toBe(true)
   expect(tabletopInput.checked).toBe(false)
   expect(errorMessage).toBeNull()
@@ -46,15 +49,17 @@ test('should display error message, when settings contain an error', () => {
   expect(tabletopInput.checked).toBe(true)
   expect(errorMessage).toBeNull()
 
-  fireEvent.click(voteInput, { target: { name: 'voteSystem', value: 'vote' } })
+  fireEvent.click(voteModeInput, { target: { name: 'voteSystem', value: 'vote' } })
 
   errorMessage = queryByTestId('errorMessage')
 
-  expect(voteInput.checked).toBe(false)
-  expect(SpymasterLocksinInput.checked).toBe(true)
+  expect(voteModeInput.checked).toBe(false)
+  expect(SpymasterLocksinInput.checked).toBe(false)
+  expect(IndividualLocksinInput.checked).toBe(true)
+
   expect(individualInput.checked).toBe(false)
   expect(tabletopInput.checked).toBe(true)
-  expect(errorMessage.textContent).toBe('Vote system must be controlled by spymaster in tabletop mode')
+  expect(errorMessage.textContent).toBe('Vote system cannot be vote in tabletop mode')
 })
 
 test('should remove error message from settings when submitted', () => {
@@ -68,12 +73,14 @@ test('should remove error message from settings when submitted', () => {
 
   const individualInput = getByTestId('inputForIndividualMode')
   const tabletopInput = getByTestId('inputForTabletopMode')
-  const voteInput = getByTestId('inputForVoteMode')
+  const voteModeInput = getByTestId('inputForVoteMode')
   const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode')
+  const IndividualLocksinInput = getByTestId('inputForIndividualLocksinMode')
   const confirmationButton = getByTestId('button')
 
-  expect(voteInput.checked).toBe(true)
+  expect(voteModeInput.checked).toBe(false)
   expect(SpymasterLocksinInput.checked).toBe(false)
+  expect(IndividualLocksinInput.checked).toBe(true)
   expect(individualInput.checked).toBe(true)
   expect(tabletopInput.checked).toBe(false)
 
@@ -82,18 +89,20 @@ test('should remove error message from settings when submitted', () => {
   expect(individualInput.checked).toBe(false)
   expect(tabletopInput.checked).toBe(true)
 
-  fireEvent.click(voteInput, { target: { name: 'voteSystem', value: 'vote' } })
+  fireEvent.click(voteModeInput, { target: { name: 'voteSystem', value: 'vote' } })
 
   const errorMessage = getByTestId('errorMessage')
-  expect(voteInput.checked).toBe(false)
-  expect(SpymasterLocksinInput.checked).toBe(true)
+  expect(voteModeInput.checked).toBe(false)
+  expect(SpymasterLocksinInput.checked).toBe(false)
+  expect(IndividualLocksinInput.checked).toBe(true)
+
   expect(individualInput.checked).toBe(false)
   expect(tabletopInput.checked).toBe(true)
-  expect(errorMessage.textContent).toBe('Vote system must be controlled by spymaster in tabletop mode')
+  expect(errorMessage.textContent).toBe('Vote system cannot be vote in tabletop mode')
 
   fireEvent.click(confirmationButton)
 
-  expect(errorMessage.textContent).toBe('Vote system must be controlled by spymaster in tabletop mode')
+  expect(errorMessage.textContent).toBe('Vote system cannot be vote in tabletop mode')
   expect(mockConfirmSettings).toHaveBeenCalled()
-  expect(mockConfirmSettings.mock.calls).toEqual([[{ voteSystem: 'spymaster-locksin', gameplayMode: 'tabletop' }]])
+  expect(mockConfirmSettings.mock.calls).toEqual([[{ voteSystem: 'individual-locksin', gameplayMode: 'tabletop' }]])
 })

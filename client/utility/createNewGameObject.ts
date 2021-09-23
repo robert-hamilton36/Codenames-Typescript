@@ -90,5 +90,5 @@ type RestartGameStateReturn = {
 
 export interface Settings {
   gameplayMode: 'individual' | 'tabletop',
-  voteSystem: 'vote' | 'spymaster-locksin'
+  voteSystem: 'individual-locksin' | 'vote' | 'spymaster-locksin'
 }

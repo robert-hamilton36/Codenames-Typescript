@@ -1,4 +1,4 @@
-import { gameWon, usersTeamsTurn, getNextTurnsTeam, gameStarted, gameIsTabletopMode, gameIsIndividualMode, voteSystemIsSpymasterLocksIn, voteSystemIsIndividualVote, gamesCurrentTurnHasAHint, getCurrentTurnsSpymatersName, getTeamForNewPlayer } from '../gameStateInfoFunctions'
+import { gameWon, usersTeamsTurn, getNextTurnsTeam, gameStarted, gameIsTabletopMode, gameIsIndividualMode, voteSystemIsSpymasterLocksIn, voteSystemIsIndividualVote, voteSystemIsIndividualLocksIn, gamesCurrentTurnHasAHint, getCurrentTurnsSpymatersName, getTeamForNewPlayer } from '../gameStateInfoFunctions'
 
 describe('tests gameWon function', () => {
   const gameInfo = {
@@ -136,6 +136,25 @@ describe('tests voteSystemIsSpymasterLocksIn function', () => {
     gameInfo.settings.voteSystem = 'vote'
     const isGameInSpymasterLocksInMode = voteSystemIsSpymasterLocksIn(gameInfo)
     expect(isGameInSpymasterLocksInMode).toBe(false)
+  })
+})
+
+describe('tests voteSystemIsIndividualLocksIn function', () => {
+  const gameInfo = {
+    settings: {
+      voteSystem: 'individual-locksin'
+    }
+  }
+
+  test('returns true when voteSystem is individual-locksin mode', () => {
+    const isGameInIndividualLocksInMode = voteSystemIsIndividualLocksIn(gameInfo)
+    expect(isGameInIndividualLocksInMode).toBe(true)
+  })
+
+  test('returns false when voteSystem is vote mode', () => {
+    gameInfo.settings.voteSystem = 'vote'
+    const isGameInIndividualLocksInMode = voteSystemIsIndividualLocksIn(gameInfo)
+    expect(isGameInIndividualLocksInMode).toBe(false)
   })
 })
 

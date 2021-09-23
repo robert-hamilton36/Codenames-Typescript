@@ -50,7 +50,7 @@ test('should render with correct text and values with no card', () => {
   expect(selectWordButton).toBeNull()
 
   expect(noSelectedcardHeader).not.toBeNull()
-  expect(noSelectedcardHeader.textContent).toBe('Pick card team agrees on')
+  expect(noSelectedcardHeader.textContent).toBe('Select a card')
 
   expect(endTurnButton).not.toBeNull()
   expect(endTurnButton.textContent).toBe('End Turn')
@@ -115,14 +115,14 @@ test('should fire the endTurn function with gameId when endTurnButton is clicked
   const noSelectedcardHeader = queryByTestId('noSelectedcardHeader')
   const endTurnButton = queryByTestId('endTurnButton')
 
-  expect(noSelectedcardHeader.textContent).toBe('Pick card team agrees on')
+  expect(noSelectedcardHeader.textContent).toBe('Select a card')
   expect(endTurnButton.textContent).toBe('End Turn')
 
   expect(endTurn).toHaveBeenCalledTimes(0)
 
   fireEvent.click(endTurnButton)
 
-  expect(noSelectedcardHeader.textContent).toBe('Pick card team agrees on')
+  expect(noSelectedcardHeader.textContent).toBe('Select a card')
   expect(endTurnButton.textContent).toBe('End Turn')
 
   expect(endTurn).toHaveBeenCalledTimes(1)

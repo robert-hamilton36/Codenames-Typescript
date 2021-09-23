@@ -41,7 +41,7 @@ export const SelectCard: React.FC<Props> = ({ gameLog }) => {
 
   return (
     <>
-      <h1 data-testid='noSelectedcardHeader'>Pick card team agrees on</h1>
+      <h1 data-testid='noSelectedcardHeader'>Select a card</h1>
       <button onClick={handleTurnChange}data-testid='endTurnButton'>End Turn</button>
     </>
   )

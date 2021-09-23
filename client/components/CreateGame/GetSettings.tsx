@@ -37,5 +37,5 @@ interface Props {
 
 interface Settings {
   gameplayMode: 'individual' | 'tabletop',
-  voteSystem: 'vote' | 'spymaster-locksin'
+  voteSystem: 'individual-locksin' | 'vote' | 'spymaster-locksin'
 }

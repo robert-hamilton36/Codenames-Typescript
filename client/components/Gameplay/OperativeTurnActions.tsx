@@ -1,8 +1,9 @@
 import React from 'react'
 
 import { Vote } from './Vote'
+import { SelectCard } from './SelectCard'
+import { gameIsTabletopMode, gamesCurrentTurnHasAHint, getCurrentTurnsSpymatersName, voteSystemIsIndividualLocksIn, voteSystemIsIndividualVote } from '../../utility/gameStateInfoFunctions'
 import { GameInfo } from '../../types/gameState'
-import { gameIsTabletopMode, gamesCurrentTurnHasAHint, getCurrentTurnsSpymatersName, voteSystemIsIndividualVote } from '../../utility/gameStateInfoFunctions'
 
 export const OperativeTurnActions: React.FC<Props> = ({ gameData }) => {
   if (gameIsTabletopMode(gameData)) {
@@ -23,6 +24,12 @@ export const OperativeTurnActions: React.FC<Props> = ({ gameData }) => {
   if (voteSystemIsIndividualVote(gameData)) {
     return (
       <Vote votes={gameData.gameState.votes} gameLog={gameData.gameLog}/>
+    )
+  }
+
+  if (voteSystemIsIndividualLocksIn(gameData)) {
+    return (
+      <SelectCard gameLog={gameData.gameLog}/>
     )
   }
 

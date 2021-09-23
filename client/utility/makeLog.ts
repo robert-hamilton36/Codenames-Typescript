@@ -1,7 +1,7 @@
 import { Hint, User, WordObj, UserHintLogEntry, UserGuessLogEntry, TeamGuessLogEntry, LogEntry } from '../types/gameState'
 
 export const makeUserHintLog = (gameLogs: LogEntry[], user: User, hint: Hint): UserHintLogEntry => {
-  const entryNum = gameLogs.length + 1
+  const entryNum = gameLogs.length + 1 || 1
   return {
     type: 'user',
     entryNum,

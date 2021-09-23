@@ -56,6 +56,13 @@ export const voteSystemIsIndividualVote = (gameData: GameInfo): boolean => {
   return false
 }
 
+export const voteSystemIsIndividualLocksIn = (gameData: GameInfo): boolean => {
+  if (gameData.settings.voteSystem === 'individual-locksin') {
+    return true
+  }
+  return false
+}
+
 export const gamesCurrentTurnHasAHint = (gameData: GameInfo): boolean => {
   if (gameData.gameState.hint) {
     return true

@@ -14,6 +14,17 @@ export const VoteSystem: React.FC = () => {
       <h3 data-testid='voteSystem-header'>How codeword is choosen</h3>
       <form data-testid='voteSystemForm'>
         <div className="tooltipcontainer">
+          <label htmlFor="individual-locksin" data-testid='labelForIndividualLocksinMode'>
+          Individual locks-in
+          </label >
+          <input id="vote" value="individual-locksin" name="voteSystem" type="radio" checked={settings.voteSystem === 'individual-locksin'} onChange={handleChange} data-testid='inputForIndividualLocksinMode'/>
+
+          <span className="tooltipcontainertext" data-testid='tooltipForIndividualLocksinMode'>
+            Individuals can vote on words, against opinion of team mates
+          </span>
+        </div>
+
+        <div className="tooltipcontainer">
           <label htmlFor="vote" data-testid='labelForVoteMode'>
             Operatives vote
           </label >

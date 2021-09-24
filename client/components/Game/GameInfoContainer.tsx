@@ -3,11 +3,12 @@ import React from 'react'
 import { Hint } from './Hint'
 
 import { GameState } from '../../types/gameState'
+import { capitalize } from '../../utility/capitalize'
 
 export const GameInfoContainer:React.FC<Props> = ({ gameState }) => {
   if (gameState.win) {
     return (
-      <h1 data-testid='teamHasWonHeader'>{gameState.win} team has won!</h1>
+      <h1 data-testid='teamHasWonHeader'>{capitalize(gameState.win)} team has won!</h1>
     )
   }
   if (!gameState.gameStart) {

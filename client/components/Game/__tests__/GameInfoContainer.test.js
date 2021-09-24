@@ -20,7 +20,7 @@ test('should render correct text and values when game is won', () => {
   expect(hintComponent).toBeNull()
 
   expect(teamHasWonHeader).not.toBeNull()
-  expect(teamHasWonHeader.textContent).toBe(gameDataRedTeamWon.gameState.win + ' team has won!')
+  expect(teamHasWonHeader.textContent).toBe('Red team has won!')
 })
 
 test('should render correct text and values when game has not started', () => {

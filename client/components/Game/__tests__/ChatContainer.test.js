@@ -29,12 +29,12 @@ test('should render with corecct text and values', () => {
   const messageContainer = getByTestId('messageContainer')
   const writeNewMessage = getByTestId('writeNewMessage')
 
-  expect(header.textContent).toBe('general chat')
+  expect(header.textContent).toBe('General chat')
 
   expect(generalButton).toBeNull()
   expect(userTeamButton).not.toBeNull()
 
-  expect(userTeamButton.textContent).toBe('blue')
+  expect(userTeamButton.textContent).toBe('Blue')
 
   expect(messageContainer.textContent).toBe('MessageContainer')
   expect(writeNewMessage.textContent).toBe('WriteNewMessage')
@@ -50,11 +50,11 @@ test('should change the teamView when the userTeamButton is clicked', () => {
   let generalButton = queryByTestId('generalButton')
   let userTeamButton = queryByTestId('userTeamButton')
 
-  expect(header.textContent).toBe('general chat')
+  expect(header.textContent).toBe('General chat')
   expect(generalButton).toBeNull()
   expect(userTeamButton).not.toBeNull()
 
-  expect(userTeamButton.textContent).toBe('blue')
+  expect(userTeamButton.textContent).toBe('Blue')
 
   fireEvent.click(userTeamButton)
 
@@ -62,7 +62,7 @@ test('should change the teamView when the userTeamButton is clicked', () => {
   generalButton = queryByTestId('generalButton')
   userTeamButton = queryByTestId('userTeamButton')
 
-  expect(header.textContent).toBe('blue chat')
+  expect(header.textContent).toBe('Blue chat')
   expect(generalButton).not.toBeNull()
   expect(userTeamButton).toBeNull()
 
@@ -79,10 +79,10 @@ test('should change the teamView when the generalButton is clicked', () => {
   let generalButton = queryByTestId('generalButton')
   let userTeamButton = queryByTestId('userTeamButton')
 
-  expect(header.textContent).toBe('general chat')
+  expect(header.textContent).toBe('General chat')
   expect(generalButton).toBeNull()
   expect(userTeamButton).not.toBeNull()
-  expect(userTeamButton.textContent).toBe('blue')
+  expect(userTeamButton.textContent).toBe('Blue')
 
   fireEvent.click(userTeamButton)
 
@@ -90,7 +90,7 @@ test('should change the teamView when the generalButton is clicked', () => {
   generalButton = queryByTestId('generalButton')
   userTeamButton = queryByTestId('userTeamButton')
 
-  expect(header.textContent).toBe('blue chat')
+  expect(header.textContent).toBe('Blue chat')
   expect(generalButton).not.toBeNull()
   expect(userTeamButton).toBeNull()
   expect(generalButton.textContent).toBe('General')
@@ -101,8 +101,8 @@ test('should change the teamView when the generalButton is clicked', () => {
   generalButton = queryByTestId('generalButton')
   userTeamButton = queryByTestId('userTeamButton')
 
-  expect(header.textContent).toBe('general chat')
+  expect(header.textContent).toBe('General chat')
   expect(generalButton).toBeNull()
   expect(userTeamButton).not.toBeNull()
-  expect(userTeamButton.textContent).toBe('blue')
+  expect(userTeamButton.textContent).toBe('Blue')
 })

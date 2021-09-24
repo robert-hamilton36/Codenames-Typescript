@@ -1,4 +1,4 @@
-import { GameInfo } from '../../types/gameState'
+import { GameInfo } from '../../types/gameInfo'
 import { blueOperative, blueSpymaster, redHostOperative, redSpymaster } from './players'
 import { wordListNoReveals, wordListRedTeamWin } from './wordObjects'
 

@@ -1,5 +1,5 @@
 import { blueOperative, blueOperative2, blueSpymaster, redOperative, redOperative2, redSpymaster } from './players'
-import { LogEntry, TeamGuessLogEntry, UserGuessLogEntry, UserHintLogEntry } from '../../types/gameState'
+import { LogEntry, TeamGuessLogEntry, UserGuessLogEntry, UserHintLogEntry } from '../../types/gameLog'
 
 export const redUserHintLog1: UserHintLogEntry = {
   type: 'user',

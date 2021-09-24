@@ -1,4 +1,4 @@
-import { User } from '../../types/gameState'
+import { User } from '../../types/user'
 
 export const redHostSpymaster: User = {
   host: true,

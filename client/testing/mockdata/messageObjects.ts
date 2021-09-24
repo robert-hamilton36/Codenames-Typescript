@@ -1,4 +1,4 @@
-import { MessageObj } from '../../types/gameState'
+import { MessageObj } from '../../types/messages'
 import { blueSpymaster, redOperative, redSpymaster } from './players'
 
 export const messageHelloThereBlueSpymaster: MessageObj = {

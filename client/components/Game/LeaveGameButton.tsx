@@ -3,8 +3,9 @@ import { useHistory } from 'react-router-dom'
 
 import { useJoinGameActions, useVoteActions } from '../../contexts/FirebaseContext'
 import { useGameId } from '../../contexts/GameIdContext'
-import { useUserContext } from '../../contexts/UserContext'
+import { useSocketActions } from '../../contexts/SocketContext'
 import { useToaster } from '../../contexts/ToasterContext'
+import { useUserContext } from '../../contexts/UserContext'
 
 export const LeaveGameButton: React.FC = () => {
   const { user } = useUserContext()
@@ -12,10 +13,12 @@ export const LeaveGameButton: React.FC = () => {
   const { gameId } = useGameId()
   const { leaveGame } = useJoinGameActions()
   const { removePlayersVote } = useVoteActions()
+  const { playerLeavesSocket } = useSocketActions()
   const history = useHistory()
 
   const handleClick = () => {
     return removePlayersVote(gameId, user.uid)
+      .then(() => playerLeavesSocket())
       .then(() => leaveGame(user.uid, gameId))
       .then(() => setToaster(null))
       .then(() => history.push('/'))

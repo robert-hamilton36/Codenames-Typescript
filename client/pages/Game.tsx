@@ -5,16 +5,17 @@ import { LargeGame } from './LargeGame'
 import { useFirestoreSubscriber } from '../contexts/FirebaseContext'
 import { useGameId } from '../contexts/GameIdContext'
 import { useUserActions, useUserContext } from '../contexts/UserContext'
+import { SocketProvider } from '../contexts/SocketContext'
 
 // import { useScreenSize } from '../hooks/useScreenSize'
 
-import { GameInfo } from '../types/gameInfo'
+// import { GameInfo } from '../types/gameInfo'
 
 export const Game: React.FC = () => {
   const { gameId } = useGameId()
   const { user } = useUserContext()
   const { updateUser } = useUserActions()
-  const data: GameInfo | null = useFirestoreSubscriber(gameId)
+  const data = useFirestoreSubscriber(gameId)
   // const screenSize = useScreenSize()
 
   useEffect(() => {
@@ -51,7 +52,9 @@ export const Game: React.FC = () => {
   // temp until screensize is fully working
   if (data) {
     return (
-      <LargeGame data={data}/>
+      <SocketProvider uid={user.uid} gameId={gameId}>
+        <LargeGame data={data}/>
+      </SocketProvider>
     )
   }
 }

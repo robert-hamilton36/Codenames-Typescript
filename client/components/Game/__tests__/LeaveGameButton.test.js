@@ -7,20 +7,23 @@ import { LeaveGameButton } from '../LeaveGameButton'
 
 import { useJoinGameActions, useVoteActions } from '../../../contexts/FirebaseContext'
 import { useGameId } from '../../../contexts/GameIdContext'
-import { useUserContext } from '../../../contexts/UserContext'
+import { useSocketActions } from '../../../contexts/SocketContext'
 import { useToaster } from '../../../contexts/ToasterContext'
+import { useUserContext } from '../../../contexts/UserContext'
 
 import { redSpymaster } from '../../../testing/mockdata/players'
 import { Router } from 'react-router'
 
 jest.mock('../../../contexts/FirebaseContext')
 jest.mock('../../../contexts/GameIdContext')
-jest.mock('../../../contexts/UserContext')
+jest.mock('../../../contexts/SocketContext')
 jest.mock('../../../contexts/ToasterContext')
+jest.mock('../../../contexts/UserContext')
 
 const leaveGame = jest.fn(() => Promise.resolve())
 const removePlayersVote = jest.fn(() => Promise.resolve())
 const setToaster = jest.fn(() => Promise.resolve())
+const playerLeavesSocket = jest.fn(() => Promise.resolve())
 
 const promise = Promise.resolve()
 
@@ -30,6 +33,7 @@ beforeEach(() => {
   useJoinGameActions.mockReturnValue({ leaveGame })
   useVoteActions.mockReturnValue({ removePlayersVote })
   useToaster.mockReturnValue({ setToaster })
+  useSocketActions.mockReturnValue({ playerLeavesSocket })
 })
 
 afterEach(() => {
@@ -64,12 +68,12 @@ test('should call the correct function when leaveGameButton is clicked', async (
 
   expect(removePlayersVote).toHaveBeenCalledTimes(1)
   await act(() => promise)
-  expect(removePlayersVote.mock.calls[0][0]).toBe('7RVPD97JXBht7q1eFe8z')
-  expect(removePlayersVote.mock.calls[0][1]).toBe(redSpymaster.uid)
+  expect(removePlayersVote).toHaveBeenCalledWith('7RVPD97JXBht7q1eFe8z', redSpymaster.uid)
+
+  expect(playerLeavesSocket).toHaveBeenCalledTimes(1)
 
   expect(leaveGame).toHaveBeenCalledTimes(1)
-  expect(leaveGame.mock.calls[0][0]).toBe(redSpymaster.uid)
-  expect(leaveGame.mock.calls[0][1]).toBe('7RVPD97JXBht7q1eFe8z')
+  expect(leaveGame).toHaveBeenCalledWith(redSpymaster.uid, '7RVPD97JXBht7q1eFe8z')
 
   expect(setToaster).toHaveBeenCalledTimes(1)
   expect(setToaster.mock.calls[0][0]).toBeNull()

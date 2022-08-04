@@ -30,7 +30,7 @@ export const AskName: React.FC = () => {
       <form onSubmit={handleSubmit} data-testid='form'>
         <label data-testid='label'>Enter Name:</label>
         <input type='text' value={name} onChange={handleUserChange} data-testid='nameInput' autoFocus/>
-        <input type='submit' data-testid='submitInput'/>
+        <input type='submit' value='Submit' data-testid='submitInput'/>
       </form>
     </>
   )

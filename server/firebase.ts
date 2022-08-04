@@ -29,8 +29,6 @@ const __makeNewHostTransaction = (transaction: Transaction, ref: Ref, playerToBe
 }
 
 export const playerDisconnectsFromGame = (uid: string, gameId: string): Promise<firebase.firestore.Transaction | null> => {
-  console.log(uid)
-  console.log(gameId)
   const ref = firestore.collection('Games').doc(gameId)
   return firestore.runTransaction((transaction) => {
     return transaction.get(ref)

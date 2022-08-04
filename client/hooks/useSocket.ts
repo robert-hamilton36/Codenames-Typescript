@@ -6,7 +6,6 @@ export const useSocket = (uid: string, gameId: string, connection = ''): SocketA
   const socket = useRef<Socket<DefaultEventsMap> | null>(null)
 
   useEffect(() => {
-    console.log('useEffect')
     socket.current = io(connection)
 
     socket.current.on('connect', () => {

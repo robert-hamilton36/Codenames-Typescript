@@ -32,7 +32,6 @@ export const JoinTestGame: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log(user)
     if (user.name !== '') {
       nextPage()
     }

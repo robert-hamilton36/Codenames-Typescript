@@ -27,7 +27,7 @@ export const AskName: React.FC = () => {
   return (
     <>
       {error && <h1 data-testid='errorMessage'>{error.message}</h1>}
-      <form onSubmit={handleSubmit} data-testid='form'>
+      <form className='askName' onSubmit={handleSubmit} data-testid='form'>
         <label data-testid='label'>Enter Name:</label>
         <input type='text' value={name} onChange={handleUserChange} data-testid='nameInput' autoFocus/>
         <input type='submit' value='Submit' data-testid='submitInput'/>

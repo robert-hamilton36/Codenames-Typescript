@@ -19,9 +19,11 @@ export const MenuPage: React.FC = () => {
   return (
     <div className='menu'>
       <h1>Code Names</h1>
-      <button onClick={handleJoin}>Join Game</button>
-      <button onClick={handleHost}>Host Game</button>
-      <button onClick={handleTest}>Test Game</button>
+      <div className='buttons'>
+        <button onClick={handleJoin}>Join Game</button>
+        <button onClick={handleHost}>Host Game</button>
+        <button onClick={handleTest}>Test Game</button>
+      </div>
     </div>
   )
 }

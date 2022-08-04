@@ -39,28 +39,28 @@ const CreateGamePage: React.FC = () => {
 
   if (pageNumber === 0) {
     return (
-      <>
+      <div className='menu'>
         <AskName />
         <button onClick={handleHome}>Home</button>
-      </>
+      </div>
     )
   } else if (pageNumber === 1) {
     return (
-      <>
+      <div className='wordlist'>
         <WordList setFinalWordList={setFinalWordList} />
         <button onClick={previousPage}>Back</button>
-      </>
+      </div>
     )
   } else if (pageNumber === 2) {
     return (
-      <>
+      <div className='menu'>
         <GetSettings confirmSettings={confirmSettings} />
         <button onClick={previousPage}>Back</button>
-      </>
+      </div>
     )
   }
   return (
-    <>
+    <div className='menu'>
       <h1>Hello: {user.name}</h1>
       <h1>{settings?.gameplayMode}</h1>
       <h1>{settings?.voteSystem}</h1>
@@ -68,7 +68,7 @@ const CreateGamePage: React.FC = () => {
         <button onClick={previousPage}>Back</button>
         <button onClick={handleCreate}>Create Game</button>
       </div>
-    </>
+    </div>
   )
 }
 

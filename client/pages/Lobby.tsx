@@ -42,19 +42,19 @@ export const Lobby: React.FC = () => {
 
   if (pageNumber === 0) {
     return (
-      <>
+      <div className='menu'>
         <AskName />
         <button onClick={handleHome}>Home</button>
-      </>
+      </div>
     )
   }
 
   if (pageNumber === 1) {
     return (
-      <>
+      <div className='menu'>
         <GameList games={games} setGameToJoin={setGameToJoin} />
         <button onClick={previousPage}>Back</button>
-      </>
+      </div>
     )
   }
 

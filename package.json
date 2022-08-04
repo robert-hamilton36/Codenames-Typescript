@@ -1,6 +1,9 @@
 {
   "name": "typescript-react-express-boilerplate",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.13.2"
+  },
   "description": "react boilerplate using typescript",
   "main": "server/index.js",
   "scripts": {

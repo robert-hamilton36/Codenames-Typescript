@@ -1,37 +1,35 @@
-import React, { useContext, useState } from 'react'
-import { useNewUser } from '../hooks/useNewUser'
+import React, { useContext } from 'react'
 
-const UserContext = React.createContext(null)
+import { useNewUser, UserActions } from '../hooks/useNewUser'
 
-export function useUserContext (): ContextReturn {
+import { User } from '../types/user'
+
+const UserContext = React.createContext<Context>(null)
+
+export function useUserContext (): Context {
   return useContext(UserContext)
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function UserProvider ({ children }) {
-  const [user, setUser] = useNewUser()
-  const [gameId, setGameId] = useState('')
+export const useUserActions = (): UserActions => {
+  const { userActions } = useUserContext()
+  return userActions
+}
 
-  const provided = {
+export const UserProvider: React.FC<React.ReactNode> = ({ children }) => {
+  const [user, userActions] = useNewUser()
+
+  const value = {
     user,
-    setUser,
-    gameId,
-    setGameId
+    userActions
   }
+
   return (
-    <UserContext.Provider value={provided}>
+    <UserContext.Provider value={value}>
       {children}
     </UserContext.Provider>
   )
 }
-interface ContextReturn {
+interface Context {
   user: User,
-  setUser: React.Dispatch<React.SetStateAction<string>>,
-  gameId: string,
-  setGameId: React.Dispatch<React.SetStateAction<string>>
-}
-
-interface User {
-  name: string,
-  uid: string
+  userActions: UserActions,
 }

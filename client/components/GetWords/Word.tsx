@@ -17,21 +17,21 @@ export const Word: React.FC<Props> = ({ word, setItem, getNewWord }) => {
 
   if (editing) {
     return (
-      <li key={word}>
-        <form onSubmit={handleSubmit}>
-          <input type="text" name="newWord" value={newWord} onChange={(e) => setNewWord(e.target.value)} />
-          <input type="submit" value="Enter"/>
+      <li key={word} data-testid='liEdit'>
+        <form onSubmit={handleSubmit} data-testid='form'>
+          <input type="text" name="newWord" value={newWord} onChange={(e) => setNewWord(e.target.value)} data-testid='newWordInput'/>
+          <input type="submit" value="Submit" data-testid='newWordSubmit'/>
         </form>
       </li>
     )
   }
   return (
-    <li key={word}>
-      {word}
-      <button onClick={(() => setEditing(true))}>
-        Change
+    <li key={word} data-testid='liDisplay'>
+      <p data-testid='word' className='getWord'>{word}</p>
+      <button onClick={(() => setEditing(true))} data-testid='editButton'>
+        Edit
       </button>
-      <button onClick={() => actionNewWord(word)}>
+      <button onClick={() => actionNewWord(word)} data-testid='newWordButton'>
         New Word
       </button>
     </li>

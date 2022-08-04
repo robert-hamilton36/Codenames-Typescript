@@ -1,8 +1,10 @@
 import { boardKeyCreator } from './boardKeyCreator'
-// eslint-disable-next-line import/no-unresolved
-import { User, GameInfo, TeamPoints } from '../types/gameState'
 
-export const createGameObject: Return = (user: User, teams: Teams, settings: Settings, listWords: string[]) => {
+import { GameInfo } from '../types/gameInfo'
+import { TeamPoints, GameState, WordList, Team } from '../types/gameState'
+import { User } from '../types/user'
+
+export const createGameObject = (user: User, settings: Settings, listWords: string[], teams = ['red', 'blue']): GameInfo => {
   const { boardKey, firstTurnTeam } = boardKeyCreator()
 
   const scoresForWin = { red: 0, blue: 0 }
@@ -18,19 +20,21 @@ export const createGameObject: Return = (user: User, teams: Teams, settings: Set
     messages[team] = []
   })
 
-  const boardObject = new Array(listWords.length)
+  // const boardObject = new Array(listWords.length)
+  const boardObject = {}
   for (const x in listWords) {
-    boardObject[x] = { index: x, word: listWords[x], key: boardKey[x], revealed: false }
+    boardObject[x] = { word: listWords[x], key: boardKey[x], revealed: false, index: parseInt(x) }
   }
 
   const newGameObject: GameInfo = {
+    gameLog: [],
     gameState: {
       gameStart: false,
       guesses: 0,
       teamPoints: teamPoints,
       teamTurn: firstTurnTeam,
       votes: [],
-      words: boardObject
+      words: boardObject as WordList
     },
     host: user,
     messages: messages,
@@ -41,7 +45,7 @@ export const createGameObject: Return = (user: User, teams: Teams, settings: Set
       uid: user.uid
     }],
     settings: {
-      teams: teams,
+      teams: teams as Team[],
       scoresForWin: scoresForWin,
       ...settings
     }
@@ -50,11 +54,43 @@ export const createGameObject: Return = (user: User, teams: Teams, settings: Set
   return newGameObject
 }
 
-type Return = (user: User, teams: Teams, settings: Settings, listWords: string[]) => GameInfo
+export const restartGameState = (listWords: string[], teams = ['red', 'blue']): RestartGameStateReturn => {
+  const { boardKey, firstTurnTeam } = boardKeyCreator()
+  const teamPoints: TeamPoints = { red: 0, blue: 0 }
+  const scoresForWin: TeamPoints = { red: 0, blue: 0 }
 
-type Teams = ['red', 'blue']
+  teams.map((team) => {
+    if (team === firstTurnTeam) {
+      scoresForWin[team] = 9
+    } else {
+      scoresForWin[team] = 8
+    }
+    teamPoints[team] = 0
+  })
+
+  const boardObject = {}
+  for (const x in listWords) {
+    boardObject[x] = { word: listWords[x], key: boardKey[x], revealed: false, index: x }
+  }
+
+  const gameState: GameState = {
+    gameStart: false,
+    guesses: 0,
+    teamPoints: teamPoints,
+    teamTurn: firstTurnTeam,
+    votes: [],
+    words: boardObject as WordList
+  }
+
+  return { gameState, scoresForWin }
+}
+
+type RestartGameStateReturn = {
+  gameState: GameState;
+  scoresForWin: TeamPoints;
+}
 
 export interface Settings {
   gameplayMode: 'individual' | 'tabletop',
-  voteSystem: 'vote' | 'spymaster-locksin'
+  voteSystem: 'individual-locksin' | 'vote' | 'spymaster-locksin'
 }

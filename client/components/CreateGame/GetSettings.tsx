@@ -1,51 +1,43 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
-import { useSettingsReducer, State } from '../../hooks/useSettingsReducer'
-import { GamePlayMode } from './GamePlayMode'
+
+import { GameplayMode } from './GameplayMode'
 import { VoteSystem } from './VoteSystem'
-// import { Settings } from '../../utility/createNewGameObject'
 
-// interface Props {
-//   confirmSettings: React.Dispatch<React.SetStateAction<Settings>>
-// }
+import { useSettingsContext } from '../../contexts/SettingsContext'
 
-export const GetSettings: React.FC<Props> = ({ confirmSettings, nextPage }) => {
-  const { settings, settingsDispatcher } = useSettingsReducer()
-  const history = useHistory()
+import { SettingsState } from '../../hooks/useSettingsReducer'
 
-  const removeErrorFromSettings = (dirtySettings: State) => {
-    delete dirtySettings.error
-    const cleanSettings: Settings = dirtySettings
-    return cleanSettings
-  }
+export const GetSettings: React.FC<Props> = ({ confirmSettings }) => {
+  const { settings } = useSettingsContext()
 
-  const returnHome = () => {
-    history.push('/')
+  const removeErrorFromSettings = (dirtySettings: SettingsState) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { error, ...cleanSettings } = dirtySettings
+    return cleanSettings as Settings
   }
 
   const handleConfirm = () => {
     confirmSettings(removeErrorFromSettings(settings))
-    nextPage()
   }
+
   return (
     <div className="settings">
-      <h2> Settings </h2>
-      {settings.error && <h3>{settings.error}</h3>}
-      <VoteSystem settings={settings} settingsDispatcher={settingsDispatcher}/>
-      <GamePlayMode settings={settings} settingsDispatcher={settingsDispatcher}/>
-      <button onClick={returnHome}>Home</button>
-      <button onClick={handleConfirm}>Confirm</button>
+      <h2 data-testid='getSettings-header'>
+        Settings
+      </h2>
+      {settings.error && <h3 data-testid='errorMessage'>{settings.error}</h3>}
+      <VoteSystem />
+      <GameplayMode/>
+      <button onClick={handleConfirm} data-testid='button'>Confirm</button>
     </div>
   )
 }
 
 interface Props {
   confirmSettings: React.Dispatch<React.SetStateAction<Settings>>
-  nextPage: () => void
-  // previousPage: () => void
 }
 
 interface Settings {
   gameplayMode: 'individual' | 'tabletop',
-  voteSystem: 'vote' | 'spymaster-locksin'
+  voteSystem: 'individual-locksin' | 'vote' | 'spymaster-locksin'
 }

@@ -1,50 +1,37 @@
 import React, { useState } from 'react'
-import { useUserContext } from '../contexts/UserContext'
 
-export const AskName: React.FC<Props> = ({ nextPage, previousPage }) => {
+import { useUserActions } from '../contexts/UserContext'
+
+import { validateName } from '../validations/nameValidation'
+
+export const AskName: React.FC = () => {
   const [name, setName] = useState('')
-  const [error, setError] = useState('')
-  const { setUser } = useUserContext()
+  const [error, setError] = useState<Error>(null)
+  const { setUser } = useUserActions()
 
-  const handleUserChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUserChange = (e) => {
     setName(e.target.value)
-  }
-
-  const validateName = (name) => {
-    if (name === '') {
-      setError('Please enter a name')
-      return false
-    } else if (!/^[A-Z a-z]+$/.test(name)) {
-      setError('Name can only contain letters')
-      return false
-    } else {
-      return true
-    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (validateName(name)) {
-      setUser(name)
-      nextPage()
-      return null
+    try {
+      if (validateName(name)) {
+        return setUser(name)
+      }
+    } catch (error) {
+      setError(error)
     }
   }
 
   return (
     <>
-      {error && <h1>{error}</h1>}
-      <form onSubmit={handleSubmit}>
-        <label>Enter Name:</label>
-        <input type='text' value={name} onChange={handleUserChange}/>
-        <button onClick={previousPage}>Back</button>
-        <input type='submit'/>
+      {error && <h1 data-testid='errorMessage'>{error.message}</h1>}
+      <form className='askName' onSubmit={handleSubmit} data-testid='form'>
+        <label data-testid='label'>Enter Name:</label>
+        <input type='text' value={name} onChange={handleUserChange} data-testid='nameInput' autoFocus/>
+        <input type='submit' value='Submit' data-testid='submitInput'/>
       </form>
     </>
   )
-}
-
-interface Props {
-  nextPage?: () => void
-  previousPage?: () => void
 }

@@ -2,16 +2,22 @@ import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
-import { joinGameActions, ActionReturns } from '../firebase/joinGameActions'
 
-interface ProvidedContextFirebase {
-  app: app,
-  firestore: firestore,
-  actions: ActionReturns
-}
+import { gameplayActions, GameplayActionReturn } from '../firebase/gameplayActions'
+import { guessActions, GuessActionsReturn } from '../firebase/guessActions'
+import { joinGameActions, JoinGameActionReturn } from '../firebase/joinGameActions'
+import { messageActions, MessageReturn } from '../firebase/messageActions'
+import { playerActions, playerActionReturn } from '../firebase/playerActions'
+import { voteActions, VoteActionReturn } from '../firebase/voteActions'
+
+import { GameInfo } from '../types/gameInfo'
 
 export type firestore = firebase.firestore.Firestore
 export type app = firebase.app.App
+interface ProvidedContextFirebase {
+  app: app,
+  firestore: firestore,
+}
 
 const FirebaseContext = createContext<ProvidedContextFirebase | null >(null)
 
@@ -33,8 +39,7 @@ export const FirebaseProvider: React.FC<React.ReactNode> = ({ children }) => {
     return firebase.initializeApp(firebaseConfig)
   }, [firebaseConfig])
   const firestore = app.firestore()
-  const actions = joinGameActions(firestore)
-  const provided: ProvidedContextFirebase = useMemo(() => ({ app, firestore, actions }), [app, firestore, actions])
+  const provided: ProvidedContextFirebase = useMemo(() => ({ app, firestore }), [app, firestore])
 
   return (
     <FirebaseContext.Provider value={provided}>
@@ -43,35 +48,35 @@ export const FirebaseProvider: React.FC<React.ReactNode> = ({ children }) => {
   )
 }
 
-export const useFirestoreSubscriber: (gameId: string) => firebase.firestore.DocumentData = (gameId: string) => {
+export const useFirestoreSubscriber = (gameId: string): GameInfo => {
   const { firestore } = useFirebase()
-  const [data, setData] = useState<firebase.firestore.DocumentData>()
+  const [data, setData] = useState<GameInfo>()
   useEffect(() => {
     let hasSubscribed = false
     let unsubscribe
     if (gameId) {
       unsubscribe = firestore.collection('Games').doc(gameId)
         .onSnapshot((doc) => {
-          setData(doc.data())
+          const data = doc.data() as GameInfo
+          setData(data)
         })
       hasSubscribed = true
     }
     return () => hasSubscribed && unsubscribe()
   }, [gameId])
-  return data
+  return data as GameInfo
 }
 
-export const useFirestoreCollectionSubscriber: (collection: string) => firebase.firestore.DocumentData = (collection: string) => {
+export const useFirestoreCollectionSubscriber = (collection: string): string[] => {
   const { firestore } = useFirebase()
-  const [data, setData] = useState<firebase.firestore.DocumentData>()
+  // const [data, setData] = useState<firebase.firestore.DocumentData>()
+  const [data, setData] = useState<string[]>()
   useEffect(() => {
     let hasSubscribed = false
     let unsubscribe
     if (collection) {
       unsubscribe = firestore.collection(collection)
         .onSnapshot((doc) => {
-          doc.forEach((doc) => console.log(doc.data()))
-          console.log(doc.docs)
           const array = doc.docs.reduce((oldArray, doc) => {
             oldArray.push(doc.id)
             return oldArray
@@ -82,10 +87,10 @@ export const useFirestoreCollectionSubscriber: (collection: string) => firebase.
     }
     return () => hasSubscribed && unsubscribe()
   }, [collection])
-  return data
+  return data as string[]
 }
 
-export const getWords: (doc?: string) => string[] = (doc = 'BaseGame') => {
+export const getWords = (doc = 'BaseGame'): string[] => {
   const [words, setWords] = useState<string[]>([])
   const { firestore } = useFirebase()
   useEffect(() => {
@@ -96,4 +101,40 @@ export const getWords: (doc?: string) => string[] = (doc = 'BaseGame') => {
       })
   }, [])
   return words
+}
+
+export const useJoinGameActions = (): JoinGameActionReturn => {
+  const { firestore } = useFirebase()
+  const actions = joinGameActions(firestore)
+  return actions
+}
+
+export const usePlayerActions = (): playerActionReturn => {
+  const { firestore } = useFirebase()
+  const actions = playerActions(firestore)
+  return actions
+}
+
+export const useGameplayActions = (): GameplayActionReturn => {
+  const { firestore } = useFirebase()
+  const actions = gameplayActions(firestore)
+  return actions
+}
+
+export const useGuessActions = (): GuessActionsReturn => {
+  const { firestore } = useFirebase()
+  const actions = guessActions(firestore)
+  return actions
+}
+
+export const useVoteActions = (): VoteActionReturn => {
+  const { firestore } = useFirebase()
+  const actions = voteActions(firestore)
+  return actions
+}
+
+export const useMessageActions = (): MessageReturn => {
+  const { firestore } = useFirebase()
+  const actions = messageActions(firestore)
+  return actions
 }

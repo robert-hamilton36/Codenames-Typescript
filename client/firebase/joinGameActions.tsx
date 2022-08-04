@@ -1,50 +1,45 @@
-import { useUserContext } from '../contexts/UserContext'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
-// eslint-disable-next-line import/no-unresolved
-import { GameInfo, PlayerObject, TeamColour, User } from '../types/gameState'
+import { useGameId } from '../contexts/GameIdContext'
 import { firestore } from '../contexts/FirebaseContext'
 
-const getNewPlayersTeam: (data:Data) => TeamColour = (data) => {
-  let team: TeamColour = ''
-  if (data.data().settings.gameplayMode !== 'tabletop') {
-    if (data.data().players.filter((person) => person.team === 'Red').length <= data.data().players.filter((person) => person.team === 'Blue').length) {
-      team = 'Red'
-    } else {
-      team = 'Blue'
-    }
-  }
-  return team
-}
+import { GameInfo } from '../types/gameInfo'
+import { TeamColour, User } from '../types/user'
 
-export const joinGameActions: (firestore: firestore) => ActionReturns = (firestore: firestore) => {
-  const { setGameId } = useUserContext()
+import { getTeamForNewPlayer } from '../utility/gameStateInfoFunctions'
 
-  const consoleLog = () => {
-    console.log(firestore)
-  }
+export const joinGameActions = (firestore: firestore): JoinGameActionReturn => {
+  const { setGameId } = useGameId()
 
-  const createGame: CreateGame = (newGame: GameInfo) => {
+  const createGame = (newGame: GameInfo) => {
     return firestore.collection('Games')
       .add(newGame)
       .then(data => setGameId(data.id))
   }
 
-  const joinGame: JoinGame = (user: User, gameId:string) => {
+  const createTestGame = (newGame: GameInfo) => {
+    return firestore.collection('Games')
+      .doc('Test')
+      .set(newGame)
+      .then(() => setGameId('Test'))
+  }
+
+  const joinGame = (user: User, gameId: string) => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
         .then(data => {
-          const team: TeamColour = getNewPlayersTeam(data)
-          const playerObj: PlayerObject = { ...user, team }
+          const gameState = data.data() as GameInfo
+          const team: TeamColour = getTeamForNewPlayer(gameState)
+          const playerObj: User = { ...user, team }
           transaction.update(ref, { players: firebase.firestore.FieldValue.arrayUnion(playerObj) })
           return data
         })
     })
   }
 
-  const leaveGame: LeaveGame = (userId:string, gameId:string) => {
+  const leaveGame = (userId: string, gameId: string) => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
@@ -56,25 +51,25 @@ export const joinGameActions: (firestore: firestore) => ActionReturns = (firesto
       .then(() => setGameId(''))
   }
 
-  const deleteGame: DeleteGame = (gameId:string) => {
+  const deleteGame = (gameId: string) => {
     return firestore.collection('Games').doc(gameId)
       .delete()
   }
 
-  const kickPlayer: KickPlayer = (userId:string, gameId:string) => {
+  const kickPlayer = (userId: string, gameId: string) => {
     const ref = firestore.collection('Games').doc(gameId)
     return firestore.runTransaction((transaction) => {
       return transaction.get(ref)
         .then((data) => {
-          const array = data.data().players.filter((player) => player.uid === userId)
-          return transaction.update(ref, { players: firebase.firestore.FieldValue.arrayRemove(array[0]) })
+          const player = data.data().players.find((player) => player.uid === userId)
+          return transaction.update(ref, { players: firebase.firestore.FieldValue.arrayRemove(player) })
         })
     })
   }
 
   return {
-    consoleLog,
     createGame,
+    createTestGame,
     deleteGame,
     joinGame,
     leaveGame,
@@ -82,19 +77,13 @@ export const joinGameActions: (firestore: firestore) => ActionReturns = (firesto
   }
 }
 
-type JoinGame = (user: User, gameId: string) => FirestoreTransactionPromise
-type FirestoreTransactionPromise = Promise<firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>>
-type CreateGame = (newGame: GameInfo) => Promise<void>
-type DeleteGame = (gameId: string) => Promise<void>
-type LeaveGame = (userId: string, gameId: string) => Promise<void>
-type KickPlayer = (userId: string, gameId: string) => Promise<firebase.firestore.Transaction>
-type Data = firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
+// type Data = firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>
 
-export interface ActionReturns {
-  consoleLog: () => void,
-  createGame: CreateGame,
-  deleteGame: DeleteGame,
-  joinGame: JoinGame,
-  leaveGame: LeaveGame,
-  kickPlayer: KickPlayer
+export interface JoinGameActionReturn {
+  createGame: (newGame: GameInfo) => Promise<void>
+  createTestGame: (newGame: GameInfo) => Promise<void>
+  deleteGame: (gameId: string) => Promise<void>
+  joinGame: (user: User, gameId: string) => Promise<firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>>
+  leaveGame: (userId: string, gameId: string) => Promise<void>,
+  kickPlayer: (userId: string, gameId: string) => Promise<firebase.firestore.Transaction>
 }

@@ -1,0 +1,57 @@
+.largeGameContainer {
+  display: grid;
+  grid-template-columns: minmax(150px, 200px) minmax(550px, 1050px) 1fr;
+  grid-template-rows: 1fr minmax(550px, 550px) 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+  "NameId GameInfo Score"
+  "Players Board Chat"
+  "Start Actions Chat"
+  ;
+
+  height: 100vh;
+  width: 100vw;
+}
+
+.nameId {
+  grid-area: NameId;
+}
+
+.gameInfo { 
+  grid-area: GameInfo;
+  justify-self: center;
+}
+
+.score {
+  grid-area: Score;
+  justify-self: center;
+}
+
+.players { 
+  grid-area: Players;
+  justify-self: center;
+}
+
+.board { 
+  grid-area: Board;
+  align-self: center;
+  justify-self: center;
+
+}
+
+.chat { 
+  height: 550px;
+  grid-area: Chat; 
+  justify-self: center;
+}
+
+.actions { 
+  justify-self: center;
+  grid-area: Actions; 
+}
+
+.startGame {
+  grid-area: Start; 
+  align-self: center;
+  justify-self: center;
+}

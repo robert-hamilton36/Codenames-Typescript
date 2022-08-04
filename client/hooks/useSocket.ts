@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { io, Socket } from 'socket.io-client'
 import { DefaultEventsMap } from 'socket.io-client/build/typed-events'
 
-const useSocket: (uid: string, gameId: string, connection?: string) => void = (uid, gameId, connection = '') => {
+export const useSocket = (uid: string, gameId: string, connection = ''): SocketActions => {
   const socket = useRef<Socket<DefaultEventsMap> | null>(null)
 
   useEffect(() => {
@@ -13,9 +13,19 @@ const useSocket: (uid: string, gameId: string, connection?: string) => void = (u
     })
 
     return () => {
-      socket?.current.disconnect()
+      socket.current.disconnect()
     }
   }, [])
+
+  const playerLeavesSocket = () => {
+    socket.current.emit('player-manually-leaves-game')
+  }
+
+  return {
+    playerLeavesSocket
+  }
 }
 
-export default useSocket
+export interface SocketActions {
+  playerLeavesSocket: () => void
+}

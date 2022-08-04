@@ -1,5 +1,19 @@
 
+@use 'WordGrid';
+@use 'LargeGame';
+@use 'Settings';
+@use 'Toaster';
+@use 'GameLog';
+@use 'Menu';
 html, 
 body {
-  font-family: sans-serif;
+  // font-family: sans-serif;
+  font-family: roboto;
+  margin: 0;
+  display: flex;
+}
+
+.getWord {
+  display: inline-block;
+  margin: 0px;
 }

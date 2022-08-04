@@ -1,0 +1,44 @@
+.gameLog {
+
+
+.header {
+  text-align: center;
+  margin: 0px;
+}
+
+.logContainer {
+  list-style-type: none;
+  padding-left: 0;
+
+
+  .logEntry {
+    padding: 2px 7px 2px 7px;
+  }
+
+  .hintLogEntry {
+    padding-left: 2;
+    padding-right: 2;
+    background-color: aliceblue;
+  }
+
+  .faintred {
+    background-color: #f1abab;
+  }
+
+  .faintblue {
+    background-color: #9e9efb;
+  }
+
+  .wordred {
+    color: #f17f7f;
+  }
+
+  .wordblue {
+    color: #6868ff;
+  }
+
+  .wordneutral{
+    color: beige;
+  }
+}
+}

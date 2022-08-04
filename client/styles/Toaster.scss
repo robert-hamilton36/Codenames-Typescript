@@ -1,0 +1,73 @@
+$close-button-width: 1.2rem;
+
+
+.toaster {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, 0px);
+  z-index: 9999;
+  border-radius: 8px;
+  background-color: rgb(248, 138, 98);
+  padding: 15px;
+
+  -webkit-animation: fadein 0.5s;
+  animation: fadein 0.5s;
+
+  &__header {
+    width: 100%;
+  }
+
+  &__close-btn {
+    height: $close-button-width;
+    width: $close-button-width;
+    display: block;
+    border-radius: 50%;
+    background-color: #fff;
+    text-indent: -999rem;
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+    border: 0;
+    cursor: pointer;
+    &:after {
+      content: "x";
+      display: block;
+      text-indent: 0;
+      position: absolute;
+      top: 0;
+      height: $close-button-width;
+      width: $close-button-width;
+      line-height: $close-button-width;
+      text-align: center;
+      left: 0;
+      font-size: 0.6rem;
+    }
+  }
+
+  &--onClose {
+    -webkit-animation: fadeout 0.5s;
+    animation: fadout 0.5s;
+  }
+}
+ 
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;} 
+  to {bottom: 20px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 20px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 20px; opacity: 1;} 
+  to {bottom: 600px; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 20px; opacity: 1;}
+  to {bottom: 600px; opacity: 0;}
+}

@@ -9,6 +9,8 @@
     "dev:server": "nodemon --exec ts-node server/index.ts",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "test": "jest --coverage",
+    "start": "node server",
+    "build": "webpack",
     "webpack": "webpack --config ./client/webpack.config.js"
   },
   "repository": {

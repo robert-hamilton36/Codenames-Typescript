@@ -20,7 +20,7 @@ export const ChatContainer: React.FC<Props> = ({ game }) => {
       <MessageContainer messages={game.messages} teamView={teamView}/>
       {teamView !== 'general'
         ? <button onClick={() => setTeamView('general')} data-testid='generalButton'>General</button>
-        : <button onClick={() => setTeamView(user?.team)} data-testid='userTeamButton'>{capitalize(user?.team)}</button>
+        : <button onClick={() => setTeamView(user?.team)} data-testid='userTeamButton'>{capitalize(user?.team || '')}</button>
       }
       <WriteNewMessage teamView={teamView} />
     </div>

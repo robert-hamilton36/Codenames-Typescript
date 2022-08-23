@@ -11,7 +11,7 @@
     "dev:client": "npm run webpack -- --watch",
     "dev:server": "nodemon --exec ts-node server/index.ts",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
-    "test": "jest --coverage",
+    "test": "jest --watch",
     "start": "node server",
     "build": "webpack --config ./client/webpack.config.js",
     "webpack": "webpack --config ./client/webpack.config.js"
@@ -37,7 +37,10 @@
       "./client/testing/setup/enzyme.js"
     ],
     "collectCoverage": true,
-    "coverageReporters": ["json", "html"]
+    "coverageReporters": [
+      "json",
+      "html"
+    ]
   },
   "author": "Me",
   "license": "ISC",

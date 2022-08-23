@@ -1,5 +1,5 @@
 import { GameInfo } from '../../types/gameInfo'
-import { blueOperative, blueSpymaster, redHostOperative, redSpymaster } from './players'
+import { blueHostOperative, blueOperative, blueSpymaster, redHostOperative, redHostSpymaster, redSpymaster } from './players'
 import { wordListNoReveals, wordListRedTeamWin } from './wordObjects'
 
 export const gameDataIndividualVotePreStart: GameInfo = {
@@ -12,6 +12,43 @@ export const gameDataIndividualVotePreStart: GameInfo = {
       blue: 0
     },
     teamTurn: 'red',
+    votes: [],
+    words: wordListNoReveals
+  },
+  host: {
+    name: 'R2-D2',
+    uid: 'dd3b8c97-102c-4e88-962b-4ba5ffb032aa'
+  },
+  messages: {
+    blue: [],
+    general: [],
+    red: []
+  },
+  players: [redHostOperative, blueSpymaster, redSpymaster, blueOperative],
+  settings: {
+    gameplayMode: 'individual',
+    scoresForWin: {
+      blue: 8,
+      red: 9
+    },
+    teams: [
+      'red',
+      'blue'
+    ],
+    voteSystem: 'vote'
+  }
+}
+
+export const gameDataIndividualVoteStartNoHintBlueTurn: GameInfo = {
+  gameLog: [],
+  gameState: {
+    gameStart: true,
+    guesses: 0,
+    teamPoints: {
+      red: 0,
+      blue: 0
+    },
+    teamTurn: 'blue',
     votes: [],
     words: wordListNoReveals
   },
@@ -252,6 +289,40 @@ export const gameDataRedTeamWon: GameInfo = {
     win: 'red',
     words: wordListRedTeamWin
   },
+  host: redHostSpymaster,
+  messages: {
+    blue: [],
+    general: [],
+    red: []
+  },
+  players: [redHostOperative, blueSpymaster, redSpymaster, blueOperative],
+  settings: {
+    gameplayMode: 'individual',
+    scoresForWin: {
+      blue: 8,
+      red: 9
+    },
+    teams: [
+      'red',
+      'blue'
+    ],
+    voteSystem: 'vote'
+  }
+}
+
+export const gameDataPreStartOneRedPlayer: GameInfo = {
+  gameLog: [],
+  gameState: {
+    gameStart: false,
+    guesses: 0,
+    teamPoints: {
+      red: 0,
+      blue: 0
+    },
+    teamTurn: 'red',
+    votes: [],
+    words: wordListNoReveals
+  },
   host: {
     name: 'R2-D2',
     uid: 'dd3b8c97-102c-4e88-962b-4ba5ffb032aa'
@@ -261,7 +332,44 @@ export const gameDataRedTeamWon: GameInfo = {
     general: [],
     red: []
   },
-  players: [redHostOperative, blueSpymaster, redSpymaster, blueOperative],
+  players: [redHostOperative],
+  settings: {
+    gameplayMode: 'individual',
+    scoresForWin: {
+      blue: 8,
+      red: 9
+    },
+    teams: [
+      'red',
+      'blue'
+    ],
+    voteSystem: 'vote'
+  }
+}
+
+export const gameDataPreStartOneBluePlayer: GameInfo = {
+  gameLog: [],
+  gameState: {
+    gameStart: false,
+    guesses: 0,
+    teamPoints: {
+      red: 0,
+      blue: 0
+    },
+    teamTurn: 'red',
+    votes: [],
+    words: wordListNoReveals
+  },
+  host: {
+    name: 'R2-D2',
+    uid: 'dd3b8c97-102c-4e88-962b-4ba5ffb032aa'
+  },
+  messages: {
+    blue: [],
+    general: [],
+    red: []
+  },
+  players: [blueHostOperative],
   settings: {
     gameplayMode: 'individual',
     scoresForWin: {

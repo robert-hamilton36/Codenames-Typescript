@@ -16,6 +16,7 @@ module.exports = {
       filename: 'styles.css',
       chunkFilename: '[id].css',
       ignoreOrder: false // Enable to remove warnings about conflicting order
+
     }),
     new Dotenv({
       path: './.env'

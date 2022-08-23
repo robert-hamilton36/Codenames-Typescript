@@ -18,7 +18,7 @@ export const MenuPage: React.FC = () => {
 
   return (
     <div className='menu'>
-      <h1>Code Names</h1>
+      <h1>SpyWords</h1>
       <div className='buttons'>
         <button onClick={handleJoin}>Join Game</button>
         <button onClick={handleHost}>Host Game</button>

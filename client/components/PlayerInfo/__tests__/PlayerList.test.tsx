@@ -1,20 +1,26 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { PlayerList } from '../PlayerList'
+
 import { HostOptions } from '../HostOptions'
 import { useUserContext } from '../../../contexts/UserContext'
 import { usePlayerSelectorDeselector } from '../../../hooks/useSelectorDeselector'
+
 import { redSpymaster, blueSpymaster, redHostOperative, blueOperative } from '../../../testing/mockdata/players'
 
+jest.mock('../HostOptions')
 jest.mock('../../../contexts/UserContext')
 jest.mock('../../../hooks/useSelectorDeselector')
-jest.mock('../HostOptions')
 
-HostOptions.mockReturnValue(<div data-testid='hostOptionsContainer'></div>)
+const MockedHostOptions = HostOptions as jest.Mock
+const MockedUseUserContext = useUserContext as jest.Mock
+const MockedUsePlayerSelectorDeselector = usePlayerSelectorDeselector as jest.Mock
+
+MockedHostOptions.mockReturnValue(<div data-testid='hostOptionsContainer'></div>)
 
 test('should render with proper text and values when player list is empty', () => {
-  useUserContext.mockReturnValue({})
-  usePlayerSelectorDeselector.mockReturnValue([null, jest.mock()])
+  MockedUseUserContext.mockReturnValue({})
+  MockedUsePlayerSelectorDeselector.mockReturnValue([null, jest.fn()])
 
   const { getByTestId, queryByTestId } = render(<PlayerList playerList={[]}/>)
 
@@ -42,7 +48,7 @@ test('should render with proper text and values when player list is empty', () =
 })
 
 test('should render with proper text and values with four players', () => {
-  useUserContext.mockReturnValue({})
+  MockedUseUserContext.mockReturnValue({})
   const { getByTestId, queryByTestId } = render(<PlayerList playerList={[redSpymaster, blueSpymaster, redHostOperative, blueOperative]}/>)
 
   const redHeader = getByTestId('redHeader')
@@ -74,8 +80,8 @@ test('should render with proper text and values with four players', () => {
 })
 
 test('should not render host options when there is a selectedPlayer, but player is not host', () => {
-  useUserContext.mockReturnValue({ user: blueOperative })
-  usePlayerSelectorDeselector.mockReturnValue([redSpymaster, jest.mock()])
+  MockedUseUserContext.mockReturnValue({ user: blueOperative })
+  MockedUsePlayerSelectorDeselector.mockReturnValue([redSpymaster, jest.fn()])
 
   const { queryByTestId } = render(<PlayerList playerList={[redSpymaster, blueSpymaster, redHostOperative, blueOperative]}/>)
 
@@ -85,8 +91,8 @@ test('should not render host options when there is a selectedPlayer, but player 
 })
 
 test('should render host options when there is a selectedPlayer and player is host', () => {
-  useUserContext.mockReturnValue({ user: redHostOperative })
-  usePlayerSelectorDeselector.mockReturnValue([redSpymaster, jest.mock()])
+  MockedUseUserContext.mockReturnValue({ user: redHostOperative })
+  MockedUsePlayerSelectorDeselector.mockReturnValue([redSpymaster, jest.fn()])
 
   const { queryByTestId } = render(<PlayerList playerList={[redSpymaster, blueSpymaster, redHostOperative, blueOperative]}/>)
 

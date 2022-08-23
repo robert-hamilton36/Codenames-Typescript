@@ -1,6 +1,8 @@
 import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
+
 import { HostOptions } from '../HostOptions'
+
 import { usePlayerActions, useJoinGameActions } from '../../../contexts/FirebaseContext'
 import { useGameId } from '../../../contexts/GameIdContext'
 
@@ -9,6 +11,10 @@ import { redSpymaster, blueSpymaster, redOperative, blueOperative } from '../../
 jest.mock('../../../contexts/FirebaseContext')
 jest.mock('../../../contexts/GameIdContext')
 
+const MockedUsePlayerActions = usePlayerActions as jest.Mock
+const MockedUseJoinGameActions = useJoinGameActions as jest.Mock
+const MockedUseGameId = useGameId as jest.Mock
+
 const editSpymasterOperative = jest.fn(() => Promise.resolve())
 const changePlayersTeam = jest.fn(() => Promise.resolve())
 const kickPlayer = jest.fn(() => Promise.resolve())
@@ -16,9 +22,9 @@ const kickPlayer = jest.fn(() => Promise.resolve())
 beforeEach(() => {
   jest.clearAllMocks()
 
-  usePlayerActions.mockReturnValue({ editSpymasterOperative, changePlayersTeam })
-  useJoinGameActions.mockReturnValue({ kickPlayer })
-  useGameId.mockReturnValue({ gameId: 'sUhCubsdZeKRsepPr9ag' })
+  MockedUsePlayerActions.mockReturnValue({ editSpymasterOperative, changePlayersTeam })
+  MockedUseJoinGameActions.mockReturnValue({ kickPlayer })
+  MockedUseGameId.mockReturnValue({ gameId: 'sUhCubsdZeKRsepPr9ag' })
 })
 
 test('should render with correct text and values with no selected player', () => {
@@ -123,8 +129,7 @@ test('should fire the correct functions when the change role button is clicked',
   await fireEvent.click(changeRoleButton)
 
   expect(editSpymasterOperative).toHaveBeenCalledTimes(1)
-  expect(editSpymasterOperative.mock.calls[0][0]).toBe('sUhCubsdZeKRsepPr9ag')
-  expect(editSpymasterOperative.mock.calls[0][1]).toBe(blueOperative.uid)
+  expect(editSpymasterOperative).toHaveBeenCalledWith('sUhCubsdZeKRsepPr9ag', blueOperative.uid)
   expect(setSelectedPlayer.mock.calls[0][0]).toBeNull()
   expect(setSelectedPlayer).toHaveBeenCalledTimes(1)
 })
@@ -139,9 +144,7 @@ test('should fire the correct functions when the change team button is clicked',
   await fireEvent.click(changeTeamButton)
 
   expect(changePlayersTeam).toHaveBeenCalledTimes(1)
-  expect(changePlayersTeam.mock.calls[0][0]).toBe('sUhCubsdZeKRsepPr9ag')
-  expect(changePlayersTeam.mock.calls[0][1]).toBe(blueOperative.uid)
-  expect(changePlayersTeam.mock.calls[0][2]).toBe('red')
+  expect(changePlayersTeam).toHaveBeenCalledWith('sUhCubsdZeKRsepPr9ag', blueOperative.uid, 'red')
 
   expect(setSelectedPlayer.mock.calls[0][0]).toBeNull()
   expect(setSelectedPlayer).toHaveBeenCalledTimes(1)
@@ -157,8 +160,7 @@ test('should fire the correct function when the kick button is clicked', async (
   await fireEvent.click(kickButton)
 
   expect(kickPlayer).toHaveBeenCalledTimes(1)
-  expect(kickPlayer.mock.calls[0][0]).toBe(blueOperative.uid)
-  expect(kickPlayer.mock.calls[0][1]).toBe('sUhCubsdZeKRsepPr9ag')
+  expect(kickPlayer).toHaveBeenCalledWith(blueOperative.uid, 'sUhCubsdZeKRsepPr9ag')
 
   expect(setSelectedPlayer.mock.calls[0][0]).toBeNull()
   expect(setSelectedPlayer).toHaveBeenCalledTimes(1)

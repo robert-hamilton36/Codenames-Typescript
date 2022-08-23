@@ -9,10 +9,13 @@ import { redSpymaster, blueSpymaster, redHostOperative, blueOperative } from '..
 jest.mock('../DeviceList')
 jest.mock('../PlayerList')
 
+const MockedDeviceList = DeviceList as jest.Mock
+const MockedPlayerList = PlayerList as jest.Mock
+
 beforeEach(() => {
   jest.resetAllMocks()
 
-  DeviceList.mockImplementation(({ devices }) => (
+  MockedDeviceList.mockImplementation(({ devices }) => (
     <div data-testid='deviceList'>
       <ul>
         {devices.map((device, index) => {
@@ -22,7 +25,7 @@ beforeEach(() => {
     </div>
   ))
 
-  PlayerList.mockImplementation(({ playerList }) => (
+  MockedPlayerList.mockImplementation(({ playerList }) => (
     <div data-testid='playerList'>
       <ul>
         {playerList.map((device, index) => {

@@ -1,12 +1,13 @@
 import { userVotedForSkip, userVotedForWord } from '../playerVoteFunctions'
 import { voteObjParkRedSpymaster, voteObjParkLockedRedSpymaster, voteObjSkipRedSpymaster, voteObjSkipLockedRedSpymaster } from '../../testing/mockdata/voteObjects'
+import { VoteObject } from '../../types/gameState'
 
-const emptyVote = {
-  user: {
+const emptyVote: VoteObject = {
+  player: {
     name: 'Obi Wan',
     team: 'blue',
     uid: '68e683be-27a1-4f06-868d-f0818cde8df5',
-    spymaster: 'true'
+    spymaster: true
   }
 }
 

@@ -1,4 +1,4 @@
-import { createGameObject } from '../createNewGameObject'
+import { createGameObject, Settings } from '../createNewGameObject'
 
 import { boardKeyCreator } from '../boardKeyCreator'
 import { boardKeyExample } from '../../testing/mockdata/boardKey'
@@ -6,10 +6,13 @@ import { firstWordArray, wordListNoReveals } from '../../testing/mockdata/wordOb
 import { redHostOperative } from '../../testing/mockdata/players'
 
 jest.mock('../boardKeyCreator')
-boardKeyCreator.mockReturnValue({ boardKey: boardKeyExample, firstTurnTeam: 'red' })
+
+const MockedBoardKeyCreator = boardKeyCreator as jest.Mock
+
+MockedBoardKeyCreator.mockReturnValue({ boardKey: boardKeyExample, firstTurnTeam: 'red' })
 
 test('should create the game object with correct values', () => {
-  const settings = { gameplayMode: 'individual', voteSystem: 'vote' }
+  const settings: Settings = { gameplayMode: 'individual', voteSystem: 'vote' }
   const gameInfo = createGameObject(redHostOperative, settings, firstWordArray)
   const gameState = gameInfo.gameState
 

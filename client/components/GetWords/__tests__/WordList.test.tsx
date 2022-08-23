@@ -1,12 +1,19 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import { WordList } from '../WordList'
+
 import { shuffleArray } from '../../../utility/shuffleArray'
 import { getWords } from '../../../contexts/FirebaseContext'
+
 import { fullWordArray, firstWordArray, secondWordArray } from '../../../testing/mockdata/wordObjects'
 
 jest.mock('../../../contexts/FirebaseContext')
 jest.mock('../../../utility/shuffleArray')
+
+const MockedGetWords = getWords as jest.Mock
+const MockedShuffleArray = shuffleArray as jest.Mock
+
+const MockedSetFinalWordList = jest.fn()
 
 // todo find more elegant solution than recreating the function
 // proplem is jest.mock is hoisted to top of file, so it is mocked for all tests, not the one test that needs it: 'should get a new list of words when new word button is pressed'
@@ -20,9 +27,9 @@ const realShuffleArray = (array) => {
 }
 
 test('should render with correct text and values with no word list', () => {
-  getWords.mockReturnValue([])
-  shuffleArray.mockImplementation(realShuffleArray)
-  const { getByTestId } = render(<WordList />)
+  MockedGetWords.mockReturnValue([])
+  MockedShuffleArray.mockImplementation(realShuffleArray)
+  const { getByTestId } = render(<WordList setFinalWordList={MockedSetFinalWordList}/>)
 
   const wordList = getByTestId('wordList')
   const submitButton = getByTestId('submitButton')
@@ -34,10 +41,10 @@ test('should render with correct text and values with no word list', () => {
 })
 
 test('should render with correct text and values with word list', () => {
-  getWords.mockReturnValue(firstWordArray)
-  shuffleArray.mockImplementation(realShuffleArray)
+  MockedGetWords.mockReturnValue(firstWordArray)
+  MockedShuffleArray.mockImplementation(realShuffleArray)
 
-  const { getByTestId } = render(<WordList />)
+  const { getByTestId } = render(<WordList setFinalWordList={MockedSetFinalWordList}/>)
 
   const wordList = getByTestId('wordList')
   const submitButton = getByTestId('submitButton')
@@ -54,8 +61,8 @@ test('should render with correct text and values with word list', () => {
 
 test('should submit the correct word list when submit button is pressed', () => {
   const getFinalWordArray = jest.fn()
-  getWords.mockReturnValue(firstWordArray)
-  shuffleArray.mockImplementation(realShuffleArray)
+  MockedGetWords.mockReturnValue(firstWordArray)
+  MockedShuffleArray.mockImplementation(realShuffleArray)
 
   const { getByTestId } = render(<WordList setFinalWordList={getFinalWordArray}/>)
 
@@ -69,8 +76,8 @@ test('should submit the correct word list when submit button is pressed', () => 
 
 test('should get a new list of words when new word button is pressed', () => {
   const getFinalWordArray = jest.fn()
-  getWords.mockReturnValue(fullWordArray)
-  shuffleArray.mockImplementationOnce((words) => words.slice(0, 25)).mockImplementationOnce((words) => words.slice(25, 50))
+  MockedGetWords.mockReturnValue(fullWordArray)
+  MockedShuffleArray.mockImplementationOnce((words) => words.slice(0, 25)).mockImplementationOnce((words) => words.slice(25, 50))
 
   const { getByTestId } = render(<WordList setFinalWordList={getFinalWordArray}/>)
 

@@ -3,11 +3,14 @@ import { render, fireEvent } from '@testing-library/react'
 import { Word } from '../Word'
 
 test('should render Word with correct text and values', () => {
-  const { getByTestId, queryByTestId } = render(<Word word='Lightsaber'/>)
+  const setItem = jest.fn((x, y) => [x, y])
+  const getNewWord = jest.fn(() => '')
+
+  const { getByTestId, queryByTestId } = render(<Word word='Lightsaber' setItem={setItem} getNewWord={getNewWord}/>)
 
   const editList = queryByTestId('liEdit')
   const editForm = queryByTestId('form')
-  const editNameInput = queryByTestId('newWordInput')
+  const editNameInput = queryByTestId('newWordInput') as HTMLInputElement
   const editSubmit = queryByTestId('newWordSubmit')
 
   const displayWord = getByTestId('word')
@@ -25,12 +28,15 @@ test('should render Word with correct text and values', () => {
 })
 
 test('should edit form when edit button is clicked', () => {
-  const { queryByTestId } = render(<Word word='Lightsaber' />)
+  const setItem = jest.fn((x, y) => [x, y])
+  const getNewWord = jest.fn(() => '')
+
+  const { queryByTestId } = render(<Word word='Lightsaber' setItem={setItem} getNewWord={getNewWord}/>)
 
   let editList = queryByTestId('liEdit')
   let editForm = queryByTestId('form')
-  let editNameInput = queryByTestId('newWordInput')
-  let editSubmit = queryByTestId('newWordSubmit')
+  let editNameInput = queryByTestId('newWordInput') as HTMLInputElement
+  let editSubmit = queryByTestId('newWordSubmit') as HTMLInputElement
 
   let displayList = queryByTestId('liDisplay')
   let displayWord = queryByTestId('word')
@@ -50,8 +56,8 @@ test('should edit form when edit button is clicked', () => {
 
   editList = queryByTestId('liEdit')
   editForm = queryByTestId('form')
-  editNameInput = queryByTestId('newWordInput')
-  editSubmit = queryByTestId('newWordSubmit')
+  editNameInput = queryByTestId('newWordInput') as HTMLInputElement
+  editSubmit = queryByTestId('newWordSubmit') as HTMLInputElement
 
   displayList = queryByTestId('liDisplay')
   displayWord = queryByTestId('word')
@@ -70,12 +76,15 @@ test('should edit form when edit button is clicked', () => {
 })
 
 test('should display text in input form when editing', () => {
-  const { getByTestId, queryByTestId } = render(<Word word='Lightsaber'/>)
+  const setItem = jest.fn((x, y) => [x, y])
+  const getNewWord = jest.fn(() => '')
+
+  const { getByTestId, queryByTestId } = render(<Word word='Lightsaber' setItem={setItem} getNewWord={getNewWord}/>)
 
   let editList = queryByTestId('liEdit')
   let editForm = queryByTestId('form')
-  let editNameInput = queryByTestId('newWordInput')
-  let editSubmit = queryByTestId('newWordSubmit')
+  let editNameInput = queryByTestId('newWordInput') as HTMLInputElement
+  let editSubmit = queryByTestId('newWordSubmit') as HTMLInputElement
 
   const displayEditButton = getByTestId('editButton')
 
@@ -90,8 +99,8 @@ test('should display text in input form when editing', () => {
 
   editList = queryByTestId('liEdit')
   editForm = queryByTestId('form')
-  editNameInput = queryByTestId('newWordInput')
-  editSubmit = queryByTestId('newWordSubmit')
+  editNameInput = queryByTestId('newWordInput') as HTMLInputElement
+  editSubmit = queryByTestId('newWordSubmit') as HTMLInputElement
 
   expect(editList).not.toBeNull()
   expect(editForm).not.toBeNull()
@@ -100,19 +109,21 @@ test('should display text in input form when editing', () => {
 
   fireEvent.change(editNameInput, { target: { value: 'TIE Fighte' } })
 
-  editNameInput = queryByTestId('newWordInput')
+  editNameInput = queryByTestId('newWordInput') as HTMLInputElement
 
   expect(editNameInput.value).toBe('TIE Fighte')
 })
 
 test('should submit new word when editing', () => {
   const setItem = jest.fn((x, y) => [x, y])
-  const { getByTestId, queryByTestId, rerender } = render(<Word word='Lightsaber' setItem={setItem} />)
+  const getNewWord = jest.fn(() => '')
+
+  const { getByTestId, queryByTestId, rerender } = render(<Word word='Lightsaber' setItem={setItem} getNewWord={getNewWord}/>)
 
   let editList = queryByTestId('liEdit')
   let editForm = queryByTestId('form')
-  let editNameInput = queryByTestId('newWordInput')
-  let editSubmit = queryByTestId('newWordSubmit')
+  let editNameInput = queryByTestId('newWordInput') as HTMLInputElement
+  let editSubmit = queryByTestId('newWordSubmit') as HTMLInputElement
 
   let displayList = queryByTestId('liDisplay')
   let disiplayWord = getByTestId('word')
@@ -129,8 +140,8 @@ test('should submit new word when editing', () => {
 
   editList = queryByTestId('liEdit')
   editForm = queryByTestId('form')
-  editNameInput = queryByTestId('newWordInput')
-  editSubmit = queryByTestId('newWordSubmit')
+  editNameInput = queryByTestId('newWordInput') as HTMLInputElement
+  editSubmit = queryByTestId('newWordSubmit') as HTMLInputElement
 
   expect(editList).not.toBeNull()
   expect(editNameInput.value).toBe('')
@@ -139,7 +150,7 @@ test('should submit new word when editing', () => {
 
   fireEvent.change(editNameInput, { target: { value: 'TIE Fighter' } })
 
-  editNameInput = queryByTestId('newWordInput')
+  editNameInput = queryByTestId('newWordInput') as HTMLInputElement
 
   expect(editNameInput.value).toBe('TIE Fighter')
 
@@ -153,7 +164,7 @@ test('should submit new word when editing', () => {
   expect(setItem).toHaveBeenCalled()
   expect(setItem.mock.calls[0]).toEqual(['TIE Fighter', 'Lightsaber'])
 
-  rerender(<Word word={setItem.mock.results[0].value[0]} setItem={setItem} />)
+  rerender(<Word word={setItem.mock.results[0].value[0]} setItem={setItem} getNewWord={getNewWord}/>)
 
   editList = queryByTestId('liEdit')
 
@@ -167,6 +178,7 @@ test('should submit new word when editing', () => {
 test('should get a new word when new word button is clicked', () => {
   const setItem = jest.fn((x, y) => [x, y])
   const getNewWord = jest.fn(() => 'X-Wing')
+
   const { getByTestId, queryByTestId, rerender } = render(<Word word='Lightsaber' setItem={setItem} getNewWord={getNewWord}/>)
 
   let editList = queryByTestId('liEdit')

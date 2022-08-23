@@ -8,7 +8,9 @@ import { wordListNoReveals } from '../../../testing/mockdata/wordObjects'
 
 jest.mock('../WordCard')
 
-WordCard.mockImplementation(({ word }) => <div data-testid={word.word}>{word.word}</div>)
+const MockedWordCard = WordCard as jest.Mock
+
+MockedWordCard.mockImplementation(({ word }) => <div data-testid={word.word}>{word.word}</div>)
 
 test('should render correct text and values when game is won', () => {
   const { getByTestId } = render(<DisplayWordGrid wordList={wordListNoReveals}/>)

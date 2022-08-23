@@ -20,6 +20,13 @@ jest.mock('../../../contexts/SocketContext')
 jest.mock('../../../contexts/ToasterContext')
 jest.mock('../../../contexts/UserContext')
 
+const MockedUseUserContext = useUserContext as jest.Mock
+const MockedUseGameId = useGameId as jest.Mock
+const MockedUseJoinGameActions = useJoinGameActions as jest.Mock
+const MockedUseVoteActions = useVoteActions as jest.Mock
+const MockedUseToaster = useToaster as jest.Mock
+const MockedUseSocketActions = useSocketActions as jest.Mock
+
 const leaveGame = jest.fn(() => Promise.resolve())
 const removePlayersVote = jest.fn(() => Promise.resolve())
 const setToaster = jest.fn(() => Promise.resolve())
@@ -28,12 +35,12 @@ const playerLeavesSocket = jest.fn(() => Promise.resolve())
 const promise = Promise.resolve()
 
 beforeEach(() => {
-  useUserContext.mockReturnValue({ user: redSpymaster })
-  useGameId.mockReturnValue({ gameId: '7RVPD97JXBht7q1eFe8z' })
-  useJoinGameActions.mockReturnValue({ leaveGame })
-  useVoteActions.mockReturnValue({ removePlayersVote })
-  useToaster.mockReturnValue({ setToaster })
-  useSocketActions.mockReturnValue({ playerLeavesSocket })
+  MockedUseUserContext.mockReturnValue({ user: redSpymaster })
+  MockedUseGameId.mockReturnValue({ gameId: '7RVPD97JXBht7q1eFe8z' })
+  MockedUseJoinGameActions.mockReturnValue({ leaveGame })
+  MockedUseVoteActions.mockReturnValue({ removePlayersVote })
+  MockedUseToaster.mockReturnValue({ setToaster })
+  MockedUseSocketActions.mockReturnValue({ playerLeavesSocket })
 })
 
 afterEach(() => {
@@ -76,7 +83,8 @@ test('should call the correct function when leaveGameButton is clicked', async (
   expect(leaveGame).toHaveBeenCalledWith(redSpymaster.uid, '7RVPD97JXBht7q1eFe8z')
 
   expect(setToaster).toHaveBeenCalledTimes(1)
-  expect(setToaster.mock.calls[0][0]).toBeNull()
+  expect(setToaster).toHaveBeenCalledWith(null)
+  // expect(setToaster.mock.calls[0][0]).toBeNull()
 
   expect(history.location.pathname).toBe('/')
 })

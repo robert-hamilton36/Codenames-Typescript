@@ -7,7 +7,9 @@ import { messageDoItRedOperative, messageHelloThereBlueSpymaster, messageSandRed
 
 jest.mock('../Message')
 
-Message.mockImplementation(({ messageObj, teamView }) => <p data-testid={'message' + messageObj.message + teamView}>{teamView + messageObj.message}</p>)
+const MockedMessage = Message as jest.Mock
+
+MockedMessage.mockImplementation(({ messageObj, teamView }) => <p data-testid={'message' + messageObj.message + teamView}>{teamView + messageObj.message}</p>)
 
 test('should render with correct text and values with no messages', () => {
   const messages = {

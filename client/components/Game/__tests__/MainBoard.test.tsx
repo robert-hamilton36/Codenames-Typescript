@@ -12,33 +12,33 @@ import { DisplayWordGrid } from '../DisplayWordGrid'
 
 import { redHostSpymaster, redSpymaster } from '../../../testing/mockdata/players'
 import { secondWordArray } from '../../../testing/mockdata/wordObjects'
+import { gameDataIndividualVotePreStart, gameDataRedTeamWon } from '../../../testing/mockdata/gameData'
 
 jest.mock('../../../contexts/FirebaseContext')
 jest.mock('../../../contexts/GameIdContext')
 jest.mock('../../../contexts/UserContext')
 
+const MockedUseGameplayActions = useGameplayActions as jest.Mock
+const MockedUseGameId = useGameId as jest.Mock
+const MockedUseUserContext = useUserContext as jest.Mock
+
 jest.mock('../../GetWords/WordList')
 jest.mock('../DisplayWordGrid')
 
-WordList.mockImplementation(({ setFinalWordList }) => <button data-testid='setFinalWordsButton' onClick={() => setFinalWordList(secondWordArray)}>Set Words</button>)
-DisplayWordGrid.mockReturnValue(<div data-testid='displayWordListComponent'>Display Word List</div>)
+const MockedWordList = WordList as jest.Mock
+const MockedDisplayWordGrid = DisplayWordGrid as jest.Mock
+
+MockedWordList.mockImplementation(({ setFinalWordList }) => <button data-testid='setFinalWordsButton' onClick={() => setFinalWordList(secondWordArray)}>Set Words</button>)
+MockedDisplayWordGrid.mockReturnValue(<div data-testid='displayWordListComponent'>Display Word List</div>)
 
 const restartNewGame = jest.fn()
 
-useGameplayActions.mockReturnValue({ restartNewGame })
-useGameId.mockReturnValue({ gameId: '7RVPD97JXBht7q1eFe8z' })
+MockedUseGameplayActions.mockReturnValue({ restartNewGame })
+MockedUseGameId.mockReturnValue({ gameId: '7RVPD97JXBht7q1eFe8z' })
 
 test('should render DisplayWordGrid when game not won', () => {
-  useUserContext.mockReturnValue({ user: redSpymaster })
-  const gameData = {
-    gameState: {
-      win: false
-    },
-    words: {
-
-    }
-  }
-  const { queryByTestId } = render(<MainBoard data={gameData}/>)
+  MockedUseUserContext.mockReturnValue({ user: redSpymaster })
+  const { queryByTestId } = render(<MainBoard data={gameDataIndividualVotePreStart}/>)
 
   const wordListDiv = queryByTestId('wordListDiv')
   const displayWordListComponent = queryByTestId('displayWordListComponent')
@@ -51,16 +51,8 @@ test('should render DisplayWordGrid when game not won', () => {
 })
 
 test('should render DisplayWordGrid when game won but user not host', () => {
-  useUserContext.mockReturnValue({ user: redSpymaster })
-  const gameData = {
-    gameState: {
-      win: true
-    },
-    words: {
-
-    }
-  }
-  const { queryByTestId } = render(<MainBoard data={gameData}/>)
+  MockedUseUserContext.mockReturnValue({ user: redSpymaster })
+  const { queryByTestId } = render(<MainBoard data={gameDataRedTeamWon}/>)
 
   const wordListDiv = queryByTestId('wordListDiv')
   const displayWordListComponent = queryByTestId('displayWordListComponent')
@@ -72,16 +64,8 @@ test('should render DisplayWordGrid when game won but user not host', () => {
 })
 
 test('should render DisplayWordGrid when game not won but user host', () => {
-  useUserContext.mockReturnValue({ user: redHostSpymaster })
-  const gameData = {
-    gameState: {
-      win: false
-    },
-    words: {
-
-    }
-  }
-  const { queryByTestId } = render(<MainBoard data={gameData}/>)
+  MockedUseUserContext.mockReturnValue({ user: redHostSpymaster })
+  const { queryByTestId } = render(<MainBoard data={gameDataIndividualVotePreStart}/>)
 
   const wordListDiv = queryByTestId('wordListDiv')
   const displayWordListComponent = queryByTestId('displayWordListComponent')
@@ -93,16 +77,8 @@ test('should render DisplayWordGrid when game not won but user host', () => {
 })
 
 test('should render with correct text and values when game won and user host', () => {
-  useUserContext.mockReturnValue({ user: redHostSpymaster })
-  const gameData = {
-    gameState: {
-      win: true
-    },
-    words: {
-
-    }
-  }
-  const { queryByTestId } = render(<MainBoard data={gameData}/>)
+  MockedUseUserContext.mockReturnValue({ user: redHostSpymaster })
+  const { queryByTestId } = render(<MainBoard data={gameDataRedTeamWon}/>)
 
   const wordListDiv = queryByTestId('wordListDiv')
   const displayWordListComponent = queryByTestId('displayWordListComponent')
@@ -116,16 +92,8 @@ test('should render with correct text and values when game won and user host', (
 })
 
 test('should render DisplayWordGrid and create new game when game won, user is host and new words are chosen', () => {
-  useUserContext.mockReturnValue({ user: redHostSpymaster })
-  const gameData = {
-    gameState: {
-      win: true
-    },
-    words: {
-
-    }
-  }
-  const { queryByTestId } = render(<MainBoard data={gameData}/>)
+  MockedUseUserContext.mockReturnValue({ user: redHostSpymaster })
+  const { queryByTestId } = render(<MainBoard data={gameDataRedTeamWon}/>)
 
   let wordListDiv = queryByTestId('wordListDiv')
   let displayWordListComponent = queryByTestId('displayWordListComponent')

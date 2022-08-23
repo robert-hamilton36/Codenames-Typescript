@@ -7,20 +7,22 @@ import { MessageContainer } from '../MessageContainer'
 import { WriteNewMessage } from '../WriteNewMessage'
 import { useUserContext } from '../../../contexts/UserContext'
 import { blueSpymaster } from '../../../testing/mockdata/players'
+import { gameDataIndividualVotePreStart } from '../../../testing/mockdata/gameData'
 
 jest.mock('../MessageContainer')
 jest.mock('../WriteNewMessage')
 jest.mock('../../../contexts/UserContext')
 
-MessageContainer.mockReturnValue(<div data-testid='messageContainer'>MessageContainer</div>)
-WriteNewMessage.mockReturnValue(<div data-testid='writeNewMessage'>WriteNewMessage</div>)
-useUserContext.mockReturnValue({ user: blueSpymaster })
+const MockedMessageContainer = MessageContainer as jest.Mock
+const MockedWriteNewMessage = WriteNewMessage as jest.Mock
+const MockedUseUserContext = useUserContext as jest.Mock
+
+MockedMessageContainer.mockReturnValue(<div data-testid='messageContainer'>MessageContainer</div>)
+MockedWriteNewMessage.mockReturnValue(<div data-testid='writeNewMessage'>WriteNewMessage</div>)
+MockedUseUserContext.mockReturnValue({ user: blueSpymaster })
 
 test('should render with corecct text and values', () => {
-  const game = {
-    messages: []
-  }
-  const { getByTestId, queryByTestId } = render(<ChatContainer game={game}/>)
+  const { getByTestId, queryByTestId } = render(<ChatContainer game={gameDataIndividualVotePreStart}/>)
 
   const header = getByTestId('header')
   const generalButton = queryByTestId('generalButton')
@@ -41,10 +43,7 @@ test('should render with corecct text and values', () => {
 })
 
 test('should change the teamView when the userTeamButton is clicked', () => {
-  const game = {
-    messages: []
-  }
-  const { getByTestId, queryByTestId } = render(<ChatContainer game={game}/>)
+  const { getByTestId, queryByTestId } = render(<ChatContainer game={gameDataIndividualVotePreStart}/>)
 
   let header = getByTestId('header')
   let generalButton = queryByTestId('generalButton')
@@ -70,10 +69,7 @@ test('should change the teamView when the userTeamButton is clicked', () => {
 })
 
 test('should change the teamView when the generalButton is clicked', () => {
-  const game = {
-    messages: []
-  }
-  const { getByTestId, queryByTestId } = render(<ChatContainer game={game}/>)
+  const { getByTestId, queryByTestId } = render(<ChatContainer game={gameDataIndividualVotePreStart}/>)
 
   let header = getByTestId('header')
   let generalButton = queryByTestId('generalButton')

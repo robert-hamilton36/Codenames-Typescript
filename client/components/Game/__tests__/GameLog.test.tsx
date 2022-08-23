@@ -8,7 +8,9 @@ import { userGameLog } from '../../../testing/mockdata/gameLog'
 
 jest.mock('../../../utility/makeGameLogJSX')
 
-makeGameLogJSX.mockImplementation(log => {
+const MockedMakeGameLogJSX = makeGameLogJSX as jest.Mock
+
+MockedMakeGameLogJSX.mockImplementation(log => {
   return (
     <li key={log.entryNum} data-testid={log.entryNum}>
       {log.entryNum}

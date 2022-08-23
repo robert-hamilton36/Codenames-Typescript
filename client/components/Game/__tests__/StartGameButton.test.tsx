@@ -12,13 +12,17 @@ jest.mock('../../../contexts/FirebaseContext')
 jest.mock('../../../contexts/GameIdContext')
 jest.mock('../../../contexts/ToasterContext')
 
+const MockedUseGameId = useGameId as jest.Mock
+const MockedUseGameplayActions = useGameplayActions as jest.Mock
+const MockedUseToaster = useToaster as jest.Mock
+
 const startGame = jest.fn(() => Promise.resolve())
 const setToaster = jest.fn()
 
 beforeEach(() => {
-  useGameId.mockReturnValue({ gameId: '7RVPD97JXBht7q1eFe8z' })
-  useGameplayActions.mockReturnValue({ startGame })
-  useToaster.mockReturnValue({ setToaster })
+  MockedUseGameId.mockReturnValue({ gameId: '7RVPD97JXBht7q1eFe8z' })
+  MockedUseGameplayActions.mockReturnValue({ startGame })
+  MockedUseToaster.mockReturnValue({ setToaster })
 })
 
 afterEach(() => {

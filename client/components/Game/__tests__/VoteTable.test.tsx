@@ -6,7 +6,9 @@ import { makeVotesTable } from '../../../utility/makeVoteTable'
 
 jest.mock('../../../utility/makeVoteTable')
 
-makeVotesTable.mockReturnValue(<tr><td>Obi-Wan: skip</td></tr>)
+const MockedMakeVotesTable = makeVotesTable as jest.Mock
+
+MockedMakeVotesTable.mockReturnValue(<tr><td>Obi-Wan: skip</td></tr>)
 
 test('should render with correct text and values', () => {
   const { getByTestId } = render(<VoteTable votes={[]}/>)

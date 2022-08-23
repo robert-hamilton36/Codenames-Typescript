@@ -5,6 +5,8 @@ import { WordCard } from '../WordCard'
 import { useSelectedCard } from '../../../contexts/SelectedCardContext'
 import { useUserContext } from '../../../contexts/UserContext'
 
+import { getClassNameForWordCard } from '../../../utility/getClassNameForWordCard'
+
 import { redSpymaster } from '../../../testing/mockdata/players'
 import { wordListNoReveals } from '../../../testing/mockdata/wordObjects'
 
@@ -13,12 +15,20 @@ const parkWordObj = wordListNoReveals[0]
 jest.mock('../../../contexts/SelectedCardContext')
 jest.mock('../../../contexts/UserContext')
 
+jest.mock('../../../utility/getClassNameForWordCard')
+
+const MockedUseSelectedCard = useSelectedCard as jest.Mock
+const MockedUseUserContext = useUserContext as jest.Mock
+
+const MockedGetClassNameForWordCard = getClassNameForWordCard as jest.Mock
+
 const selectedCard = wordListNoReveals[1]
 const setSelectedCard = jest.fn()
 
 beforeEach(() => {
-  useSelectedCard.mockReturnValue({ selectedCard, setSelectedCard })
-  useUserContext.mockReturnValue({ user: redSpymaster })
+  MockedUseSelectedCard.mockReturnValue({ selectedCard, setSelectedCard })
+  MockedUseUserContext.mockReturnValue({ user: redSpymaster })
+  MockedGetClassNameForWordCard.mockReturnValue('wordCard ')
 })
 
 afterEach(() => {

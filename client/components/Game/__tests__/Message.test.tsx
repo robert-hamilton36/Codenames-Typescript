@@ -13,12 +13,16 @@ jest.mock('../../../contexts/UserContext')
 jest.mock('../../../contexts/FirebaseContext')
 jest.mock('../../../contexts/GameIdContext')
 
+const MockedUseUserContext = useUserContext as jest.Mock
+const MockedUseMessageActions = useMessageActions as jest.Mock
+const MockedUseGameId = useGameId as jest.Mock
+
 const deleteMessage = jest.fn(() => Promise.resolve())
 
 beforeEach(() => {
-  useUserContext.mockReturnValue({ user: redSpymaster })
-  useMessageActions.mockReturnValue({ deleteMessage })
-  useGameId.mockReturnValue({ gameId: '7RVPD97JXBht7q1eFe8z' })
+  MockedUseUserContext.mockReturnValue({ user: redSpymaster })
+  MockedUseMessageActions.mockReturnValue({ deleteMessage })
+  MockedUseGameId.mockReturnValue({ gameId: '7RVPD97JXBht7q1eFe8z' })
 })
 
 afterEach(() => {
@@ -26,7 +30,7 @@ afterEach(() => {
 })
 
 test('should render with correct text and values when message is not from user', () => {
-  const { getByTestId, queryByTestId } = render(<Message messageObj={messageHelloThereBlueSpymaster} teamView='General'/>)
+  const { getByTestId, queryByTestId } = render(<Message messageObj={messageHelloThereBlueSpymaster} teamView='general'/>)
 
   const message = getByTestId('message')
   const deleteButton = queryByTestId('deleteButton')
@@ -36,8 +40,8 @@ test('should render with correct text and values when message is not from user',
 })
 
 test('should render with delete button when user is host', () => {
-  useUserContext.mockReturnValue({ user: blueHostOperative })
-  const { getByTestId } = render(<Message messageObj={messageSandRedSpymaster} teamView='Blue'/>)
+  MockedUseUserContext.mockReturnValue({ user: blueHostOperative })
+  const { getByTestId } = render(<Message messageObj={messageSandRedSpymaster} teamView='blue'/>)
 
   const message = getByTestId('message')
   const deleteButton = getByTestId('deleteButton')
@@ -47,7 +51,7 @@ test('should render with delete button when user is host', () => {
 })
 
 test('should render with delete button when message is from user', () => {
-  const { getByTestId } = render(<Message messageObj={messageSandRedSpymaster} teamView='Red'/>)
+  const { getByTestId } = render(<Message messageObj={messageSandRedSpymaster} teamView='red'/>)
 
   const message = getByTestId('message')
   const deleteButton = getByTestId('deleteButton')
@@ -57,7 +61,7 @@ test('should render with delete button when message is from user', () => {
 })
 
 test('should fire correct function when button is clicked', () => {
-  const { getByTestId } = render(<Message messageObj={messageSandRedSpymaster} teamView='Blue'/>)
+  const { getByTestId } = render(<Message messageObj={messageSandRedSpymaster} teamView='blue'/>)
 
   const deleteButton = getByTestId('deleteButton')
 
@@ -68,7 +72,8 @@ test('should fire correct function when button is clicked', () => {
   fireEvent.click(deleteButton)
 
   expect(deleteMessage).toHaveBeenCalledTimes(1)
-  expect(deleteMessage.mock.calls[0][0]).toBe('7RVPD97JXBht7q1eFe8z')
-  expect(deleteMessage.mock.calls[0][1]).toEqual(messageSandRedSpymaster)
-  expect(deleteMessage.mock.calls[0][2]).toBe('Blue')
+  expect(deleteMessage).toHaveBeenCalledWith('7RVPD97JXBht7q1eFe8z', messageSandRedSpymaster, 'blue')
+  // expect(deleteMessage.mock.calls[0][0]).toBe('7RVPD97JXBht7q1eFe8z')
+  // expect(deleteMessage.mock.calls[0][1]).toEqual(messageSandRedSpymaster)
+  // expect(deleteMessage.mock.calls[0][2]).toBe('Blue')
 })

@@ -11,27 +11,31 @@ jest.mock('../../../contexts/FirebaseContext')
 jest.mock('../../../contexts/UserContext')
 jest.mock('../../../contexts/GameIdContext')
 
+const MockedUseMessageActions = useMessageActions as jest.Mock
+const MockedUseGameId = useGameId as jest.Mock
+const MockedUseUserContext = useUserContext as jest.Mock
+
 const promise = Promise.resolve()
 const writeNewMessage = jest.fn(() => promise)
 
-useMessageActions.mockReturnValue({ writeNewMessage })
-useGameId.mockReturnValue({ gameId: '7RVPD97JXBht7q1eFe8z' })
-useUserContext.mockReturnValue({ user: blueOperative })
+MockedUseMessageActions.mockReturnValue({ writeNewMessage })
+MockedUseGameId.mockReturnValue({ gameId: '7RVPD97JXBht7q1eFe8z' })
+MockedUseUserContext.mockReturnValue({ user: blueOperative })
 
 test('should render with correct text and values', () => {
-  const { getByTestId } = render(<WriteNewMessage />)
+  const { getByTestId } = render(<WriteNewMessage teamView='red'/>)
 
-  const newMessageInput = getByTestId('newMessageInput')
-  const submitButton = getByTestId('submitButton')
+  const newMessageInput = getByTestId('newMessageInput') as HTMLInputElement
+  const submitButton = getByTestId('submitButton') as HTMLButtonElement
 
   expect(newMessageInput.textContent).toBe('')
   expect(submitButton.value).toBe('submit')
 })
 
 test('should display text in input when typed', () => {
-  const { getByTestId } = render(<WriteNewMessage />)
+  const { getByTestId } = render(<WriteNewMessage teamView='red'/>)
 
-  const newMessageInput = getByTestId('newMessageInput')
+  const newMessageInput = getByTestId('newMessageInput') as HTMLInputElement
   expect(newMessageInput.textContent).toBe('')
 
   fireEvent.change(newMessageInput, { target: { value: 'Hello ther' } })
@@ -40,12 +44,12 @@ test('should display text in input when typed', () => {
 })
 
 test('should fire function with correct arguments when submit is clicked', async () => {
-  const teamView = 'General'
+  const teamView = 'general'
 
   const { getByTestId } = render(<WriteNewMessage teamView={teamView}/>)
 
-  const newMessageInput = getByTestId('newMessageInput')
-  const submitButton = getByTestId('submitButton')
+  const newMessageInput = getByTestId('newMessageInput') as HTMLInputElement
+  const submitButton = getByTestId('submitButton') as HTMLButtonElement
 
   expect(newMessageInput.textContent).toBe('')
   expect(submitButton.value).toBe('submit')
@@ -57,11 +61,14 @@ test('should fire function with correct arguments when submit is clicked', async
   fireEvent.click(submitButton)
 
   expect(writeNewMessage).toHaveBeenCalledTimes(1)
-  await act(() => promise)
-  expect(writeNewMessage.mock.calls[0][0]).toBe('7RVPD97JXBht7q1eFe8z')
-  expect(writeNewMessage.mock.calls[0][1].message).toBe('Hello ther')
-  expect(writeNewMessage.mock.calls[0][1].user).toEqual(blueOperative)
-  expect(writeNewMessage.mock.calls[0][2]).toBe(teamView)
 
+  await act(() => promise)
+
+  const messageObj = {
+    message: 'Hello ther',
+    user: blueOperative
+  }
+
+  expect(writeNewMessage).toHaveBeenCalledWith('7RVPD97JXBht7q1eFe8z', messageObj, teamView)
   expect(newMessageInput.textContent).toBe('')
 })

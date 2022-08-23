@@ -5,7 +5,9 @@ import { Hint } from '../Hint'
 import { gameDataIndividualVotePreStart, gameDataRedTeamWon, gameDataIndividualVoteStartNoHint } from '../../../testing/mockdata/gameData'
 
 jest.mock('../Hint')
-Hint.mockReturnValue(<div data-testid='hintComponent'>Hint</div>)
+const MockedHint = Hint as jest.Mock
+
+MockedHint.mockReturnValue(<div data-testid='hintComponent'>Hint</div>)
 
 test('should render correct text and values when game is won', () => {
   const { queryByTestId } = render(<GameInfoContainer gameState={gameDataRedTeamWon.gameState}/>)

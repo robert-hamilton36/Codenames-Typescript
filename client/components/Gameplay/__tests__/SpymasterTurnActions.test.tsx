@@ -8,10 +8,13 @@ import { gameDataIndividualVoteStartNoHint, gameDataIndividualLocksinStartFirstH
 jest.mock('../MakeHint')
 jest.mock('../SelectCard')
 
+const MockedMakeHint = MakeHint as jest.Mock
+const MockedSelectCard = SelectCard as jest.Mock
+
 beforeEach(() => {
   jest.clearAllMocks()
-  MakeHint.mockReturnValue(<div data-testid='makeHintComponent'>MakeHint</div>)
-  SelectCard.mockReturnValue(<div data-testid='selectCardComponent'>SelectCard</div>)
+  MockedMakeHint.mockReturnValue(<div data-testid='makeHintComponent'>MakeHint</div>)
+  MockedSelectCard.mockReturnValue(<div data-testid='selectCardComponent'>SelectCard</div>)
 })
 
 test('should render MakeHint component when there is no hint', () => {

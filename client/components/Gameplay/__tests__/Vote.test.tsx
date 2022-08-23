@@ -21,28 +21,38 @@ jest.mock('../UserNotVoted')
 jest.mock('../VotedForSkip')
 jest.mock('../VotedForWord')
 
+const MockedUserNotVoted = UserNotVoted as jest.Mock
+const MockedVotedForSkip = VotedForSkip as jest.Mock
+const MockedVotedForWord = VotedForWord as jest.Mock
+
 jest.mock('../../../contexts/FirebaseContext')
 jest.mock('../../../contexts/GameIdContext')
 jest.mock('../../../contexts/SelectedCardContext')
 jest.mock('../../../contexts/UserContext')
 jest.mock('../../../utility/makeLog')
 
+const MockedUseVoteActions = useVoteActions as jest.Mock
+const MockedUseGameId = useGameId as jest.Mock
+const MockedUseSelectedCard = useSelectedCard as jest.Mock
+const MockedUseUserContext = useUserContext as jest.Mock
+const MockedMakeTeamGuessLog = makeTeamGuessLog as jest.Mock
+
 const addPlayerVote = jest.fn(() => Promise.resolve())
 const removePlayersVote = jest.fn(() => Promise.resolve())
 const invertLockStatusForPlayersVote = jest.fn(() => Promise.resolve())
 
-UserNotVoted.mockReturnValue(<div data-testid='userNotVoted'>UserNotVoted</div>)
-VotedForSkip.mockReturnValue(<div data-testid='votedForSkip'>VotedForSkip</div>)
-VotedForWord.mockReturnValue(<div data-testid='votedForWord'>VotedForWord</div>)
+MockedUserNotVoted.mockReturnValue(<div data-testid='userNotVoted'>UserNotVoted</div>)
+MockedVotedForSkip.mockReturnValue(<div data-testid='votedForSkip'>VotedForSkip</div>)
+MockedVotedForWord.mockReturnValue(<div data-testid='votedForWord'>VotedForWord</div>)
 
-makeTeamGuessLog.mockReturnValue(userGameLog[1])
+MockedMakeTeamGuessLog.mockReturnValue(userGameLog[1])
 
 const parkCardObj = wordListNoReveals[0]
 
 beforeEach(() => {
-  useGameId.mockReturnValue({ gameId: 'sUhCubsdZeKRsepPr9ag' })
-  useVoteActions.mockReturnValue({ addPlayerVote: addPlayerVote, removePlayersVote: removePlayersVote, invertLockStatusForPlayersVote: invertLockStatusForPlayersVote })
-  useUserContext.mockReturnValue({ user: userAnakin })
+  MockedUseGameId.mockReturnValue({ gameId: 'sUhCubsdZeKRsepPr9ag' })
+  MockedUseVoteActions.mockReturnValue({ addPlayerVote: addPlayerVote, removePlayersVote: removePlayersVote, invertLockStatusForPlayersVote: invertLockStatusForPlayersVote })
+  MockedUseUserContext.mockReturnValue({ user: userAnakin })
 })
 
 afterEach(() => {
@@ -50,9 +60,9 @@ afterEach(() => {
 })
 
 test('should render with correct text and values with no votes', () => {
-  useSelectedCard.mockReturnValue(parkCardObj)
+  MockedUseSelectedCard.mockReturnValue(parkCardObj)
   const votes = []
-  const { queryByTestId } = render(<Vote votes={votes}/>)
+  const { queryByTestId } = render(<Vote votes={votes} gameLog={[]}/>)
 
   const votedForSkip = queryByTestId('votedForSkip')
   const votedForWord = queryByTestId('votedForWord')
@@ -65,9 +75,9 @@ test('should render with correct text and values with no votes', () => {
 })
 
 test('should render with correct text and values with one vote for a word which is not the usersVote', () => {
-  useSelectedCard.mockReturnValue(parkCardObj)
+  MockedUseSelectedCard.mockReturnValue(parkCardObj)
   const votes = [voteObjMassBlueSpymaster]
-  const { queryByTestId } = render(<Vote votes={votes}/>)
+  const { queryByTestId } = render(<Vote votes={votes} gameLog={[]}/>)
 
   const votedForSkip = queryByTestId('votedForSkip')
   const votedForWord = queryByTestId('votedForWord')
@@ -80,9 +90,9 @@ test('should render with correct text and values with one vote for a word which 
 })
 
 test('should render with correct text and values with one vote for a skip which is not the usersVote', () => {
-  useSelectedCard.mockReturnValue(parkCardObj)
+  MockedUseSelectedCard.mockReturnValue(parkCardObj)
   const votes = [voteObjSkipBlueSpymaster]
-  const { queryByTestId } = render(<Vote votes={votes}/>)
+  const { queryByTestId } = render(<Vote votes={votes} gameLog={[]}/>)
 
   const votedForSkip = queryByTestId('votedForSkip')
   const votedForWord = queryByTestId('votedForWord')
@@ -95,9 +105,9 @@ test('should render with correct text and values with one vote for a skip which 
 })
 
 test('should render with correct text and values when user has voted for a word', () => {
-  useSelectedCard.mockReturnValue(parkCardObj)
+  MockedUseSelectedCard.mockReturnValue(parkCardObj)
   const votes = [voteObjParkRedSpymaster]
-  const { queryByTestId } = render(<Vote votes={votes}/>)
+  const { queryByTestId } = render(<Vote votes={votes} gameLog={[]}/>)
 
   const votedForSkip = queryByTestId('votedForSkip')
   const votedForWord = queryByTestId('votedForWord')
@@ -110,9 +120,9 @@ test('should render with correct text and values when user has voted for a word'
 })
 
 test('should render with correct text and values when user has voted for skip', () => {
-  useSelectedCard.mockReturnValue(parkCardObj)
+  MockedUseSelectedCard.mockReturnValue(parkCardObj)
   const votes = [voteObjSkipRedSpymaster]
-  const { queryByTestId } = render(<Vote votes={votes}/>)
+  const { queryByTestId } = render(<Vote votes={votes} gameLog={[]}/>)
 
   const votedForSkip = queryByTestId('votedForSkip')
   const votedForWord = queryByTestId('votedForWord')
@@ -125,7 +135,7 @@ test('should render with correct text and values when user has voted for skip', 
 })
 
 test('should correctly update usersVote via useEffect when votes are updated', () => {
-  const { rerender, queryByTestId } = render(<Vote votes={[voteObjSkipBlueSpymaster]}/>)
+  const { rerender, queryByTestId } = render(<Vote votes={[voteObjSkipBlueSpymaster]} gameLog={[]}/>)
 
   let votedForSkip = queryByTestId('votedForSkip')
   let votedForWord = queryByTestId('votedForWord')
@@ -136,7 +146,7 @@ test('should correctly update usersVote via useEffect when votes are updated', (
   expect(userNotVoted).not.toBeNull()
   expect(userNotVoted.textContent).toBe('UserNotVoted')
 
-  rerender(<Vote votes={[voteObjSkipBlueSpymaster, voteObjSkipRedSpymaster]}/>)
+  rerender(<Vote votes={[voteObjSkipBlueSpymaster, voteObjSkipRedSpymaster]} gameLog={[]}/>)
 
   votedForSkip = queryByTestId('votedForSkip')
   votedForWord = queryByTestId('votedForWord')

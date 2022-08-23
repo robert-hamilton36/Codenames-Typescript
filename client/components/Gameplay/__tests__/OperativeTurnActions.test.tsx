@@ -8,10 +8,13 @@ import { gameDataTabletopStartNoHint, gameDataIndividualVoteStartNoHint, gameDat
 jest.mock('../Vote')
 jest.mock('../SelectCard')
 
+const MockedVote = Vote as jest.Mock
+const MockedSelectCard = SelectCard as jest.Mock
+
 beforeEach(() => {
   jest.clearAllMocks()
-  Vote.mockReturnValue(<div data-testid='voteComponent'>Vote</div>)
-  SelectCard.mockReturnValue(<div data-testid='selectCardComponent'>Select</div>)
+  MockedVote.mockReturnValue(<div data-testid='voteComponent'>Vote</div>)
+  MockedSelectCard.mockReturnValue(<div data-testid='selectCardComponent'>Select</div>)
 })
 
 test('should display tabletopModeOperativeHeader when game is tabletop mode', () => {

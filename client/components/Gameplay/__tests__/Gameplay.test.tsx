@@ -13,15 +13,19 @@ jest.mock('../../../contexts/UserContext')
 jest.mock('../OperativeTurnActions')
 jest.mock('../SpymasterTurnActions')
 
+const MockedUseUserContext = useUserContext as jest.Mock
+const MockedOperativeTurnActions = OperativeTurnActions as jest.Mock
+const MockedSpymasterTurnActions = SpymasterTurnActions as jest.Mock
+
 beforeEach(() => {
   jest.clearAllMocks()
 
-  OperativeTurnActions.mockReturnValue(<div data-testid='operativeTurnActions'>operativeTurnActions</div>)
-  SpymasterTurnActions.mockReturnValue(<div data-testid='spymasterTurnActions'>spymasterTurnActions</div>)
+  MockedOperativeTurnActions.mockReturnValue(<div data-testid='operativeTurnActions'>operativeTurnActions</div>)
+  MockedSpymasterTurnActions.mockReturnValue(<div data-testid='spymasterTurnActions'>spymasterTurnActions</div>)
 })
 
 test("should return null when game hasn't started", () => {
-  useUserContext.mockReturnValue({ user: blueSpymaster })
+  MockedUseUserContext.mockReturnValue({ user: blueSpymaster })
 
   const { queryByTestId } = render(<Gameplay gameData={gameDataIndividualVotePreStart}/>)
 
@@ -35,7 +39,7 @@ test("should return null when game hasn't started", () => {
 })
 
 test('should display wait for your turn message when users team is not the current teams turn, and user is spymaster', () => {
-  useUserContext.mockReturnValue({ user: blueSpymaster })
+  MockedUseUserContext.mockReturnValue({ user: blueSpymaster })
 
   const { queryByTestId } = render(<Gameplay gameData={gameDataIndividualVoteStartNoHint}/>)
 
@@ -50,7 +54,7 @@ test('should display wait for your turn message when users team is not the curre
 })
 
 test('should display wait for your turn message when users team is not the current teams turn, and user is operative', () => {
-  useUserContext.mockReturnValue({ user: blueOperative })
+  MockedUseUserContext.mockReturnValue({ user: blueOperative })
 
   const { queryByTestId } = render(<Gameplay gameData={gameDataIndividualVoteStartNoHint}/>)
 
@@ -65,7 +69,7 @@ test('should display wait for your turn message when users team is not the curre
 })
 
 test('should display spymasterTurnActions when user is spymaster is in the current teams turn', () => {
-  useUserContext.mockReturnValue({ user: redSpymaster })
+  MockedUseUserContext.mockReturnValue({ user: redSpymaster })
 
   const { queryByTestId } = render(<Gameplay gameData={gameDataIndividualVoteStartNoHint}/>)
 
@@ -80,7 +84,7 @@ test('should display spymasterTurnActions when user is spymaster is in the curre
 })
 
 test('should display operativeTurnActions when user is operative is in the current teams turn', () => {
-  useUserContext.mockReturnValue({ user: redOperative })
+  MockedUseUserContext.mockReturnValue({ user: redOperative })
 
   const { queryByTestId } = render(<Gameplay gameData={gameDataIndividualVoteStartNoHint}/>)
 

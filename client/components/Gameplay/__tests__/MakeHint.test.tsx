@@ -17,14 +17,19 @@ jest.mock('../../../contexts/UserContext')
 
 jest.mock('../../../utility/makeLog')
 
+const MockedUseUserContext = useUserContext as jest.Mock
+const MockedUseGameId = useGameId as jest.Mock
+const MockedUseGameplayActions = useGameplayActions as jest.Mock
+const MockedMakeUserHintLog = makeUserHintLog as jest.Mock
+
 const setHint = jest.fn(() => Promise.resolve())
 
 beforeEach(() => {
   jest.clearAllMocks()
-  useUserContext.mockReturnValue({ user: redOperative })
-  useGameId.mockReturnValue({ gameId: 'sUhCubsdZeKRsepPr9ag' })
-  useGameplayActions.mockReturnValue({ setHint: setHint })
-  makeUserHintLog.mockReturnValue(userGameLog[2])
+  MockedUseUserContext.mockReturnValue({ user: redOperative })
+  MockedUseGameId.mockReturnValue({ gameId: 'sUhCubsdZeKRsepPr9ag' })
+  MockedUseGameplayActions.mockReturnValue({ setHint: setHint })
+  MockedMakeUserHintLog.mockReturnValue(userGameLog[2])
 })
 
 test('should render with correct text and values', () => {
@@ -33,10 +38,10 @@ test('should render with correct text and values', () => {
   const makeHintHeader = getByTestId('makeHintHeader')
 
   const hintLabel = getByTestId('hintLabel')
-  const hintInput = getByTestId('hintInput')
+  const hintInput = getByTestId('hintInput') as HTMLInputElement
 
   const numberLabel = getByTestId('numberLabel')
-  const noOfWordsInput = getByTestId('noOfWordsInput')
+  const noOfWordsInput = getByTestId('noOfWordsInput') as HTMLInputElement
 
   expect(makeHintHeader.textContent).toBe('Spymaster make a hint')
 
@@ -50,7 +55,7 @@ test('should render with correct text and values', () => {
 test('should display text in hint input when typed', () => {
   const { getByTestId } = render(<MakeHint gameLog={userGameLog}/>)
 
-  const hintInput = getByTestId('hintInput')
+  const hintInput = getByTestId('hintInput') as HTMLInputElement
 
   expect(hintInput.value).toBe('')
 
@@ -62,7 +67,7 @@ test('should display text in hint input when typed', () => {
 test('should display number in noOfWords input when entered', () => {
   const { getByTestId } = render(<MakeHint gameLog={userGameLog}/>)
 
-  const noOfWordsInput = getByTestId('noOfWordsInput')
+  const noOfWordsInput = getByTestId('noOfWordsInput') as HTMLInputElement
 
   expect(noOfWordsInput.value).toBe('0')
 
@@ -74,8 +79,8 @@ test('should display number in noOfWords input when entered', () => {
 test('should submit the correct infomation when the submit button is pressed', () => {
   const { getByTestId } = render(<MakeHint gameLog={userGameLog}/>)
 
-  const hintInput = getByTestId('hintInput')
-  const noOfWordsInput = getByTestId('noOfWordsInput')
+  const hintInput = getByTestId('hintInput') as HTMLInputElement
+  const noOfWordsInput = getByTestId('noOfWordsInput') as HTMLInputElement
 
   const submitButton = getByTestId('submitButton')
 
@@ -93,9 +98,5 @@ test('should submit the correct infomation when the submit button is pressed', (
   fireEvent.click(submitButton)
 
   expect(setHint).toHaveBeenCalledTimes(1)
-  expect(setHint.mock.calls[0][0]).toBe('sUhCubsdZeKRsepPr9ag')
-  expect(setHint.mock.calls[0][1]).toEqual({ hint: 'Extinct', numberOfWords: 3 })
-  expect(setHint.mock.calls[0][2]).toEqual(redOperative)
-  expect(setHint.mock.calls[0][3]).toEqual(userGameLog[2])
-  expect(setHint.mock.calls[0][4]).toBeUndefined()
+  expect(setHint).toHaveBeenCalledWith('sUhCubsdZeKRsepPr9ag', { hint: 'Extinct', numberOfWords: 3 }, redOperative, userGameLog[2])
 })

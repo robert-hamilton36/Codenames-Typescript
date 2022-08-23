@@ -11,7 +11,7 @@ test('should render AskName with correct text and values', () => {
   )
 
   const label = getByTestId('label')
-  const input = getByTestId('nameInput')
+  const input = getByTestId('nameInput') as HTMLInputElement
   const error = queryByTestId('errorMessage')
 
   expect(label.textContent).toBe('Enter Name:')
@@ -26,7 +26,7 @@ test('should display text in input form when typed', () => {
     </UserProvider>
   )
 
-  const input = getByTestId('nameInput')
+  const input = getByTestId('nameInput') as HTMLInputElement
   const error = queryByTestId('errorMessage')
 
   expect(input.textContent).toBe('')
@@ -45,7 +45,7 @@ test('should display error when submitted name contains invalid symbols', () => 
     </UserProvider>
   )
 
-  const input = getByTestId('nameInput')
+  const input = getByTestId('nameInput') as HTMLInputElement
   const form = getByTestId('form')
   let error = queryByTestId('errorMessage')
 
@@ -69,7 +69,7 @@ test('should display error when submitted name is empty', () => {
     </UserProvider>
   )
 
-  const input = getByTestId('nameInput')
+  const input = getByTestId('nameInput') as HTMLInputElement
   const form = getByTestId('form')
   let error = queryByTestId('errorMessage')
 

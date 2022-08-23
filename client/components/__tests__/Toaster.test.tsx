@@ -6,6 +6,8 @@ import { useToaster } from '../../contexts/ToasterContext'
 jest.mock('../../contexts/ToasterContext')
 const setToaster = jest.fn()
 
+const MockedUseToaster = useToaster as jest.Mock
+
 jest.useFakeTimers()
 
 afterEach(() => {
@@ -14,7 +16,7 @@ afterEach(() => {
 })
 
 test('should return null when toaster is null', () => {
-  useToaster.mockReturnValue({ toaster: null, setToaster })
+  MockedUseToaster.mockReturnValue({ toaster: null, setToaster })
   const { queryByTestId } = render(<Toaster />)
 
   const toasterDiv = queryByTestId('toasterDiv')
@@ -24,7 +26,7 @@ test('should return null when toaster is null', () => {
 
 test('should render correct text and values when there is a toaster', () => {
   const toaster = { type: 'Error', message: 'Lost a planet, master Obi Wan has' }
-  useToaster.mockReturnValue({ toaster, setToaster })
+  MockedUseToaster.mockReturnValue({ toaster, setToaster })
   const { queryByTestId } = render(<Toaster />)
 
   const toasterDiv = queryByTestId('toasterDiv')
@@ -41,7 +43,7 @@ test('should render correct text and values when there is a toaster', () => {
 
 test('should fire setToaster(null) when close button is pressed', () => {
   const toaster = { type: 'Error', message: 'Lost a planet, master Obi Wan has' }
-  useToaster.mockReturnValue({ toaster, setToaster })
+  MockedUseToaster.mockReturnValue({ toaster, setToaster })
   const { queryByTestId } = render(<Toaster />)
 
   const toasterDiv = queryByTestId('toasterDiv')
@@ -57,7 +59,7 @@ test('should fire setToaster(null) when close button is pressed', () => {
 
 test('should fire setToaster(null) when 5 seconds have elapsed', () => {
   const toaster = { type: 'Error', message: 'Lost a planet, master Obi Wan has' }
-  useToaster.mockReturnValue({ toaster, setToaster })
+  MockedUseToaster.mockReturnValue({ toaster, setToaster })
   const { queryByTestId } = render(<Toaster />)
 
   const toasterDiv = queryByTestId('toasterDiv')

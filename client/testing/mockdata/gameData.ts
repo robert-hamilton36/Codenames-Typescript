@@ -1,5 +1,5 @@
 import { GameInfo } from '../../types/gameInfo'
-import { blueOperative, blueSpymaster, redHostOperative, redSpymaster } from './players'
+import { blueOperative, blueSpymaster, redHostOperative, redHostSpymaster, redSpymaster } from './players'
 import { wordListNoReveals, wordListRedTeamWin } from './wordObjects'
 
 export const gameDataIndividualVotePreStart: GameInfo = {
@@ -252,10 +252,7 @@ export const gameDataRedTeamWon: GameInfo = {
     win: 'red',
     words: wordListRedTeamWin
   },
-  host: {
-    name: 'R2-D2',
-    uid: 'dd3b8c97-102c-4e88-962b-4ba5ffb032aa'
-  },
+  host: redHostSpymaster,
   messages: {
     blue: [],
     general: [],

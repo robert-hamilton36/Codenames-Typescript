@@ -15,8 +15,8 @@ test('should render GameplayMode with correct text and values', () => {
   const tabletopModeLabel = getByTestId('labelForTabletopMode')
   const individualModeTooltip = getByTestId('tooltipForIndividualMode')
   const tabletopModeTooltip = getByTestId('tooltipForTabletopMode')
-  const individualInput = getByTestId('inputForIndividualMode')
-  const tabletopInput = getByTestId('inputForTabletopMode')
+  const individualInput = getByTestId('inputForIndividualMode') as HTMLInputElement
+  const tabletopInput = getByTestId('inputForTabletopMode') as HTMLInputElement
 
   expect(mainHeader.textContent).toBe('Gameplay mode')
   expect(individualModeLabel.textContent).toBe('Individual mode')
@@ -34,8 +34,8 @@ test('should render GameplayMode with correct setting, gamePlayMode: individual'
     </SettingsProvider>
   )
 
-  const individualInput = getByTestId('inputForIndividualMode')
-  const tabletopInput = getByTestId('inputForTabletopMode')
+  const individualInput = getByTestId('inputForIndividualMode') as HTMLInputElement
+  const tabletopInput = getByTestId('inputForTabletopMode') as HTMLInputElement
 
   expect(individualInput.checked).toBe(true)
   expect(tabletopInput.checked).toBe(false)
@@ -48,8 +48,8 @@ test('should correctly update the tabletop radio button to checked when user cli
     </SettingsProvider>
   )
 
-  const individualInput = getByTestId('inputForIndividualMode')
-  const tabletopInput = getByTestId('inputForTabletopMode')
+  const individualInput = getByTestId('inputForIndividualMode') as HTMLInputElement
+  const tabletopInput = getByTestId('inputForTabletopMode') as HTMLInputElement
 
   expect(individualInput.checked).toBe(true)
   expect(tabletopInput.checked).toBe(false)
@@ -67,8 +67,8 @@ test('should correctly update the individual radio button to checked when user c
     </SettingsProvider>
   )
 
-  const individualInput = getByTestId('inputForIndividualMode')
-  const tabletopInput = getByTestId('inputForTabletopMode')
+  const individualInput = getByTestId('inputForIndividualMode') as HTMLInputElement
+  const tabletopInput = getByTestId('inputForTabletopMode') as HTMLInputElement
 
   expect(individualInput.checked).toBe(true)
   expect(tabletopInput.checked).toBe(false)

@@ -4,9 +4,10 @@ import { GetSettings } from '../GetSettings'
 import { SettingsProvider } from '../../../contexts/SettingsContext'
 
 test('should render GetSettings with correct text and values, no error message', () => {
+  const mockConfirmSettings = jest.fn(x => x)
   const { getByTestId, queryByTestId } = render(
     <SettingsProvider>
-      <GetSettings />
+      <GetSettings confirmSettings={mockConfirmSettings}/>
     </SettingsProvider>
   )
 
@@ -20,17 +21,18 @@ test('should render GetSettings with correct text and values, no error message',
 })
 
 test('should display error message, when settings contain an error', () => {
+  const mockConfirmSettings = jest.fn(x => x)
   const { getByTestId, queryByTestId } = render(
     <SettingsProvider>
-      <GetSettings />
+      <GetSettings confirmSettings={mockConfirmSettings}/>
     </SettingsProvider>
   )
 
-  const individualInput = getByTestId('inputForIndividualMode')
-  const tabletopInput = getByTestId('inputForTabletopMode')
-  const voteModeInput = getByTestId('inputForVoteMode')
-  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode')
-  const IndividualLocksinInput = getByTestId('inputForIndividualLocksinMode')
+  const individualInput = getByTestId('inputForIndividualMode') as HTMLInputElement as HTMLInputElement
+  const tabletopInput = getByTestId('inputForTabletopMode') as HTMLInputElement
+  const voteModeInput = getByTestId('inputForVoteMode') as HTMLInputElement
+  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode') as HTMLInputElement
+  const IndividualLocksinInput = getByTestId('inputForIndividualLocksinMode') as HTMLInputElement
   let errorMessage = queryByTestId('errorMessage')
 
   expect(voteModeInput.checked).toBe(false)
@@ -71,11 +73,11 @@ test('should remove error message from settings when submitted', () => {
     </SettingsProvider>
   )
 
-  const individualInput = getByTestId('inputForIndividualMode')
-  const tabletopInput = getByTestId('inputForTabletopMode')
-  const voteModeInput = getByTestId('inputForVoteMode')
-  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode')
-  const IndividualLocksinInput = getByTestId('inputForIndividualLocksinMode')
+  const individualInput = getByTestId('inputForIndividualMode') as HTMLInputElement
+  const tabletopInput = getByTestId('inputForTabletopMode') as HTMLInputElement
+  const voteModeInput = getByTestId('inputForVoteMode') as HTMLInputElement
+  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode') as HTMLInputElement
+  const IndividualLocksinInput = getByTestId('inputForIndividualLocksinMode') as HTMLInputElement
   const confirmationButton = getByTestId('button')
 
   expect(voteModeInput.checked).toBe(false)

@@ -20,9 +20,9 @@ test('should render VoteSystem with correct text and values', () => {
   const voteModeTooltip = getByTestId('tooltipForVoteMode')
   const SpymasterLocksinModeTooltip = getByTestId('tooltipForSpymasterLocksinMode')
 
-  const individualLocksinInput = getByTestId('inputForIndividualLocksinMode')
-  const voteInput = getByTestId('inputForVoteMode')
-  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode')
+  const individualLocksinInput = getByTestId('inputForIndividualLocksinMode') as HTMLInputElement
+  const voteInput = getByTestId('inputForVoteMode') as HTMLInputElement
+  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode') as HTMLInputElement
 
   expect(mainHeader.textContent).toBe('How codeword is choosen')
 
@@ -46,9 +46,9 @@ test('should render VoteSystem with correct setting, voteSystem: individual-lock
     </SettingsProvider>
   )
 
-  const individualLocksinInput = getByTestId('inputForIndividualLocksinMode')
-  const voteInput = getByTestId('inputForVoteMode')
-  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode')
+  const individualLocksinInput = getByTestId('inputForIndividualLocksinMode') as HTMLInputElement
+  const voteInput = getByTestId('inputForVoteMode') as HTMLInputElement
+  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode') as HTMLInputElement
 
   expect(individualLocksinInput.checked).toBe(true)
   expect(voteInput.checked).toBe(false)
@@ -62,9 +62,9 @@ test('should correctly update the vote radio button to checked when user clicks 
     </SettingsProvider>
   )
 
-  const individualLocksinInput = getByTestId('inputForIndividualLocksinMode')
-  const voteInput = getByTestId('inputForVoteMode')
-  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode')
+  const individualLocksinInput = getByTestId('inputForIndividualLocksinMode') as HTMLInputElement
+  const voteInput = getByTestId('inputForVoteMode') as HTMLInputElement
+  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode') as HTMLInputElement
 
   expect(individualLocksinInput.checked).toBe(true)
   expect(voteInput.checked).toBe(false)
@@ -84,9 +84,9 @@ test('should correctly update the spymaster-locksin radio button to checked when
     </SettingsProvider>
   )
 
-  const individualLocksinInput = getByTestId('inputForIndividualLocksinMode')
-  const voteInput = getByTestId('inputForVoteMode')
-  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode')
+  const individualLocksinInput = getByTestId('inputForIndividualLocksinMode') as HTMLInputElement
+  const voteInput = getByTestId('inputForVoteMode') as HTMLInputElement
+  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode') as HTMLInputElement
 
   expect(individualLocksinInput.checked).toBe(true)
   expect(voteInput.checked).toBe(false)
@@ -106,9 +106,9 @@ test('should correctly update the individual-locksin radio button to checked whe
     </SettingsProvider>
   )
 
-  const individualLocksinInput = getByTestId('inputForIndividualLocksinMode')
-  const voteInput = getByTestId('inputForVoteMode')
-  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode')
+  const individualLocksinInput = getByTestId('inputForIndividualLocksinMode') as HTMLInputElement
+  const voteInput = getByTestId('inputForVoteMode') as HTMLInputElement
+  const SpymasterLocksinInput = getByTestId('inputForSpymasterLocksinMode') as HTMLInputElement
 
   expect(individualLocksinInput.checked).toBe(true)
   expect(voteInput.checked).toBe(false)

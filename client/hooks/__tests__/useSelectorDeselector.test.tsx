@@ -7,7 +7,6 @@ describe('tests usePlayerSelectorDeselector hook', () => {
   test('usePlayerSelectorDeselector renders properly with correct initial state', () => {
     const { result } = renderHook(() => usePlayerSelectorDeselector())
     const [player] = result.current
-
     expect(player).toBeNull()
   })
 
